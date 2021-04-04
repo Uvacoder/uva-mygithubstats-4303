@@ -1,9 +1,21 @@
+:root {
+  --gps-main-color: hsl(214deg 100% 57%);
+  --gps-border-color: hsl(0deg 0% 80%);
+
+  font-size: 16px;
+  line-height: 1.618;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: system-ui;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
 }
 
 a {
@@ -11,6 +23,27 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+input {
+  font-size: inherit;
+}
+
+.app-wrapper {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+}
+
+.app-main {
+  padding: 0 0.5rem;
+}
+
+.app-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  padding: 0.5rem;
+  border-top: 1px solid var(--gps-border-color);
+  background-color: white;
 }
