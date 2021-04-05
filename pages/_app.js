@@ -1,3 +1,5 @@
+import RateLimit from '../components/RateLimit';
+
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
@@ -9,6 +11,7 @@ function MyApp({ Component, pageProps }) {
       <footer className="app-footer">
         [global footer]
       </footer>
+      <RateLimit/>
     </div>
   )
 }
