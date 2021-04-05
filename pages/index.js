@@ -1,19 +1,23 @@
 import { useState } from 'react';
 import Head from 'next/head'
-import Link from 'next/link'
+import SearchInput from '../components/SearchInput';
+import UserLinkCard from '../components/UserLinkCard';
 import styles from '../styles/Home.module.css'
 
 const { log, error } = console;
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
-  async function handleFormSubmit(ev) {
-    ev.preventDefault();
+  async function handleFormSubmit({ term }) {
+    const q = term.trim();
 
-    const q = searchTerm.trim();
+    setSearchResults([]);
+
     if (!q) return;
+
+    setIsSearching(true);
 
     try {
       const res = await fetch(`/api/search?q=${q}`);
@@ -21,6 +25,8 @@ export default function Home() {
       setSearchResults(data.search.nodes);
     } catch (err) {
       error(err);
+    } finally {
+      setIsSearching(false);
     }
   }
 
@@ -35,43 +41,24 @@ export default function Home() {
         Enter GitHub username
       </p>
 
-      <form
-        onSubmit={handleFormSubmit}
-      >
-        <input
-          type="text"
+      <div className={styles.inputWrapper}>
+        <SearchInput
           placeholder="ex. 'noeldelgado'"
-          className={styles.input}
-          value={searchTerm}
-          onChange={(ev) => setSearchTerm(ev.target.value)}
+          loading={isSearching}
+          onFormSubmit={handleFormSubmit}
+          onClearForm={() => setSearchResults([])}
         />
-      </form>
+      </div>
 
-      <ul className={styles.list}>
+      <ul className={styles.searchResultsList}>
         {searchResults.map((user) => {
           return (
             <li key={user.id}>
-              <Link href={`/user/${user.login}`}>
-                <a>
-                  <div>
-                    <img
-                      src={user.avatarUrl}
-                      alt={user.login + ' avatar'}
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div>
-                    <p><b>{user.login}</b></p>
-                    <small>{user.name}</small>
-                  </div>
-                </a>
-              </Link>
+              <UserLinkCard data={user}/>
             </li>
           );
         })}
       </ul>
-
     </div>
   )
 }

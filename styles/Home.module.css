@@ -2,7 +2,7 @@
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  padding: 5rem 0;
+  padding: 4rem 0 0;
 }
 
 .description {
@@ -10,47 +10,25 @@
   margin-bottom: 0.5rem;
 }
 
-.input {
-  width: 100%;
-  max-width: 260px;
-  padding: 0.5rem;
-  border: 1px solid var(--gps-border-color);
-  border-radius: 4px;
+.inputWrapper {
+  max-width: 410px;
+  margin: 0 auto;
 }
 
-.list {
-  max-width: 260px;
-  max-height: 50vh;
-  padding: 0;
-  margin: 4px auto 0;
-  overflow: auto;
+.searchResultsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
   list-style: none;
   text-align: left;
-  border-radius: 4px;
-  border: 1px solid var(--gps-border-color);
 
   &:empty {
     display: none;
   }
 
   & > li {
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--gps-border-color);
-    }
-
-    & > a {
-      padding: 0.5rem;
-      display: flex;
-      align-items: center;
-
-      & > div:first-child {
-        display: flex;
-        margin-right: 0.5rem;
-
-        & > img {
-          border-radius: 50%;
-        }
-      }
-    }
+    width: 200px;
   }
 }
