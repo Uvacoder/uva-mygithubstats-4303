@@ -22,7 +22,7 @@ export default function RepoCard({
         </a>
       </div>
       {Boolean(!hideDescription) && (
-        <p className="mb05">{node.description}</p>
+        <p className={styles.description}>{node.description}</p>
       )}
       <p className={styles.stats}>
         {node.primaryLanguage && (

@@ -16,10 +16,13 @@ async function getRepositoriesByUser(login, limit = 30, after = null) {
           edges {
             node {
               name
+              url
+              description
               stargazerCount
               forkCount
               primaryLanguage {
                 name
+                color
               }
               licenseInfo {
                 name
