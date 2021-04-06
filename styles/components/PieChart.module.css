@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+}
+
+.chart {
+  border-radius: 50%;
+  transform: rotate(-90deg);
+}
+
+.info {
+  font-size: 12px;
+  margin-left: 10px;
+
+}
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.infoItemColor {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
