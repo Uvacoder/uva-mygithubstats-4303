@@ -98,10 +98,7 @@ export default async function(req, res) {
             totalContributions
             weeks {
               contributionDays {
-                # date
-                color
-                # contributionCount
-                # contributionLevel
+                contributionLevel
                 weekday
               }
             }
