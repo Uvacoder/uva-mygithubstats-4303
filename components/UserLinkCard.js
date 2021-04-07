@@ -15,7 +15,7 @@ export default function UserCard({ data: user }) {
         </div>
         <div className={styles.infoWrapper}>
           <p>
-            <b>{user.login}</b>
+            <b className='fw500'>{user.login}</b>
             <br/>
             <small>{user.name}</small>
           </p>
