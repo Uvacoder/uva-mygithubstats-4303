@@ -6,6 +6,10 @@
   --color-text-primary: hsl(210deg 12% 16%);
   --color-text-secondary: hsl(212deg 9% 38%);
 
+  --color-input-border: hsl(214deg 13% 80%);
+  --color-state-focus-border: hsl(212deg 97% 43%);
+  --color-state-focus-outline: hsl(214deg 100% 57% / 50%);
+
   --color-warn-bg: hsl(53deg 100% 93%);
   --color-warn-border: hsl(46deg 100% 35% / 20%);
   --color-error-bg: hsl(354deg 100% 95%);
