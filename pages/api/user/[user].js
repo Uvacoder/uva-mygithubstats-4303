@@ -59,6 +59,7 @@ export default async function(req, res) {
     {
       user(login: "${username}") {
         login
+        name
         repositories {
           totalCount
         }
