@@ -5,8 +5,15 @@
   --color-background: #fff;
   --color-text-primary: hsl(210deg 12% 16%);
   --color-text-secondary: hsl(212deg 9% 38%);
+
   --color-warn-bg: hsl(53deg 100% 93%);
   --color-warn-border: hsl(46deg 100% 35% / 20%);
+  --color-error-bg: hsl(354deg 100% 95%);
+  --color-error-border: hsl(357deg 70% 36% / 20%);
+
+  --color-status-ok: hsl(187deg 100% 42%);
+  --color-status-warn: hsl(45deg 100% 51%);
+  --color-status-error: red;
 
   --color-calendar-graph-Q0: hsl(216deg 14% 93%);
   --color-calendar-graph-Q1: hsl(130deg 64% 76%);

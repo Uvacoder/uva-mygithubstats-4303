@@ -1,29 +1,29 @@
 import useSWR from 'swr';
+import styles from '../styles/components/RateLimit.module.css';
 
 export default function RateLimit() {
   const { data: rateLimit, error } = useSWR('/api/rate-limit', {
     refreshInterval: 3000
   });
+  const remaining = rateLimit?.remaining;
+
+  let status = '';
+
+  if (remaining === 0)
+    status = 'error';
+  else if (remaining <= 100)
+    status = 'warn';
+  else if (remaining > 100)
+    status = 'ok';
 
   return (
     <>
-      <div className="rate-limit">
-        {rateLimit?.remaining ?? 0} requests left of {rateLimit?.limit ?? 0}
+      <div className={styles.root} data-status={status}>
+        <svg viewBox='0 0 10 10' width={10} height={10} className={styles.status}>
+          <circle r={5} cx={5} cy={5}/>
+        </svg>
+        {remaining} requests left
       </div>
-
-      <style jsx>{`
-        .rate-limit {
-          font-size: 0.8rem;
-          position: fixed;
-          bottom: 47px;
-          right: 10px;
-          padding: 0.5rem 0.75rem;
-          border: 1px solid var(--gps-border-color);
-          background-color: var(--color-background);
-          border-radius: 4px;
-          box-shadow: 0 0 0 2px rgb(0 0 0 / 0.05);
-        }
-      `}</style>
     </>
   );
 }
