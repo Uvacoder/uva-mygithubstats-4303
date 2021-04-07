@@ -230,7 +230,7 @@ export default function User() {
         <div className={styles.contentSection}>
           <div>
             <div className='mb05'>
-              <p>{user.contributionsCollection.contributionCalendar.totalContributions} contributions int the last year</p>
+              <p>{(user.contributionsCollection.contributionCalendar.totalContributions).toLocaleString()} contributions int the last year</p>
             </div>
             <Calendar data={user.contributionsCollection.contributionCalendar}/>
           </div>
