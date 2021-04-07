@@ -5,8 +5,19 @@
   --color-background: #fff;
   --color-text-primary: hsl(210deg 12% 16%);
   --color-text-secondary: hsl(212deg 9% 38%);
+
+  --color-input-border: hsl(214deg 13% 80%);
+  --color-state-focus-border: hsl(212deg 97% 43%);
+  --color-state-focus-outline: hsl(214deg 100% 57% / 50%);
+
   --color-warn-bg: hsl(53deg 100% 93%);
   --color-warn-border: hsl(46deg 100% 35% / 20%);
+  --color-error-bg: hsl(354deg 100% 95%);
+  --color-error-border: hsl(357deg 70% 36% / 20%);
+
+  --color-status-ok: hsl(187deg 100% 42%);
+  --color-status-warn: hsl(45deg 100% 51%);
+  --color-status-error: red;
 
   --color-calendar-graph-Q0: hsl(216deg 14% 93%);
   --color-calendar-graph-Q1: hsl(130deg 64% 76%);
@@ -50,12 +61,6 @@ svg {
   color: var(--gps-border-color);
 }
 
-.app-wrapper {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  min-height: 100vh;
-}
-
 .app-main {
   padding: 0 0.5rem;
 }
@@ -63,18 +68,28 @@ svg {
 .app-footer {
   font-size: 0.8rem;
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: sticky;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
   bottom: 0;
+  right: 0;
   padding: 0.5rem;
   border-top: 1px solid var(--gps-border-color);
   background-color: white;
+
+  & > a {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    color: inherit;
+  }
 }
 
 /* utilities */
 .mb05 { margin-bottom: 0.5rem }
 .mb1 { margin-bottom: 1rem }
+.fw500 { font-weight: 500 }
 
 /* for github emojis */
 .g-emoji { padding-right: 6px}

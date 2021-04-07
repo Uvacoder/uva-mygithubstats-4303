@@ -51,28 +51,28 @@ export default function ActivityOverview({
         <ellipse rx="3" ry="3" cx={commitsPoints.x} cy={commitsPoints.y}/>
 
         <text className="text-percentage" textAnchor="middle" dominantBaseline="hanging" y={0} x={center.x}>
-          {percent(reviews, totalContributions)}%
+          {Math.round(percent(reviews, totalContributions))}%
         </text>
         <text textAnchor="middle" dominantBaseline='hanging' y={textHeight} x={center.x}>
           Code review
         </text>
 
         <text className="text-percentage" dominantBaseline='hanging' textAnchor="middle" y={center.y-textHeight} x={width - (padding.x / 2)}>
-          {percent(issues, totalContributions)}%
+          {Math.round(percent(issues, totalContributions))}%
         </text>
         <text textAnchor="middle" dominantBaseline='hanging' y={center.y} x={width - (padding.x / 2)}>
           Issues
         </text>
 
         <text className="text-percentage" textAnchor="middle" dominantBaseline='hanging' y={height - (textHeight*2)} x={center.x}>
-          {percent(pullRequests, totalContributions)}%
+          {Math.round(percent(pullRequests, totalContributions))}%
         </text>
         <text textAnchor='middle' dominantBaseline='hanging' y={height - textHeight} x={center.x}>
           Pull requests
         </text>
 
         <text className="text-percentage" textAnchor="middle" dominantBaseline='hanging' y={center.y - textHeight} x={padding.x / 2}>
-          {percent(commits, totalContributions)}%
+          {Math.round(percent(commits, totalContributions))}%
         </text>
         <text textAnchor="middle" dominantBaseline='hanging' y={center.y} x={padding.x / 2}>
           Commits
