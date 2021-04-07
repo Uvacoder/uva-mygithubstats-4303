@@ -50,12 +50,6 @@ svg {
   color: var(--gps-border-color);
 }
 
-.app-wrapper {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  min-height: 100vh;
-}
-
 .app-main {
   padding: 0 0.5rem;
 }
@@ -64,9 +58,10 @@ svg {
   font-size: 0.8rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: sticky;
+  position: fixed;
+  left: 0;
   bottom: 0;
+  right: 0;
   padding: 0.5rem;
   border-top: 1px solid var(--gps-border-color);
   background-color: white;
