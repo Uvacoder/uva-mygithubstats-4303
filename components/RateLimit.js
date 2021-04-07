@@ -15,8 +15,8 @@ export default function RateLimit() {
         .rate-limit {
           font-size: 0.8rem;
           position: fixed;
-          bottom: 1rem;
-          right: 1rem;
+          bottom: 47px;
+          right: 10px;
           padding: 0.5rem 0.75rem;
           border: 1px solid var(--gps-border-color);
           background-color: var(--color-background);
