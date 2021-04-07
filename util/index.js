@@ -1,9 +1,9 @@
-const { abs, log10, pow, round } = Math;
+const { abs, log10, pow } = Math;
 
 const SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"];
 
 export const percent = (value, total) =>
-  round(value * 100 / total) || 0;
+  value * 100 / total || 0;
 
 
 /**
