@@ -1,5 +1,8 @@
 # Changelog
 
+(feature/pretty-numbers)
+- format numbers
+
 ## 0.1.0 - 2021-04-06
 Iniatial release
 #### Features

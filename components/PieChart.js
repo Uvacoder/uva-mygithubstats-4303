@@ -1,5 +1,6 @@
 import { percent } from '../util';
 import { COLORS } from '../util/constants';
+import { prettyNumber } from '../util';
 import styles from '../styles/components/PieChart.module.css'
 
 export default function PieChart({
@@ -50,7 +51,7 @@ export default function PieChart({
           <p key={i} className={styles.infoItem}>
             <span className={styles.infoItemColor} style={{background: item.color}}></span>
             <span>{item.key}</span>
-            <span>({item.value})</span>
+            <span>({prettyNumber(item.value)})</span>
           </p>
         )}
       </div>
