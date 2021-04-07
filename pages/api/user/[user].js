@@ -1,7 +1,5 @@
 import { fetchGQL } from '../../../util/api';
 
-const { log } = console;
-
 async function getRepositoriesByUser(login, limit = 30, after = null) {
   if (after) after = `\"${after}\"`;
 
@@ -39,7 +37,6 @@ async function getAllRepositoriesByUser(username) {
   let repos = [];
 
   const getRepos = async (login, cursor = null) => {
-    log(login, cursor)
     let { user: { repositories }} = await getRepositoriesByUser(login, 100, cursor);
     repos = repos.concat(repositories.edges);
 

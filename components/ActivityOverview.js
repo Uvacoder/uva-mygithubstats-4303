@@ -1,5 +1,3 @@
-const { log } = console;
-
 import { percent } from '../util';
 
 export default function ActivityOverview({

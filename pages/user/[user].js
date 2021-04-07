@@ -8,8 +8,6 @@ import PieChart from '../../components/PieChart';
 import LinearChart from '../../components/LinearChart';
 import styles from '../../styles/User.module.css'
 
-const { log, error } = console;
-
 export default function User() {
   const router = useRouter();
   const { user: username } = router.query;
@@ -29,7 +27,6 @@ export default function User() {
     );
   }
 
-  log(data);
   const { user, repositories } = data;
 
   const totalStars = repositories.reduce((acc, repo) => acc + repo.node.stargazerCount, 0);

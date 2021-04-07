@@ -1,5 +1,3 @@
-const { log } = console;
-
 import { percent } from '../util';
 import { COLORS } from '../util/constants';
 import styles from '../styles/components/PieChart.module.css'
