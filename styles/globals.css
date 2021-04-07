@@ -1,16 +1,29 @@
 :root {
   --gps-main-color: hsl(214deg 100% 57%);
-  --gps-border-color: hsl(0deg 0% 80%);
+  --gps-border-color: hsl(214deg 13% 90%);
+
+  --color-background: #fff;
+  --color-text-primary: hsl(210deg 12% 16%);
+  --color-text-secondary: hsl(212deg 9% 38%);
+  --color-warn-bg: hsl(53deg 100% 93%);
+  --color-warn-border: hsl(46deg 100% 35% / 20%);
+
+  --color-calendar-graph-Q0: hsl(216deg 14% 93%);
+  --color-calendar-graph-Q1: hsl(130deg 64% 76%);
+  --color-calendar-graph-Q2: hsl(136deg 53% 51%);
+  --color-calendar-graph-Q3: hsl(136deg 54% 41%);
+  --color-calendar-graph-Q4: hsl(139deg 54% 28%);
 
   font-size: 16px;
   line-height: 1.618;
 }
 
-html,
 body {
   padding: 0;
   margin: 0;
   font-family: system-ui;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
 }
 
 * {
@@ -20,7 +33,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--gps-main-color);
   text-decoration: none;
 }
 
@@ -48,6 +61,7 @@ svg {
 }
 
 .app-footer {
+  font-size: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,3 +71,10 @@ svg {
   border-top: 1px solid var(--gps-border-color);
   background-color: white;
 }
+
+/* utilities */
+.mb05 { margin-bottom: 0.5rem }
+.mb1 { margin-bottom: 1rem }
+
+/* for github emojis */
+.g-emoji { padding-right: 6px}

@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </main>
       <footer className="app-footer">
-        [global footer]
+        <p>View the <a href="https://github.com/noeldelgado/gh-profile-stats" rel="noopener noreferrer" target="_blank">source on Github</a></p>
       </footer>
       <RateLimit/>
     </div>
