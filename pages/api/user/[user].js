@@ -109,6 +109,7 @@ export default async function(req, res) {
               totalCount
             }
             repository {
+              name
               primaryLanguage {
                 name
               }
