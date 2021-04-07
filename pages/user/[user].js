@@ -280,7 +280,7 @@ export default function User() {
           </div>
           <div>
             <h4 className="mb05">Commits per language</h4>
-            <PieChart data={commitsPerLanguage}/>
+            <PieChart data={commitsPerLanguage} colors={languages}/>
           </div>
         </div>
 
