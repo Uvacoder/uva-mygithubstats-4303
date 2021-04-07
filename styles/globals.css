@@ -70,5 +70,9 @@ svg {
   background-color: white;
 }
 
+/* utilities */
 .mb05 { margin-bottom: 0.5rem }
 .mb1 { margin-bottom: 1rem }
+
+/* for github emojis */
+.g-emoji { padding-right: 6px}

@@ -17,7 +17,7 @@ async function getRepositoriesByUser(login, limit = 30, after = null) {
             node {
               name
               url
-              description
+              descriptionHTML
               stargazerCount
               forkCount
               primaryLanguage {
