@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2021-04-07
+## Features
+- format numbers
+- rate limit status indicator
+
 ## 0.1.0 - 2021-04-06
 Iniatial release
 #### Features
@@ -14,3 +19,5 @@ Iniatial release
   - commits per language
   - languages per repo
   - commits per repo (top 10)
+
+[0.1.1]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.1.0...v0.1.1

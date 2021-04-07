@@ -31,11 +31,12 @@ export default function SearchInput({
           </svg>
         </div>
         <input
-          type="text"
+          type='text'
           placeholder={placeholder}
           className={styles.input}
           value={searchTerm}
           onChange={(ev) => setSearchTerm(ev.target.value)}
+          autoCapitalize='none'
         />
         <div className={styles.controls}>
           <div
