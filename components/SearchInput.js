@@ -36,7 +36,7 @@ export default function SearchInput({
           className={styles.input}
           value={searchTerm}
           onChange={(ev) => setSearchTerm(ev.target.value)}
-          autocapitalize='none'
+          autoCapitalize='none'
         />
         <div className={styles.controls}>
           <div
