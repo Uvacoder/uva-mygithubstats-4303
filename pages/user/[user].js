@@ -17,12 +17,20 @@ export default function User() {
     revalidateOnFocus: false
   });
 
-  if (error) return <div>failed to load {username} profile</div>;
+  if (error) {
+    return (
+      <div className={styles.loadingScreen}>
+        <p>
+          Failed to load {username}’s stats
+        </p>
+      </div>
+    );
+  }
 
   if (!data) {
     return (
       <div className={styles.loadingScreen}>
-        <p className={styles.description}>
+        <p>
           Loading {username}’s profile stats
         </p>
       </div>
