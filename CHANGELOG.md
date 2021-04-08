@@ -1,5 +1,10 @@
 # Changelog
 
+(feat/empty-space)
+- user: add simple empty states
+- format joined date
+- display preferred user license
+
 ## [0.1.1] - 2021-04-07
 ## Features
 - format numbers
