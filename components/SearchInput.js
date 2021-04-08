@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/components/SearchInput.module.css'
 
 export default function SearchInput({
-  onFormSubmit = () => {},
-  onClearForm = () => {},
   loading = false,
-  placeholder = 'Search'
+  placeholder = 'Search',
+  autoFocus = false,
+  onFormSubmit = () => {},
+  onClearForm = () => {}
 }) {
   const [searchTerm, setSearchTerm] = useState('');
+  const inputElement = useRef(null);
+
+  useEffect(() => {
+    if (autoFocus) {
+      inputElement.current?.focus();
+    }
+  }, []);
 
   function submit(ev) {
     ev.preventDefault();
@@ -32,11 +40,12 @@ export default function SearchInput({
         </div>
         <input
           type='text'
+          autoCapitalize='none'
+          ref={inputElement}
           placeholder={placeholder}
           className={styles.input}
           value={searchTerm}
           onChange={(ev) => setSearchTerm(ev.target.value)}
-          autoCapitalize='none'
         />
         <div className={styles.controls}>
           <div
