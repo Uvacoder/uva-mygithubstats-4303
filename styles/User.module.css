@@ -100,7 +100,7 @@
     padding-bottom: 2rem;
 
     & > * {
-      flex: 1 1 auto;
+      flex: 1 1 100%;
       margin: 0 0.5rem;
     }
   }
