@@ -90,6 +90,8 @@ svg {
 .mb05 { margin-bottom: 0.5rem }
 .mb1 { margin-bottom: 1rem }
 .fw500 { font-weight: 500 }
+.secondary-text { color: var(--color-text-secondary) }
+.fs-md { font-size: 0.875rem }
 
 /* for github emojis */
 .g-emoji { padding-right: 6px}

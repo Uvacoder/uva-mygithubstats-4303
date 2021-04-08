@@ -256,6 +256,11 @@ export default function User() {
                 </li>
               )}
             </ul>
+            {(mostForkedRepos.length === 0) && (
+              <p className='fs-md secondary-text'>
+                <i>No data to show</i>
+              </p>
+            )}
           </div>
           <div>
             <h4 className='mb05'>Most Forked Repos</h4>
@@ -266,6 +271,11 @@ export default function User() {
                 </li>
               )}
             </ul>
+            {(mostForkedRepos.length === 0) && (
+              <p className='fs-md secondary-text'>
+                <i>No data to show</i>
+              </p>
+            )}
           </div>
         </div>
 
