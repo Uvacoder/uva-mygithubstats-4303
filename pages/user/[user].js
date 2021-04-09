@@ -92,7 +92,7 @@ export default function User() {
           <ul className={styles.inlineStats}>
             <li>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M3.44 1.999l-.439-1.999h17.994l-.439 1.999h-17.116zm18.281 8.001l-1.572 12h-16.352l-1.526-12h19.45zm2.279-2h-24l2.035 16h19.868l2.097-16zm-1.745-2l.371-2h-21.256l.371 2h20.514z"/></svg>
-              <b>{prettyNumber(user.repositories.totalCount)}</b> repositories
+              <b>{prettyNumber(repositories.length)}</b> repositories
             </li>
             <li><b>{prettyNumber(user.gists.totalCount)}</b> gists</li>
             <li>
