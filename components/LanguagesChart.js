@@ -1,3 +1,4 @@
+import ColorItem from './ColorItem';
 import { percent } from '../util';
 import { COLORS } from '../util/constants';
 
@@ -42,14 +43,15 @@ export default function LanguagesChart({
           />
         })}
       </svg>
+
       <ul>
         {items.map((item, i) => {
           return <li key={i} className='inline-block mr1'>
-            <svg width={10} height={10} className='mr05'>
-              <circle fill={item.color} r={5} cx={5} cy={5} />
-            </svg>
-            <b className='mr05'>{item.key}</b>
-            <span className='secondary-text'>{(item.width).toFixed(1)}%</span>
+            <ColorItem
+              color={item.color}
+              text={item.key}
+              secondaryText={`${(item.width).toFixed(1)}%`}
+            />
           </li>
         })}
       </ul>
