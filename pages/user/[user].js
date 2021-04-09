@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import parse from 'html-react-parser';
@@ -56,6 +57,10 @@ export default function User() {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>GitHub Profile Stats - {user.login} ({user.name})</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <aside className={styles.aside}>
         <div className={`${styles.bio} mb1`}>
           <div className='mr1'>

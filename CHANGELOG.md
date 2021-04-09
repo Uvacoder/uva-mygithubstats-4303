@@ -1,5 +1,9 @@
 # Changelog
 
+(feature/user-misc)
+#### Features
+- user: add page title
+
 (feature/languages-zero)
 #### Features
 - user
