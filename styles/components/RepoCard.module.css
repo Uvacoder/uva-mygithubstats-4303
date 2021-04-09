@@ -14,8 +14,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
   color: var(--color-text-secondary);
+
+  & > span:not(:last-child) {
+    margin-right: 0.5rem;
+  }
 
   & svg {
     display: inline-block;
