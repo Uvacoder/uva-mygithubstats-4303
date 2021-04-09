@@ -191,7 +191,7 @@ export default function User() {
       </aside>
 
       <div className={styles.content}>
-        <div className={styles.contentSection}>
+        <div className={`${styles.contentSection} ${styles.contributionsSection}`}>
           <div>
             <div className='mb05'>
               <p>{(user.contributionsCollection.contributionCalendar.totalContributions).toLocaleString()} contributions int the last year</p>
@@ -207,7 +207,6 @@ export default function User() {
               height={130}
             />
           </div>
-
         </div>
 
         <div className={styles.contentSection}>

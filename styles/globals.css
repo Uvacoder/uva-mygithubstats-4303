@@ -89,6 +89,7 @@ svg {
 /* utilities */
 .block { display: block }
 .inline-block { display: inline-block }
+.mx-auto { margin-left: auto; margin-right: auto }
 .mb05 { margin-bottom: 0.5rem }
 .mb1 { margin-bottom: 1rem }
 .mr05 { margin-right: 0.5rem }

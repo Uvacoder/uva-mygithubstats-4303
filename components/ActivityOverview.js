@@ -34,7 +34,7 @@ export default function ActivityOverview({
 
   return (
     <>
-      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className='block mx-auto'>
         <polygon points={`
           ${reviewPoints.x},${reviewPoints.y}
           ${issuesPonts.x},${issuesPonts.y}
