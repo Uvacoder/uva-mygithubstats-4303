@@ -19,9 +19,10 @@ export const getTotalForks = repositories =>
 export const getPreferredLicense = repositories => {
   const licensesPerRepo = repositories
     .reduce((acc, current) => {
-      const lang = current?.node?.licenseInfo?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang]++;
+      const name = current?.node?.licenseInfo?.name;
+      if (!name) return acc;
+      acc[name] = acc[name] || 0;
+      acc[name]++;
       return acc;
     }, {});
 
