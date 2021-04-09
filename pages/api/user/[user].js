@@ -119,8 +119,11 @@ export default async function(req, res) {
         projects {
           totalCount
         }
-        organizations {
-          totalCount
+        organizations(first: 100) {
+          nodes {
+            name
+            avatarUrl(size: 32)
+          }
         }
         sponsorshipsAsMaintainer(includePrivate:true) {
           totalCount
