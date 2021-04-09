@@ -25,8 +25,4 @@
     vertical-align: text-bottom;
     margin-right: 0.25rem;
   }
-  & circle {
-    stroke-width: 1;
-    stroke: hsl(210deg 13% 12% / 10%);
-  }
 }

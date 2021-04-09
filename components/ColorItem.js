@@ -17,21 +17,30 @@ export default function ColorItem({
           rx={rx}
         />
       </svg>
-      <b className='color-item-text mr05'>
+      <b className='color-item-text'>
         {text}
       </b>
-      <span className='secondary-text'>
-        {secondaryText}
-      </span>
+      {secondaryText && (
+        <span className='secondary-text'>
+          {secondaryText}
+        </span>
+      )}
 
       <style jsx>{`
         .color-item {
           display: flex;
           align-items: center;
         }
+        rect {
+          stroke-width: 1;
+          stroke: hsl(210deg 13% 12% / 10%);
+        }
         svg,
         .secondary-text {
           flex-shrink: 0;
+        }
+        .secondary-text {
+          margin-left: 0.5rem;
         }
         .color-item-text {
           text-overflow: ellipsis;
