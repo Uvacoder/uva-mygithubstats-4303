@@ -6,6 +6,7 @@
 - display preferred user license
 - index(search): autoFocus input
 - user: languages chart
+- user: add stars per repo chart
 
 ## [0.1.1] - 2021-04-07
 ## Features

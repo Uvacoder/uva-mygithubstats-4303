@@ -48,6 +48,9 @@ export default function User() {
   const starsPerLanguage = userUtil.getStarsPerLanguage(repositories);
   const commitsPerLanguage = userUtil.getCommitsPerLanguage(user.contributionsCollection.commitContributionsByRepository);
   const commitsPerRepo = userUtil.getCommitsPerRepo(user.contributionsCollection.commitContributionsByRepository, 10);
+  const starsPerRepo = userUtil.getStarsPerRepo(
+    userUtil.getMostStarredRepos(repositories).slice(0, 10)
+  );
   const languageColors = userUtil.getLanguageColors(repositories);
   const languagesPerRepo = userUtil.getLanguagesPerRepo(repositories);
 
@@ -264,10 +267,15 @@ export default function User() {
 
         <div className={styles.contentSection}>
           <div>
-            <h4 className="mb05">Commits per Repo (top 10)</h4>
+            <h4 className="mb05">Commits per repo (top 10)</h4>
             <PieChart data={commitsPerRepo}/>
           </div>
+          <div>
+            <h4 className="mb05">Stars per repo (top 10)</h4>
+            <PieChart data={starsPerRepo}/>
+          </div>
         </div>
+
       </div>
 
     </div>
