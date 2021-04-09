@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ColorItem from './ColorItem';
 import { prettyNumber } from '../util';
 import styles from '../styles/components/RepoCard.module.css'
 
@@ -31,10 +32,10 @@ export default function RepoCard({
       <p className={styles.stats}>
         {node.primaryLanguage && (
           <span>
-            <svg width={12} height={12}>
-              <circle fill={node.primaryLanguage.color} r={6} cx={6} cy={6} />
-            </svg>
-            {node.primaryLanguage.name}
+            <ColorItem
+              color={node.primaryLanguage.color}
+              text={node.primaryLanguage.name}
+            />
           </span>
         )}
         {Boolean(!hideStars) && (

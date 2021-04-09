@@ -14,16 +14,15 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
   color: var(--color-text-secondary);
+
+  & > span:not(:last-child) {
+    margin-right: 0.5rem;
+  }
 
   & svg {
     display: inline-block;
     vertical-align: text-bottom;
     margin-right: 0.25rem;
-  }
-  & circle {
-    stroke-width: 1;
-    stroke: hsl(210deg 13% 12% / 10%);
   }
 }
