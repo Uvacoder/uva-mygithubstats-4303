@@ -60,7 +60,7 @@ export default async function(req, res) {
         repositories {
           totalCount
         }
-        avatarUrl(size: 200)
+        avatarUrl(size: 90)
         followers {
           totalCount
         }
