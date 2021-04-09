@@ -78,6 +78,20 @@
   }
 }
 
+.organizationsList {
+  list-style: none;
+
+  & > li {
+    display: inline-block;
+    margin-right: 0.5rem;
+
+    & > img {
+      display: block;
+      border-radius: 4px;
+    }
+  }
+}
+
 .contentSection {
   padding-bottom: 1rem;
   & > * {

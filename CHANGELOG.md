@@ -1,5 +1,8 @@
 # Changelog
 
+(feat/organizations)
+- list user organizations
+
 (feat/aside)
 - display Unknown instead of `undefined` when the repo doesn’t have a primaryLanguage
 
