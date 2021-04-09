@@ -27,7 +27,6 @@ export default function PieChart({
     };
   });
 
-
   if (max === 0) {
     return (
       <p className='fs-md secondary-text'>
