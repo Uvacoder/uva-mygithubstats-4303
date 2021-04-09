@@ -178,7 +178,7 @@ export default function User() {
           </ul>
         </div>
 
-        {user.organizations.nodes.length && (
+        {Boolean(user.organizations.nodes.length) && (
           <div>
             <h4 className="mb05">Organizations</h4>
             <ul className={styles.organizationsList}>
