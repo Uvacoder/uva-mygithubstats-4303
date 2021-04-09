@@ -4,8 +4,8 @@ import parse from 'html-react-parser';
 import Calendar from '../../components/Calendar';
 import ActivityOverview from '../../components/ActivityOverview';
 import RepoCard from '../../components/RepoCard';
+import LanguagesChart from '../../components/LanguagesChart';
 import PieChart from '../../components/PieChart';
-import LinearChart from '../../components/LinearChart';
 import { prettyNumber } from '../../util';
 import * as userUtil from '../../util/pages/user';
 import styles from '../../styles/User.module.css'
@@ -209,6 +209,13 @@ export default function User() {
 
         <div className={styles.contentSection}>
           <div>
+            <h4 className="mb05">Languages</h4>
+            <LanguagesChart data={languagesPerRepo} colors={languageColors}/>
+          </div>
+        </div>
+
+        <div className={styles.contentSection}>
+          <div>
             <h4 className='mb05'>Most Starred Repos</h4>
             <ul className={styles.repoCardsList}>
               {mostStarredRepos.map((repo, i) =>
@@ -256,10 +263,6 @@ export default function User() {
         </div>
 
         <div className={styles.contentSection}>
-          <div>
-            <h4 className="mb05">Language per Repo</h4>
-            <PieChart data={languagesPerRepo} colors={languageColors}/>
-          </div>
           <div>
             <h4 className="mb05">Commits per Repo (top 10)</h4>
             <PieChart data={commitsPerRepo}/>

@@ -5,6 +5,7 @@
 - format joined date
 - display preferred user license
 - index(search): autoFocus input
+- user: languages chart
 
 ## [0.1.1] - 2021-04-07
 ## Features
