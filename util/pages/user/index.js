@@ -46,6 +46,7 @@ export const getPreferredLicense = repositories => {
 export const getMostStarredRepos = repositories =>
   repositories
     .concat()
+    .filter(r => r.node.stargazerCount)
     .sort((a, b) => b.node.stargazerCount - a.node.stargazerCount);
 
 /**
@@ -55,6 +56,7 @@ export const getMostStarredRepos = repositories =>
 export const getMostForkedRepos = repositories =>
   repositories
     .concat()
+    .filter(r => r.node.forkCount)
     .sort((a, b) => b.node.forkCount - a.node.forkCount);
 
 /**
