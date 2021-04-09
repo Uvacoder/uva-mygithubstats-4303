@@ -64,6 +64,7 @@ export const getMostForkedRepos = repositories =>
 export const getForksPerLanguage = repositories =>
   repositories.reduce((acc, current) => {
     const lang = current?.node?.primaryLanguage?.name ?? 'Unknown';
+    if (!current.node.forkCount) return acc;
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.node.forkCount;
     return acc;
@@ -76,6 +77,7 @@ export const getForksPerLanguage = repositories =>
 export const getStarsPerLanguage = repositories =>
   repositories.reduce((acc, current) => {
     const lang = current.node.primaryLanguage?.name ?? 'Unknown';
+    if (!current.node.stargazerCount) return acc;
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.node.stargazerCount;
     return acc;
@@ -88,6 +90,7 @@ export const getStarsPerLanguage = repositories =>
 export const getCommitsPerLanguage = repositories =>
   repositories.reduce((acc, current) => {
     const lang = current?.repository?.primaryLanguage?.name ?? 'Unknown';
+    if (!current.contributions.totalCount) return acc;
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.contributions.totalCount;
     return acc;
