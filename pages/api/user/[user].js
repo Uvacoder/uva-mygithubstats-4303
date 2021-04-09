@@ -74,6 +74,7 @@ export default async function(req, res) {
           emojiHTML
           message
         }
+        company
         location
         email
         websiteUrl

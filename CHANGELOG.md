@@ -2,7 +2,9 @@
 
 (feature/user-misc)
 #### Features
-- user: add page title
+- user
+  - add page title
+  - show user company
 
 (feature/languages-zero)
 #### Features
