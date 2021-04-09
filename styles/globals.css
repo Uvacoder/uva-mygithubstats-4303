@@ -95,6 +95,7 @@ svg {
 .mr05 { margin-right: 0.5rem }
 .mr1 { margin-right: 1rem }
 .fw500 { font-weight: 500 }
+.primary-text { color: var(--color-text-primary) }
 .secondary-text { color: var(--color-text-secondary) }
 .fs-md { font-size: 0.875rem }
 
