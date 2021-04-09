@@ -6,7 +6,7 @@ async function getRepositoriesByUser(login, limit = 30, after = null) {
   return await fetchGQL({query: `
     {
       user(login: "${login}") {
-        repositories(first: ${limit}, after: ${after}) {
+        repositories(first: ${limit}, after: ${after}, ownerAffiliations: [OWNER]) {
           pageInfo {
             endCursor
             hasNextPage
@@ -57,9 +57,6 @@ export default async function(req, res) {
       user(login: "${username}") {
         login
         name
-        repositories {
-          totalCount
-        }
         avatarUrl(size: 90)
         followers {
           totalCount
@@ -81,9 +78,6 @@ export default async function(req, res) {
         email
         websiteUrl
         twitterUsername
-        repositories {
-          totalCount
-        }
         gists {
           totalCount
         }
