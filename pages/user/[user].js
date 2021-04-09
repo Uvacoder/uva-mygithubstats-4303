@@ -234,7 +234,7 @@ export default function User() {
                 </li>
               )}
             </ul>
-            {(mostForkedRepos.length === 0) && (
+            {(mostStarredRepos.length === 0) && (
               <p className='fs-md secondary-text'>
                 <i>No data to show</i>
               </p>
