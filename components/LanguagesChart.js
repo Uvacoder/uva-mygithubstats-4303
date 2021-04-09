@@ -63,6 +63,9 @@ export default function LanguagesChart({
           font-size: 0.8rem;
           list-style: none;
         }
+        li > :global(.color-item > .color-item-text) {
+          font-weight: 600;
+        }
       `}</style>
     </>
   )

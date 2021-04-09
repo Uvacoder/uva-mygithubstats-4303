@@ -17,9 +17,9 @@ export default function ColorItem({
           rx={rx}
         />
       </svg>
-      <b className='color-item-text'>
+      <span className='color-item-text'>
         {text}
-      </b>
+      </span>
       <span className='secondary-text'>
         {secondaryText}
       </span>
