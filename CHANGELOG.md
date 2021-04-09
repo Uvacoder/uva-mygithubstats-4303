@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.1] - 2021-04-09
+#### Bugfixes
+- user: show only owned repositories
+
 ## [0.2.0] - 2021-04-09
 #### Features
 - users
