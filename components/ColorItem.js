@@ -20,11 +20,9 @@ export default function ColorItem({
       <b className='color-item-text'>
         {text}
       </b>
-      {secondaryText && (
-        <span className='secondary-text'>
-          {secondaryText}
-        </span>
-      )}
+      <span className='secondary-text'>
+        {secondaryText}
+      </span>
 
       <style jsx>{`
         .color-item {
@@ -39,7 +37,7 @@ export default function ColorItem({
         .secondary-text {
           flex-shrink: 0;
         }
-        .secondary-text {
+        .secondary-text:not(:empty) {
           margin-left: 0.5rem;
         }
         .color-item-text {

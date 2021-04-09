@@ -178,7 +178,7 @@ export default function User() {
           </ul>
         </div>
 
-        {user.organizations.nodes.length && (
+        {Boolean(user.organizations.nodes.length) && (
           <div>
             <h4 className="mb05">Organizations</h4>
             <ul className={styles.organizationsList}>
@@ -234,7 +234,7 @@ export default function User() {
                 </li>
               )}
             </ul>
-            {(mostForkedRepos.length === 0) && (
+            {(mostStarredRepos.length === 0) && (
               <p className='fs-md secondary-text'>
                 <i>No data to show</i>
               </p>

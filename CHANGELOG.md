@@ -1,7 +1,14 @@
 # Changelog
 
-## [0.2.1] - 2021-04-09
+(feature/languages-zero)
+#### Features
+- user
+  - filter forksPerLanguage, starsPerLanguage and commitsPerLanguage greater than zero
+  - filter starred and forked repos greater than zero
 #### Bugfixes
+- users: organizations list: printing zero when no organizations
+
+## [0.2.1] - 2021-04-09
 - user: show only owned repositories
 
 ## [0.2.0] - 2021-04-09
@@ -17,7 +24,6 @@
   - index(search): autoFocus input
 
 #### Bugfixes
-(feat/aside)
 - user: charts: display Unknown instead of `undefined` when the repo doesn’t have a primaryLanguage
 
 ## [0.1.1] - 2021-04-07
@@ -40,5 +46,6 @@ Initial release
   - languages per repo
   - commits per repo (top 10)
 
+[0.2.1]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.1.0...v0.1.1
