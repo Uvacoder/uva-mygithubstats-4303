@@ -19,9 +19,10 @@ export const getTotalForks = repositories =>
 export const getPreferredLicense = repositories => {
   const licensesPerRepo = repositories
     .reduce((acc, current) => {
-      const lang = current?.node?.licenseInfo?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang]++;
+      const name = current?.node?.licenseInfo?.name;
+      if (!name) return acc;
+      acc[name] = acc[name] || 0;
+      acc[name]++;
       return acc;
     }, {});
 
@@ -62,7 +63,7 @@ export const getMostForkedRepos = repositories =>
  */
 export const getForksPerLanguage = repositories =>
   repositories.reduce((acc, current) => {
-    const lang = current?.node?.primaryLanguage?.name;
+    const lang = current?.node?.primaryLanguage?.name ?? 'Unknown';
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.node.forkCount;
     return acc;
@@ -74,7 +75,7 @@ export const getForksPerLanguage = repositories =>
  */
 export const getStarsPerLanguage = repositories =>
   repositories.reduce((acc, current) => {
-    const lang = current.node.primaryLanguage?.name;
+    const lang = current.node.primaryLanguage?.name ?? 'Unknown';
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.node.stargazerCount;
     return acc;
@@ -86,7 +87,7 @@ export const getStarsPerLanguage = repositories =>
  */
 export const getCommitsPerLanguage = repositories =>
   repositories.reduce((acc, current) => {
-    const lang = current?.repository?.primaryLanguage?.name;
+    const lang = current?.repository?.primaryLanguage?.name ?? 'Unknown';
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.contributions.totalCount;
     return acc;
@@ -101,9 +102,9 @@ export const getCommitsPerRepo = (repositories, slice) =>
     .concat()
     .slice(0, slice)
     .reduce((acc, current) => {
-      const lang = current?.repository?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang] += current.contributions.totalCount;
+      const name = current?.repository?.name;
+      acc[name] = acc[name] || 0;
+      acc[name] += current.contributions.totalCount;
       return acc;
     }, {});
 
@@ -116,9 +117,9 @@ export const getStarsPerRepo = (repositories, slice) =>
     .concat()
     .slice(0, slice)
     .reduce((acc, current) => {
-      const lang = current?.node?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang] += current.node.stargazerCount;
+      const name = current?.node?.name;
+      acc[name] = acc[name] || 0;
+      acc[name] += current.node.stargazerCount;
       return acc;
     }, {});
 
@@ -129,6 +130,7 @@ export const getStarsPerRepo = (repositories, slice) =>
 export const getLanguageColors = repositories =>
   repositories.reduce((acc, current) => {
     const lang = current?.node?.primaryLanguage?.name;
+    if (!lang) return acc;
     acc[lang] = current.node.primaryLanguage?.color;
     return acc;
   }, {});
@@ -139,7 +141,7 @@ export const getLanguageColors = repositories =>
  */
 export const getLanguagesPerRepo = repositories =>
   repositories.reduce((acc, current) => {
-    const lang = current?.node?.primaryLanguage?.name;
+    const lang = current?.node?.primaryLanguage?.name ?? 'Unknown';
     acc[lang] = acc[lang] || 0;
     acc[lang]++;
     return acc;

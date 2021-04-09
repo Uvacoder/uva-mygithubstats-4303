@@ -1,5 +1,8 @@
 # Changelog
 
+(feat/aside)
+- display Unknown instead of `undefined` when the repo doesn’t have a primaryLanguage
+
 (feat/empty-space)
 - user: add simple empty states
 - format joined date
