@@ -17,15 +17,3 @@
   flex: 0 1 50%;
   overflow: hidden;
 }
-
-.infoItem {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.infoItemColor {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-}
