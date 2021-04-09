@@ -1,4 +1,5 @@
 .loadingScreen {
+  font-size: 1.25rem;
   padding: 4rem 0;
   display: flex;
   flex-direction: column;
@@ -72,7 +73,6 @@
   list-style: none;
 }
 
-
 .inlineStats,
 .personalInfo {
   & > li > svg {
@@ -100,9 +100,14 @@
     padding-bottom: 2rem;
 
     & > * {
+      flex: 1 1 100%;
       margin: 0 0.5rem;
     }
   }
+}
+
+.contributionsSection > * {
+  flex-basis: auto;
 }
 
 .repoCardsList {

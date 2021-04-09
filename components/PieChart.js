@@ -27,6 +27,14 @@ export default function PieChart({
     };
   });
 
+  if (max === 0) {
+    return (
+      <p className='fs-md secondary-text'>
+        <i>No data to show</i>
+      </p>
+    );
+  }
+
   return (
     <div className={styles.wrapper}>
       <div>

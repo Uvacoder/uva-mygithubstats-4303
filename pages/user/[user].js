@@ -4,9 +4,10 @@ import parse from 'html-react-parser';
 import Calendar from '../../components/Calendar';
 import ActivityOverview from '../../components/ActivityOverview';
 import RepoCard from '../../components/RepoCard';
+import LanguagesChart from '../../components/LanguagesChart';
 import PieChart from '../../components/PieChart';
-import LinearChart from '../../components/LinearChart';
 import { prettyNumber } from '../../util';
+import * as userUtil from '../../util/pages/user';
 import styles from '../../styles/User.module.css'
 
 export default function User() {
@@ -16,12 +17,20 @@ export default function User() {
     revalidateOnFocus: false
   });
 
-  if (error) return <div>failed to load {username} profile</div>;
+  if (error) {
+    return (
+      <div className={styles.loadingScreen}>
+        <p>
+          Failed to load {username}’s stats
+        </p>
+      </div>
+    );
+  }
 
   if (!data) {
     return (
       <div className={styles.loadingScreen}>
-        <p className={styles.description}>
+        <p>
           Loading {username}’s profile stats
         </p>
       </div>
@@ -30,68 +39,20 @@ export default function User() {
 
   const { user, repositories } = data;
 
-  const totalStars = repositories.reduce((acc, repo) => acc + repo.node.stargazerCount, 0);
-  const totalForks = repositories.reduce((acc, repo) => acc + repo.node.forkCount, 0);
-
-  const mostStarredRepos = repositories
-      .concat()
-      .sort((a, b) => b.node.stargazerCount - a.node.stargazerCount)
-      .slice(0, 3);
-
-  const mostForkedRepos = repositories
-      .concat()
-      .sort((a, b) => b.node.forkCount - a.node.forkCount)
-      .slice(0, 3);
-
-  const forksPerLanguage = repositories
-    .reduce((acc, current) => {
-      const lang = current?.node?.primaryLanguage?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang] += current.node.forkCount;
-      return acc;
-    }, {});
-
-  const starsPerLanguage = repositories
-    .reduce((acc, current) => {
-      const lang = current.node.primaryLanguage?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang] += current.node.stargazerCount;
-      return acc;
-    }, {})
-
-  const commitsPerLanguage = user.contributionsCollection.commitContributionsByRepository
-    .reduce((acc, current) => {
-      const lang = current?.repository?.primaryLanguage?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang] += current.contributions.totalCount;
-      return acc;
-    }, {});
-
-  const commitsPerRepo = user.contributionsCollection.commitContributionsByRepository
-    .concat()
-    .slice(0, 10)
-    .reduce((acc, current) => {
-      const lang = current?.repository?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang] += current.contributions.totalCount;
-      return acc;
-    }, {});
-
-  const languages = repositories
-    .reduce((acc, current) => {
-      const lang = current?.node?.primaryLanguage?.name;
-      acc[lang] = current.node.primaryLanguage?.color;
-      return acc;
-    }, {});
-
-  const languagesPerRepo = repositories
-    .reduce((acc, current) => {
-      languages[lang]
-      const lang = current?.node?.primaryLanguage?.name;
-      acc[lang] = acc[lang] || 0;
-      acc[lang]++;
-      return acc;
-    }, {});
+  const totalStars = userUtil.getTotalStars(repositories);
+  const totalForks = userUtil.getTotalForks(repositories);
+  const preferredLicense = userUtil.getPreferredLicense(repositories) ?? 'None';
+  const mostStarredRepos = userUtil.getMostStarredRepos(repositories).slice(0, 3);
+  const mostForkedRepos = userUtil.getMostForkedRepos(repositories).slice(0, 3);
+  const forksPerLanguage = userUtil.getForksPerLanguage(repositories);
+  const starsPerLanguage = userUtil.getStarsPerLanguage(repositories);
+  const commitsPerLanguage = userUtil.getCommitsPerLanguage(user.contributionsCollection.commitContributionsByRepository);
+  const commitsPerRepo = userUtil.getCommitsPerRepo(user.contributionsCollection.commitContributionsByRepository, 10);
+  const starsPerRepo = userUtil.getStarsPerRepo(
+    userUtil.getMostStarredRepos(repositories).slice(0, 10)
+  );
+  const languageColors = userUtil.getLanguageColors(repositories);
+  const languagesPerRepo = userUtil.getLanguagesPerRepo(repositories);
 
   return (
     <div className={styles.container}>
@@ -163,7 +124,10 @@ export default function User() {
 
         <div className="mb1">
           <ul className={styles.personalInfo}>
-            <li>Joined: {user.createdAt}</li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z"/></svg>
+              Joined {new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            </li>
             {user.location && (
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2c3.196 0 6 2.618 6 5.602 0 3.093-2.493 7.132-6 12.661-3.507-5.529-6-9.568-6-12.661 0-2.984 2.804-5.602 6-5.602m0-2c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
@@ -210,7 +174,7 @@ export default function User() {
           <ul className={styles.inlineStats}>
             <li>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 15.781c-2.084 0-3.781-1.696-3.781-3.781s1.696-3.781 3.781-3.781c1.172 0 2.306.523 3.136 1.669l1.857-1.218c-1.281-1.826-3.133-2.67-4.993-2.67-3.308 0-6 2.692-6 6s2.691 6 6 6c1.881 0 3.724-.859 4.994-2.67l-1.857-1.218c-.828 1.14-1.959 1.669-3.137 1.669z"/></svg>
-              <b>TODO:</b> Favorite license:
+              {preferredLicense}
             </li>
           </ul>
         </div>
@@ -227,7 +191,7 @@ export default function User() {
       </aside>
 
       <div className={styles.content}>
-        <div className={styles.contentSection}>
+        <div className={`${styles.contentSection} ${styles.contributionsSection}`}>
           <div>
             <div className='mb05'>
               <p>{(user.contributionsCollection.contributionCalendar.totalContributions).toLocaleString()} contributions int the last year</p>
@@ -243,7 +207,13 @@ export default function User() {
               height={130}
             />
           </div>
+        </div>
 
+        <div className={styles.contentSection}>
+          <div>
+            <h4 className="mb05">Languages</h4>
+            <LanguagesChart data={languagesPerRepo} colors={languageColors}/>
+          </div>
         </div>
 
         <div className={styles.contentSection}>
@@ -256,6 +226,11 @@ export default function User() {
                 </li>
               )}
             </ul>
+            {(mostForkedRepos.length === 0) && (
+              <p className='fs-md secondary-text'>
+                <i>No data to show</i>
+              </p>
+            )}
           </div>
           <div>
             <h4 className='mb05'>Most Forked Repos</h4>
@@ -266,34 +241,40 @@ export default function User() {
                 </li>
               )}
             </ul>
+            {(mostForkedRepos.length === 0) && (
+              <p className='fs-md secondary-text'>
+                <i>No data to show</i>
+              </p>
+            )}
           </div>
         </div>
 
         <div className={styles.contentSection}>
           <div>
             <h4 className="mb05">Forks per language</h4>
-            <PieChart data={forksPerLanguage} end="100%" colors={languages}/>
+            <PieChart data={forksPerLanguage} end="100%" colors={languageColors}/>
           </div>
           <div>
             <h4 className="mb05">Stars per language</h4>
-            <PieChart data={starsPerLanguage} colors={languages}/>
+            <PieChart data={starsPerLanguage} colors={languageColors}/>
           </div>
           <div>
             <h4 className="mb05">Commits per language</h4>
-            <PieChart data={commitsPerLanguage} colors={languages}/>
+            <PieChart data={commitsPerLanguage} colors={languageColors}/>
           </div>
         </div>
 
         <div className={styles.contentSection}>
           <div>
-            <h4 className="mb05">Language per Repo</h4>
-            <PieChart data={languagesPerRepo} colors={languages}/>
-          </div>
-          <div>
-            <h4 className="mb05">Commits per Repo (top 10)</h4>
+            <h4 className="mb05">Commits per repo (top 10)</h4>
             <PieChart data={commitsPerRepo}/>
           </div>
+          <div>
+            <h4 className="mb05">Stars per repo (top 10)</h4>
+            <PieChart data={starsPerRepo}/>
+          </div>
         </div>
+
       </div>
 
     </div>
