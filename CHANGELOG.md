@@ -1,16 +1,12 @@
 # Changelog
 
-(feature/user-misc)
-#### Features
-- user
-  - add page title
-  - show user company
-
-(feature/languages-zero)
+## [0.3.0] - 2021-04-09
 #### Features
 - user
   - filter forksPerLanguage, starsPerLanguage and commitsPerLanguage greater than zero
   - filter starred and forked repos greater than zero
+  - add page title
+  - show user company
 #### Bugfixes
 - users: organizations list: printing zero when no organizations
 
@@ -52,6 +48,7 @@ Initial release
   - languages per repo
   - commits per repo (top 10)
 
+[0.3.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.1.0...v0.1.1
