@@ -57,20 +57,20 @@ export default function User() {
   return (
     <div className={styles.container}>
       <aside className={styles.aside}>
-        <div>
-          <h1 className={styles.header}>
-            <div>{user.name}</div>
-            <span>{user.login}</span>
-          </h1>
-
-          <div className={styles.bio}>
+        <div className={`${styles.bio} mb1`}>
+          <div className='mr1'>
             <img src={user.avatarUrl} className={styles.avatar} />
-            <div>
-              {user.bio && <p className='mb05'>{user.bio}</p>}
-              {user.status && <p className={styles.status}>{parse(user.status.emojiHTML)} {user.status.message}</p>}
-            </div>
+          </div>
+          <div>
+            <h1 className={`${styles.header} mb1`}>
+              <div>{user.name}</div>
+              <span>{user.login}</span>
+            </h1>
+            {user.status && <div className={styles.status}>{parse(user.status.emojiHTML)} {user.status.message}</div>}
           </div>
         </div>
+
+        {user.bio && <p className='mb1'>{user.bio}</p>}
 
         <div className="mb1">
           <ul className={styles.inlineStats}>
@@ -114,6 +114,7 @@ export default function User() {
 
           <ul className={styles.inlineStats}>
             <li>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.383 15.941l-3.758 8.059-.967-2.658-2.658.968 3.517-7.541c.678.216 1.137.162 1.849.162.744.513 1.072.844 2.017 1.01zm3.252-1.009c-.738.506-1.049.831-1.994 1.004l3.759 8.064.967-2.658 2.633.968-3.495-7.549c-.686.222-1.146.171-1.87.171zm-2.635-11.932c-2.205 0-4 1.795-4 4s1.795 4 4 4c2.206 0 4-1.794 4-4s-1.794-4-4-4zm6.926 5.278c.051.146.074.296.074.445 0 .449-.222.883-.615 1.156-1.256.87-1.09.651-1.562 2.067-.198.591-.77.99-1.414.99h-.004c-1.549-.005-1.279-.088-2.528.789-.262.183-.569.275-.877.275s-.615-.092-.876-.275c-1.249-.878-.98-.794-2.528-.789h-.004c-.645 0-1.216-.399-1.413-.99-.473-1.417-.311-1.198-1.562-2.067-.395-.274-.617-.708-.617-1.157 0-.148.024-.298.074-.444.483-1.411.484-1.139 0-2.555-.05-.147-.074-.297-.074-.445 0-.45.222-.883.616-1.157 1.251-.868 1.089-.648 1.562-2.067.197-.591.769-.99 1.413-.99h.004c1.545.005 1.271.095 2.528-.79.262-.182.569-.274.877-.274s.615.091.876.274c1.249.878.98.795 2.528.79h.004c.645 0 1.216.399 1.414.99.473 1.416.307 1.197 1.562 2.067.394.274.616.707.616 1.156 0 .148-.023.299-.074.445-.483 1.411-.485 1.139 0 2.556zm-1.926-1.278c0-2.761-2.238-5-5-5-2.761 0-5 2.239-5 5s2.239 5 5 5c2.762 0 5-2.238 5-5z"/></svg>
               <b>{prettyNumber(user.sponsorshipsAsMaintainer.totalCount)}</b> sponsors
             </li>
             <li>
@@ -123,7 +124,7 @@ export default function User() {
         </div>
 
         <div className="mb1">
-          <ul className={styles.personalInfo}>
+          <ul className={styles.inlineStats}>
             <li>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z"/></svg>
               Joined {new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
@@ -170,8 +171,6 @@ export default function User() {
               </svg>
               <b>{prettyNumber(totalForks)}</b>
             </li>
-          </ul>
-          <ul className={styles.inlineStats}>
             <li>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 15.781c-2.084 0-3.781-1.696-3.781-3.781s1.696-3.781 3.781-3.781c1.172 0 2.306.523 3.136 1.669l1.857-1.218c-1.281-1.826-3.133-2.67-4.993-2.67-3.308 0-6 2.692-6 6s2.691 6 6 6c1.881 0 3.724-.859 4.994-2.67l-1.857-1.218c-.828 1.14-1.959 1.669-3.137 1.669z"/></svg>
               {preferredLicense}
@@ -190,7 +189,7 @@ export default function User() {
         </div>
       </aside>
 
-      <div className={styles.content}>
+      <div>
         <div className={`${styles.contentSection} ${styles.contributionsSection}`}>
           <div>
             <div className='mb05'>
