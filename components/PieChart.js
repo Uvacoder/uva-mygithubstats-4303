@@ -1,3 +1,4 @@
+import ColorItem from './ColorItem';
 import { percent } from '../util';
 import { COLORS } from '../util/constants';
 import { prettyNumber } from '../util';
@@ -27,9 +28,17 @@ export default function PieChart({
     };
   });
 
+  if (max === 0) {
+    return (
+      <p className='fs-md secondary-text'>
+        <i>No data to show</i>
+      </p>
+    );
+  }
+
   return (
     <div className={styles.wrapper}>
-      <div>
+      <div className={styles.chartWrapper}>
         <svg className={styles.chart} viewBox="0 0 32 32" width={width}>
           {items.map((item, i) =>
               <circle
@@ -48,11 +57,13 @@ export default function PieChart({
       </div>
       <div className={styles.info}>
         {items.map((item, i) =>
-          <p key={i} className={styles.infoItem}>
-            <span className={styles.infoItemColor} style={{background: item.color}}></span>
-            <span>{item.key}</span>
-            <span>({prettyNumber(item.value)})</span>
-          </p>
+          <ColorItem
+            key={i}
+            color={item.color}
+            text={item.key}
+            secondaryText={prettyNumber(item.value)}
+            rx='3'
+          />
         )}
       </div>
     </div>

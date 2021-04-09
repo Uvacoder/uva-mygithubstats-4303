@@ -62,7 +62,7 @@ svg {
 }
 
 .app-main {
-  padding: 0 0.5rem;
+  padding: 0 1rem;
 }
 
 .app-footer {
@@ -87,9 +87,16 @@ svg {
 }
 
 /* utilities */
+.block { display: block }
+.inline-block { display: inline-block }
+.mx-auto { margin-left: auto; margin-right: auto }
 .mb05 { margin-bottom: 0.5rem }
 .mb1 { margin-bottom: 1rem }
+.mr05 { margin-right: 0.5rem }
+.mr1 { margin-right: 1rem }
 .fw500 { font-weight: 500 }
+.secondary-text { color: var(--color-text-secondary) }
+.fs-md { font-size: 0.875rem }
 
 /* for github emojis */
 .g-emoji { padding-right: 6px}

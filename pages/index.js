@@ -45,6 +45,7 @@ export default function Home() {
         <SearchInput
           placeholder="ex. 'noeldelgado'"
           loading={isSearching}
+          autoFocus={true}
           onFormSubmit={handleFormSubmit}
           onClearForm={() => setSearchResults([])}
         />

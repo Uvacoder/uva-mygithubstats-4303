@@ -60,7 +60,7 @@ export default async function(req, res) {
         repositories {
           totalCount
         }
-        avatarUrl(size: 200)
+        avatarUrl(size: 90)
         followers {
           totalCount
         }
@@ -119,8 +119,11 @@ export default async function(req, res) {
         projects {
           totalCount
         }
-        organizations {
-          totalCount
+        organizations(first: 100) {
+          nodes {
+            name
+            avatarUrl(size: 32)
+          }
         }
         sponsorshipsAsMaintainer(includePrivate:true) {
           totalCount

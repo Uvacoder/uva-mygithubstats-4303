@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.chartWrapper {
+  flex: 1 0 50%;
+}
+
 .chart {
   border-radius: 50%;
   transform: rotate(-90deg);
@@ -10,8 +14,10 @@
 .info {
   font-size: 12px;
   margin-left: 10px;
-
+  flex: 0 1 50%;
+  overflow: hidden;
 }
+
 .infoItem {
   display: flex;
   align-items: center;
