@@ -1,7 +1,10 @@
 # Changelog
 
 (feature/search-input)
+#### Features
 - search: add search "no results" message
+#### Bugfixes
+- user: make sure emojiHTML is not null or undefined, the `parse` fn will fail in that case
 
 ## [0.3.0] - 2021-04-09
 #### Features
