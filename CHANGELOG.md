@@ -1,5 +1,8 @@
 # Changelog
 
+(feature/search-input)
+- search: add search "no results" message
+
 ## [0.3.0] - 2021-04-09
 #### Features
 - user
