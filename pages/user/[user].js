@@ -71,7 +71,11 @@ export default function User() {
               <div>{user.name}</div>
               <span>{user.login}</span>
             </h1>
-            {user.status && <div className={styles.status}>{parse(user.status.emojiHTML)} {user.status.message}</div>}
+            {user.status && (
+              <div className={styles.status}>
+                {parse(user.status.emojiHTML ?? '')} {user.status.message}
+              </div>
+            )}
           </div>
         </div>
 
@@ -284,7 +288,7 @@ export default function User() {
         <div className={styles.contentSection}>
           <div>
             <h4 className="mb05">Forks per language</h4>
-            <PieChart data={forksPerLanguage} end="100%" colors={languageColors}/>
+            <PieChart data={forksPerLanguage} colors={languageColors}/>
           </div>
           <div>
             <h4 className="mb05">Stars per language</h4>
