@@ -2,6 +2,17 @@
 
 [https://gh-profile-stats.vercel.app](https://gh-profile-stats.vercel.app)
 
+## Install
+
+```sh
+npm install
+# or
+yarn install
+
+# copy and fill the env file
+cp .env.example .env
+```
+
 ## Development
 
 Run the development server:
