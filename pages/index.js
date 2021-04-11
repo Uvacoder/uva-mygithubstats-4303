@@ -50,7 +50,7 @@ export default function Home() {
 
       <div className={styles.inputWrapper}>
         <SearchInput
-          placeholder="ex. 'noeldelgado'"
+          placeholder="e.g. 'noeldelgado'"
           loading={isSearching}
           autoFocus={true}
           onFormSubmit={handleFormSubmit}
