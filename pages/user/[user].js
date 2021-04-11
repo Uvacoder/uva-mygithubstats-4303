@@ -288,7 +288,7 @@ export default function User() {
         <div className={styles.contentSection}>
           <div>
             <h4 className="mb05">Forks per language</h4>
-            <PieChart data={forksPerLanguage} end="100%" colors={languageColors}/>
+            <PieChart data={forksPerLanguage} colors={languageColors}/>
           </div>
           <div>
             <h4 className="mb05">Stars per language</h4>
