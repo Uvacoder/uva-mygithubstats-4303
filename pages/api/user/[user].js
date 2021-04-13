@@ -92,7 +92,7 @@ export default async function(req, res) {
             weeks {
               contributionDays {
                 contributionLevel
-                weekday
+                contributionCount
               }
             }
           }
