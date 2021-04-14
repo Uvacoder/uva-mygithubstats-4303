@@ -1,5 +1,9 @@
 # Changelog
 
+(feature/user-misc)
+#### Added
+- user: calendar line chart
+
 ## [0.4.0] - 2021-04-10
 #### Added
 - search: "no results" state
