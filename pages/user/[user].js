@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import parse from 'html-react-parser';
-import Calendar from '../../components/Calendar';
+import CalendarLine from '../../components/CalendarLine';
 import ActivityOverview from '../../components/ActivityOverview';
 import RepoCard from '../../components/RepoCard';
 import LanguagesChart from '../../components/LanguagesChart';
@@ -227,21 +227,12 @@ export default function User() {
       </aside>
 
       <div>
-        <div className={`${styles.contentSection} ${styles.contributionsSection}`}>
+        <div className={styles.contentSection}>
           <div>
-            <div className='mb05'>
+            <div className='mb1'>
               <p>{(user.contributionsCollection.contributionCalendar.totalContributions).toLocaleString()} contributions int the last year</p>
             </div>
-            <Calendar data={user.contributionsCollection.contributionCalendar}/>
-          </div>
-          <div>
-            <ActivityOverview
-              commits={user.contributionsCollection.totalCommitContributions}
-              issues={user.contributionsCollection.totalIssueContributions}
-              pullRequests={user.contributionsCollection.totalPullRequestContributions}
-              reviews={user.contributionsCollection.totalPullRequestReviewContributions}
-              height={130}
-            />
+            <CalendarLine data={user.contributionsCollection.contributionCalendar}/>
           </div>
         </div>
 
@@ -249,6 +240,16 @@ export default function User() {
           <div>
             <h4 className="mb05">Languages</h4>
             <LanguagesChart data={languagesPerRepo} colors={languageColors}/>
+          </div>
+
+          <div style={{flexBasis: 'auto'}}>
+            <ActivityOverview
+              commits={user.contributionsCollection.totalCommitContributions}
+              issues={user.contributionsCollection.totalIssueContributions}
+              pullRequests={user.contributionsCollection.totalPullRequestContributions}
+              reviews={user.contributionsCollection.totalPullRequestReviewContributions}
+              height={130}
+            />
           </div>
         </div>
 

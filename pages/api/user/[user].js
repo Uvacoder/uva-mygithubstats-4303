@@ -89,6 +89,11 @@ export default async function(req, res) {
           totalPullRequestReviewContributions
           contributionCalendar {
             totalContributions
+            months {
+              name
+              year
+              totalWeeks
+            }
             weeks {
               contributionDays {
                 contributionLevel

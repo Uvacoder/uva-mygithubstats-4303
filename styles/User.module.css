@@ -110,10 +110,6 @@
   }
 }
 
-.contributionsSection > * {
-  flex-basis: auto;
-}
-
 .repoCardsList {
   display: flex;
   flex-direction: column;
