@@ -1,4 +1,4 @@
-const { abs, log10, pow } = Math;
+const { abs, min, max, log10, pow } = Math;
 
 const SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"];
 
@@ -21,3 +21,12 @@ export const prettyNumber = (num) => {
     return scaled.toFixed(1) + suffix;
 }
 
+/**
+ * Returns a value between an upper and lower bound
+ * @url https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()
+ * @param {number} n - a minimum value
+ * @param {number} num - a preferred value
+ * @param {number} x - a maximum allowed value
+ * @return {number}
+ */
+export const clamp = (n, num, x) => max(n, min(num, x));

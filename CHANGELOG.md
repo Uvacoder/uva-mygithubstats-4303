@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.0] - 2021-04-13
+#### Added
+- user: calendar line chart
+
 ## [0.4.0] - 2021-04-10
 #### Added
 - search: "no results" state
@@ -54,6 +58,7 @@ Initial release
   - languages per repo
   - commits per repo (top 10)
 
+[0.5.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.2.0...v0.2.1
