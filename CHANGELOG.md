@@ -5,7 +5,9 @@
 - components: polar area chart
 - display version number on footer
 #### Changed
+- user: use PolarAreaChart instead of RepoCard
 - components: pie chart: use path instead of stroke-dasharray. There was a small white line showing on Chrome desktop with the stroke approach.
+- constants: update chart colors
 
 ## [0.5.0] - 2021-04-13
 #### Added
