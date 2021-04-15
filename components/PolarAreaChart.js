@@ -1,5 +1,5 @@
 import ColorItem from './ColorItem';
-import { prettyNumber } from '../util';
+import { prettyNumber, clamp } from '../util';
 import { COLORS } from '../util/constants';
 
 function getCoordinatesForPercent(percent, size, radii) {
@@ -32,7 +32,7 @@ export default function PolarAreaChart({
   let acc = 0;
 
   const items = Object.entries(data).map(([key, value], i) => {
-    const percent = value * 1 / total;
+    const percent = clamp(.1, value * 1 / total, 1);
     const radius = percent * radii / maxPercentage;
     const start = getCoordinatesForPercent(acc, size, radius);
     const end = getCoordinatesForPercent(acc += 1 / values.length, size, radius);
