@@ -23,6 +23,14 @@ export default function PolarAreaChart({
   const percentages = values.map(p => p * 1 / total);
   const maxPercentage = Math.max(...percentages);
 
+  if (total === 0) {
+    return (
+      <p className='fs-md secondary-text'>
+        <i>No data to show</i>
+      </p>
+    );
+  }
+
   let acc = 0;
 
   const items = Object.entries(data).map(([key, value], i) => {
