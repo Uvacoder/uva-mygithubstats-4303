@@ -45,6 +45,7 @@ export default function PolarAreaChart({
         M ${size/2} ${size/2}
         L ${start.x} ${start.y}
         A ${radius} ${radius} 0 ${f} 1 ${end.x} ${end.y}
+        Z
       `,
       color: colors?.[key] ?? COLORS[i]
     }
