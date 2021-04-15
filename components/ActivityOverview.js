@@ -81,7 +81,7 @@ export default function ActivityOverview({
 
       <style jsx>{`
         line {
-          stroke-width: 2;
+          stroke-width: 1.5;
           stroke: var(--color-calendar-graph-Q4);
           stroke-linecap: round;
         }
@@ -91,11 +91,12 @@ export default function ActivityOverview({
         }
         polygon {
           stroke-width: 6;
-          stroke: var(--color-calendar-graph-Q2);
-          fill: var(--color-calendar-graph-Q2);
+          stroke: var(--color-calendar-graph-Q1);
+          fill: var(--color-calendar-graph-Q1);
+          stroke-linejoin: round;
         }
         ellipse {
-          stroke-width: 2;
+          stroke-width: 1.5;
           stroke: var(--color-calendar-graph-Q4);
           fill: var(--color-background);
         }
