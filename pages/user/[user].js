@@ -239,7 +239,7 @@ export default function User() {
         <div className={styles.contentSection}>
           <div>
             <h4 className="mb05">Languages</h4>
-            <LanguagesChart data={languagesPerRepo} colors={languageColors}/>
+            <LanguagesChart data={languagesPerRepo} colors={languageColors} height={5} />
           </div>
 
           <div style={{flexBasis: 'auto'}}>
