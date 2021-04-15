@@ -1,5 +1,9 @@
 # Changelog
 
+(feature/polar-area-chart)
+#### Added
+- components: polar area chart
+
 ## [0.5.0] - 2021-04-13
 #### Added
 - user: calendar line chart
