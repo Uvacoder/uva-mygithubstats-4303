@@ -2,8 +2,6 @@ import ColorItem from './ColorItem';
 import { prettyNumber } from '../util';
 import { COLORS } from '../util/constants';
 
-const { log } = console;
-
 function getCoordinatesForPercent(percent, size, radii) {
   return {
     x: size / 2 - (Math.cos(percent * (2 * Math.PI)) * radii),
@@ -35,11 +33,9 @@ export default function PolarAreaChart({
 
   const items = Object.entries(data).map(([key, value], i) => {
     const percent = value * 1 / total;
-    const r = percent * radii / maxPercentage;
-
-    const start = getCoordinatesForPercent(acc, size, r);
-    acc += 1 / values.length;
-    const end = getCoordinatesForPercent(acc, size, r);
+    const radius = percent * radii / maxPercentage;
+    const start = getCoordinatesForPercent(acc, size, radius);
+    const end = getCoordinatesForPercent(acc += 1 / values.length, size, radius);
     const f = 1 / values.length > .5 ? 1 : 0;
 
     return {
@@ -48,7 +44,7 @@ export default function PolarAreaChart({
       d: `
         M ${size/2} ${size/2}
         L ${start.x} ${start.y}
-        A ${r} ${r} 0 ${f} 1 ${end.x} ${end.y}
+        A ${radius} ${radius} 0 ${f} 1 ${end.x} ${end.y}
       `,
       color: colors?.[key] ?? COLORS[i]
     }
@@ -57,24 +53,24 @@ export default function PolarAreaChart({
   return (
     <div className='root'>
       <div className="chartWrapper">
-        <svg
-          viewBox={`0 0 ${size} ${size}`}
-        >
-          {new Array(5).fill(0).map((_, i, arr) => {
-            return (
-              <circle
-                key={i}
-                fill='none'
-                stroke='var(--gps-border-color)'
-                opacity='.5'
-                r={radii / arr.length * (i+1)}
-                cx={size/2}
-                cy={size/2}
-              />
-            )
-          })}
-          {items.map((p, i) => (
-            <path key={p.key} d={p.d} fill={p.color}/>
+        <svg viewBox={`0 0 ${size} ${size}`}>
+          {new Array(5).fill(0).map((_, i, arr) => (
+            <circle
+              key={i}
+              fill='none'
+              stroke='var(--gps-border-color)'
+              opacity='.5'
+              r={radii / arr.length * (i+1)}
+              cx={size/2}
+              cy={size/2}
+            />
+          ))}
+          {items.map((item, i) => (
+            <path
+              key={item.key}
+              d={item.d}
+              fill={item.color}
+            />
           ))}
         </svg>
       </div>
