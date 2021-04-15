@@ -3,6 +3,8 @@
 (feature/polar-area-chart)
 #### Added
 - components: polar area chart
+#### Changed
+- components: pie chart: use path instead of stroke-dasharray. There was a small white line showing on Chrome desktop with the stroke approach.
 
 ## [0.5.0] - 2021-04-13
 #### Added
