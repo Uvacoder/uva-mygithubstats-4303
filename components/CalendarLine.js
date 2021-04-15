@@ -6,7 +6,7 @@ export default function CalendarLine({
   height = 180
 }) {
   const dotRadius = 3;
-  const lineWidth = 2;
+  const lineWidth = 1.5;
   const xSpace = 36;
   const ySpace = 14;
   const graphWidth = width - xSpace;
@@ -47,7 +47,7 @@ export default function CalendarLine({
       data-total={a}
       strokeWidth={lineWidth}
       stroke={'var(--color-calendar-graph-Q4)'}
-      fill='white'
+      fill='var(--color-background)'
     />
   });
 
@@ -69,11 +69,11 @@ export default function CalendarLine({
           );
           return (
             <g key={i}>
-              <line x1={0} x2={graphWidth}
+              <line
+                x1={0}
+                x2={graphWidth}
                 y1={y}
                 y2={y}
-                stroke={'var(--gps-border-color)'}
-                strokeWidth={1}
               />
               <text
                 x={graphWidth + 4}
@@ -118,9 +118,15 @@ export default function CalendarLine({
           min-height: ${height}px;
           max-width: ${width}px;
         }
+
         text {
           font-size: 10px;
           fill: var(--color-text-secondary);
+        }
+
+        line {
+          stroke: var(--gps-border-color);
+          stroke-width: 1;
         }
 
         polyline {

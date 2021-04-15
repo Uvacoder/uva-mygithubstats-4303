@@ -4,9 +4,9 @@ import useSWR from 'swr';
 import parse from 'html-react-parser';
 import CalendarLine from '../../components/CalendarLine';
 import ActivityOverview from '../../components/ActivityOverview';
-import RepoCard from '../../components/RepoCard';
 import LanguagesChart from '../../components/LanguagesChart';
 import PieChart from '../../components/PieChart';
+import PolarAreaChart from '../../components/PolarAreaChart';
 import { prettyNumber } from '../../util';
 import * as userUtil from '../../util/pages/user';
 import styles from '../../styles/User.module.css'
@@ -239,7 +239,7 @@ export default function User() {
         <div className={styles.contentSection}>
           <div>
             <h4 className="mb05">Languages</h4>
-            <LanguagesChart data={languagesPerRepo} colors={languageColors}/>
+            <LanguagesChart data={languagesPerRepo} colors={languageColors} height={5} />
           </div>
 
           <div style={{flexBasis: 'auto'}}>
@@ -255,59 +255,47 @@ export default function User() {
 
         <div className={styles.contentSection}>
           <div>
-            <h4 className='mb05'>Most Starred Repos</h4>
-            <ul className={styles.repoCardsList}>
-              {mostStarredRepos.map((repo, i) =>
-                <li key={i}>
-                  <RepoCard data={repo} hideForks />
-                </li>
-              )}
-            </ul>
-            {(mostStarredRepos.length === 0) && (
-              <p className='fs-md secondary-text'>
-                <i>No data to show</i>
-              </p>
-            )}
+            <h4 className='mb1'>Most Starred Repos</h4>
+            <PolarAreaChart data={
+              mostStarredRepos.reduce((acc, c) => {
+                acc[c.node.name] = c.node.stargazerCount
+                return acc;
+              }, {})
+            } size='200' />
           </div>
           <div>
-            <h4 className='mb05'>Most Forked Repos</h4>
-            <ul className={styles.repoCardsList}>
-              {mostForkedRepos.map((repo, i) =>
-                <li key={i}>
-                  <RepoCard data={repo} hideStars />
-                </li>
-              )}
-            </ul>
-            {(mostForkedRepos.length === 0) && (
-              <p className='fs-md secondary-text'>
-                <i>No data to show</i>
-              </p>
-            )}
+            <h4 className='mb1'>Most Forked Repos</h4>
+            <PolarAreaChart data={
+              mostForkedRepos.reduce((acc, c) => {
+                acc[c.node.name] = c.node.forkCount
+                return acc;
+              }, {})
+            } size='200' />
           </div>
         </div>
 
         <div className={styles.contentSection}>
           <div>
-            <h4 className="mb05">Forks per language</h4>
+            <h4 className="mb1">Forks per language</h4>
             <PieChart data={forksPerLanguage} colors={languageColors}/>
           </div>
           <div>
-            <h4 className="mb05">Stars per language</h4>
+            <h4 className="mb1">Stars per language</h4>
             <PieChart data={starsPerLanguage} colors={languageColors}/>
           </div>
           <div>
-            <h4 className="mb05">Commits per language</h4>
+            <h4 className="mb1">Commits per language</h4>
             <PieChart data={commitsPerLanguage} colors={languageColors}/>
           </div>
         </div>
 
         <div className={styles.contentSection}>
           <div>
-            <h4 className="mb05">Commits per repo (top 10)</h4>
+            <h4 className="mb1">Commits per repo (top 10)</h4>
             <PieChart data={commitsPerRepo}/>
           </div>
           <div>
-            <h4 className="mb05">Stars per repo (top 10)</h4>
+            <h4 className="mb1">Stars per repo (top 10)</h4>
             <PieChart data={starsPerRepo}/>
           </div>
         </div>
