@@ -12,10 +12,10 @@ function getCoordinatesForPercent(percent, size, radii) {
 export default function PolarAreaChart({
   data,
   colors,
+  size = 100,
+  radii = size / 2,
   width = '100%'
 }) {
-  const size = 100;
-  const radii = 50;
   const values = Object.values(data);
   const total = values.reduce((acc, current) => acc + current, 0);
   const percentages = values.map(p => p * 1 / total);
@@ -58,9 +58,6 @@ export default function PolarAreaChart({
           {new Array(5).fill(0).map((_, i, arr) => (
             <circle
               key={i}
-              fill='none'
-              stroke='var(--gps-border-color)'
-              opacity='.5'
               r={radii / arr.length * (i+1)}
               cx={size/2}
               cy={size/2}
@@ -95,6 +92,15 @@ export default function PolarAreaChart({
         }
         svg {
           transform: rotate(90deg);
+        }
+        circle {
+          fill: none;
+          stroke: var(--gps-border-color);
+        }
+        path {
+          stroke: var(--color-background);
+          stroke-width: 1.5;
+          stroke-linejoin: round;
         }
         .info {
           font-size: 12px;
