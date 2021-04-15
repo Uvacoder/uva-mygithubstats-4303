@@ -52,6 +52,19 @@ export default function PolarAreaChart({
         <svg
           viewBox={`0 0 ${size} ${size}`}
         >
+          {new Array(5).fill(0).map((_, i, arr) => {
+            return (
+              <circle
+                key={i}
+                fill='none'
+                stroke='var(--gps-border-color)'
+                opacity='.5'
+                r={radii / arr.length * (i+1)}
+                cx={size/2}
+                cy={size/2}
+              />
+            )
+          })}
           {items.map((p, i) => (
             <path key={p.key} d={p.d} fill={p.color}/>
           ))}
