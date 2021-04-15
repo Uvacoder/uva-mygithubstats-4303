@@ -5,6 +5,7 @@ import { COLORS } from '../util/constants';
 export default function LanguagesChart({
   data,
   colors,
+  height = 10
 }) {
   const max = Object.values(data).reduce((acc, current) => acc + current, 0)
   let xAccumulator = 0;
@@ -31,14 +32,14 @@ export default function LanguagesChart({
         viewBox="0 0 100 10"
         preserveAspectRatio='xMinYMid slice'
         width={'100%'}
-        height={10}
+        height={height}
         className='block mb05'
       >
         {items.map((item, i) => {
           return <rect key={i}
             x={item.x}
             width={item.width}
-            height={10}
+            height='100%'
             fill={item.color}
           />
         })}
