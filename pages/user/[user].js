@@ -66,6 +66,7 @@ export default function User() {
       <Head>
         <title>GitHub Profile Stats - {user.login} ({user.name})</title>
         <link rel='preconnect' href='https://avatars.githubusercontent.com'/>
+        <meta name='description' content={`${user.login} has ${repositories.length} repositories available.`}/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

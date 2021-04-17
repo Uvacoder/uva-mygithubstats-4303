@@ -41,6 +41,7 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>GitHub Profile Stats</title>
+        <meta name='description' content='gh-profile-stats displays different statistics for GitHub users'/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

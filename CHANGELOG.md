@@ -6,6 +6,7 @@
 - user: preconnect to origin avatars.githubusercontent.com
 - conf: `jscofig.json` and `next.config.js`
 - user: alt attribute to avatar image
+- meta descriptions
 #### Changed
 - use absolute imports and module path aliases
 - user: serve images at double size to maximize image clarity
