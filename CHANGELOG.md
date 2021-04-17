@@ -4,6 +4,7 @@
 #### Added
 - components:{PieChart,PolarAreaChart}: prettify numbers on tooltips
 - user: preconnect to origin avatars.githubusercontent.com
+- conf: `jscofig.json` and `next.config.js`
 #### Changed
 - use absolute imports and module path aliases
 
