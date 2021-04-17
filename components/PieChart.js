@@ -38,6 +38,7 @@ export default function PieChart({
     return {
       key,
       value,
+      percent,
       d: `
         M ${size/2} ${size/2}
         L ${start.x} ${start.y}
@@ -52,18 +53,33 @@ export default function PieChart({
       <div className="chartWrapper">
         <svg viewBox={`0 0 ${size} ${size}`}>
           {items.length === 1 ? (
-            <circle
-              fill={items[0].color}
-              r={size/2}
-              cx={size/2}
-              cy={size/2}
-            />
+            items.map((item, i) => (
+              <circle
+                key={i}
+                fill={item.color}
+                r={size/2}
+                cx={size/2}
+                cy={size/2}
+                data-tip={`
+                  ${item.key}: ${item.value}
+                  <br/>
+                  <strong>${Math.round(item.percent * 100)}%</strong>
+                `}
+                data-html={true}
+              />
+            ))
           ) : (
             items.map((item, i) => (
               <path
                 key={i}
                 d={item.d}
                 fill={item.color}
+                data-tip={`
+                  ${item.key}: ${item.value}
+                  <br/>
+                  <strong>${Math.round(item.percent * 100)}%</strong>
+                `}
+                data-html={true}
               />
             ))
           )}

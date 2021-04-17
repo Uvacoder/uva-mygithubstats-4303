@@ -5,6 +5,7 @@
 - user: organizations: tooltip to show org name
 - user: CalendarLine (chart): tooltip to show grouped contributions per week
 - components: PolarAreaChart: tooltip to show percentage
+- components: PieChart: tooltip to show per percentage
 
 (feature/area-chart-update)
 #### Fixed
