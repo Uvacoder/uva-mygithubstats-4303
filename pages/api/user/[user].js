@@ -98,6 +98,7 @@ export default async function(req, res) {
               contributionDays {
                 contributionLevel
                 contributionCount
+                date
               }
             }
           }
