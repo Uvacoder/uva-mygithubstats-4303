@@ -1,5 +1,9 @@
 # Changelog
 
+(feature/tooltips)
+#### Added
+- user: organizations: tooltip
+
 (feature/area-chart-update)
 #### Fixed
 - components: PolarAreaChart: handle case for 1 entry

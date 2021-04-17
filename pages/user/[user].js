@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import parse from 'html-react-parser';
+import ReactTooltip from 'react-tooltip';
 import CalendarLine from '../../components/CalendarLine';
 import ActivityOverview from '../../components/ActivityOverview';
 import LanguagesChart from '../../components/LanguagesChart';
@@ -218,6 +219,7 @@ export default function User() {
                     className={styles.orgAvatar}
                     width={32}
                     height={32}
+                    data-tip={org.name}
                   />
                 </li>
               )}
@@ -302,6 +304,7 @@ export default function User() {
 
       </div>
 
+      <ReactTooltip effect='solid' />
     </div>
   );
 }
