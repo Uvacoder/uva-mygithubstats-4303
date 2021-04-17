@@ -10,6 +10,7 @@
 #### Changed
 - use absolute imports and module path aliases
 - user: serve images at double size to maximize image clarity
+- user: reorder stars/forks per language, show stars first
 
 ## [0.7.0] - 2021-04-17
 #### Added

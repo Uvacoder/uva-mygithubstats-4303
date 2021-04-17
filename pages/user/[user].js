@@ -305,12 +305,12 @@ export default function User() {
 
         <div className={styles.contentSection}>
           <div>
-            <h4 className="mb1">Forks per language</h4>
-            <PieChart data={forksPerLanguage} colors={languageColors}/>
-          </div>
-          <div>
             <h4 className="mb1">Stars per language</h4>
             <PieChart data={starsPerLanguage} colors={languageColors}/>
+          </div>
+          <div>
+            <h4 className="mb1">Forks per language</h4>
+            <PieChart data={forksPerLanguage} colors={languageColors}/>
           </div>
           <div>
             <h4 className="mb1">Commits per language</h4>
