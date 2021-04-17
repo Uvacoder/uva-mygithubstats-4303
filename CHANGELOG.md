@@ -2,6 +2,7 @@
 
 ## [0.7.0] - 2021-04-17
 #### Added
+- dependencies: add react-tooltip
 - user
   - organizations: tooltip to show org name
   - CalendarLine (chart): tooltip to show grouped contributions per week
