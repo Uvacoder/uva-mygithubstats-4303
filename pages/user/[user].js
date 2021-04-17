@@ -68,9 +68,21 @@ export default function User() {
             <img src={user.avatarUrl} className={styles.avatar} />
           </div>
           <div>
-            <h1 className={`${styles.header} mb1`}>
+            <h1 className={`${styles.header} mb05`}>
               <div>{user.name}</div>
-              <span>{user.login}</span>
+              <a
+                href={`https://github.com/${user.login}`}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='primary-text'
+                title='View profile on GitHub'
+              >
+                <span>{user.login}</span>
+                {' '}
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
+                  <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/>
+                </svg>
+              </a>
             </h1>
             {user.status && (
               <div className={styles.status}>
