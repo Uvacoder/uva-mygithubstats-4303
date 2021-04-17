@@ -2,7 +2,8 @@
 
 (feature/tooltips)
 #### Added
-- user: organizations: tooltip
+- user: organizations: tooltip to show org name
+- user: CalendarLine (chart): tooltip to show grouped contributions per week
 
 (feature/area-chart-update)
 #### Fixed

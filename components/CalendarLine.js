@@ -11,31 +11,34 @@ export default function CalendarLine({
   const ySpace = 14;
   const graphWidth = width - xSpace;
   const graphHeight = height - ySpace;
-
-  const totalCountsPerWeek = weeks.map(week =>
-    week.contributionDays.reduce((acc, current) =>
-      acc + current.contributionCount
-    , 0)
-  );
+  const contributionsPerWeek = weeks.map(week => {
+    return week.contributionDays.reduce((acc, current) => {
+      acc.total += current.contributionCount;
+      acc.dates.push(current.date);
+      return acc;
+    }, { total: 0, dates: [] });
+  });
   const monthsLabel = months.map(m => {
     return [
       m.name,
       new Array(m.totalWeeks - 1).fill()
     ].flat();
   }).flat();
-
   const totalWeeks = weeks.length;
-  const max = Math.max(...totalCountsPerWeek);
+  const max = Math.max(...contributionsPerWeek.map(w => w.total));
 
   let polygonPoints = `${-lineWidth},${graphHeight - dotRadius - lineWidth / 2} `;
 
-  const printDots = totalCountsPerWeek.map((a, i) => {
+  const printDots = contributionsPerWeek.map((week, i) => {
     const x = graphWidth / totalWeeks * i;
     const y = clamp(
       dotRadius + lineWidth / 2,
-      graphHeight - a * height / max || graphHeight,
+      graphHeight - week.total * height / max || graphHeight,
       graphHeight - dotRadius - lineWidth / 2
     );
+    const { 0: first, length, [length-1]: last } = week.dates;
+    const firstDate = new Date(first).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const lastDate = new Date(last).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
     polygonPoints += `${x},${y} `;
 
@@ -44,18 +47,23 @@ export default function CalendarLine({
       r={dotRadius}
       cx={x}
       cy={y}
-      data-total={a}
+      data-total={week.total}
       strokeWidth={lineWidth}
       stroke={'var(--color-calendar-graph-Q4)'}
       fill='var(--color-background)'
+      data-tip={`
+        <strong>${week.total} contributions</strong> on<br/>
+        ${firstDate} — ${lastDate}
+      `}
+      data-html={true}
     />
   });
 
   polygonPoints += `${graphWidth},${graphHeight - dotRadius - lineWidth / 2}`;
 
   return (
-  <>
-    <svg
+    <>
+      <svg
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio='xMaxYMax slice'
         width={width}
@@ -107,7 +115,6 @@ export default function CalendarLine({
               {monthsLabel[i]}
           </text>
         )})}
-
       </svg>
 
       <style jsx>{`
