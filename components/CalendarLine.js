@@ -56,6 +56,7 @@ export default function CalendarLine({
         ${firstDate} — ${lastDate}
       `}
       data-html={true}
+      data-effect='solid'
     />
   });
 

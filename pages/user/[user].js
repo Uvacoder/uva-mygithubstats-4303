@@ -220,6 +220,7 @@ export default function User() {
                     width={32}
                     height={32}
                     data-tip={org.name}
+                    data-effect='solid'
                   />
                 </li>
               )}
@@ -304,7 +305,7 @@ export default function User() {
 
       </div>
 
-      <ReactTooltip effect='solid' />
+      <ReactTooltip />
     </div>
   );
 }
