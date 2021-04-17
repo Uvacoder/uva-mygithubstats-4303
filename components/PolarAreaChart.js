@@ -41,6 +41,7 @@ export default function PolarAreaChart({
     return {
       key,
       value,
+      percent,
       d: `
         M ${size/2} ${size/2}
         L ${start.x} ${start.y}
@@ -66,18 +67,33 @@ export default function PolarAreaChart({
             />
           ))}
           {items.length === 1 ? (
-            <circle
-              fill={items[0].color}
-              r={size/2}
-              cx={size/2}
-              cy={size/2}
-            />
+            items.map((item, i) => (
+              <circle
+                key={item.key}
+                fill={item.color}
+                r={size/2}
+                cx={size/2}
+                cy={size/2}
+                data-tip={`
+                  ${item.key}: ${item.value}
+                  <br/>
+                  <strong>${Math.round(item.percent * 100)}%</strong>
+                `}
+                data-html={true}
+              />
+            ))
           ) : (
             items.map((item, i) => (
               <path
                 key={item.key}
                 d={item.d}
                 fill={item.color}
+                data-tip={`
+                  ${item.key}: ${item.value}
+                  <br/>
+                  <strong>${Math.round(item.percent * 100)}%</strong>
+                `}
+                data-html={true}
               />
             ))
           )}
