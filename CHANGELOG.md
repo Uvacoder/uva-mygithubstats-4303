@@ -3,6 +3,7 @@
 (feature/misc)
 #### Added
 - components:{PieChart,PolarAreaChart}: prettify numbers on tooltips
+- user: preconnect to origin avatars.githubusercontent.com
 #### Changed
 - use absolute imports and module path aliases
 

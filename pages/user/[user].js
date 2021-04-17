@@ -32,6 +32,11 @@ export default function User() {
   if (!data) {
     return (
       <div className={styles.loadingScreen}>
+        <Head>
+          <title>GitHub Profile Stats - {username}</title>
+          <link rel='preconnect' href='https://avatars.githubusercontent.com'/>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <p>
           Loading {username}’s profile stats
         </p>
@@ -60,8 +65,10 @@ export default function User() {
     <div className={styles.container}>
       <Head>
         <title>GitHub Profile Stats - {user.login} ({user.name})</title>
+        <link rel='preconnect' href='https://avatars.githubusercontent.com'/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <aside className={styles.aside}>
         <div className={`${styles.bio} mb1`}>
           <div className='mr1'>
