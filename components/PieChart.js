@@ -61,7 +61,7 @@ export default function PieChart({
                 cx={size/2}
                 cy={size/2}
                 data-tip={`
-                  ${item.key}: ${item.value}
+                  ${item.key}: ${prettyNumber(item.value)}
                   <br/>
                   <strong>${Math.round(item.percent * 100)}%</strong>
                 `}
@@ -75,7 +75,7 @@ export default function PieChart({
                 d={item.d}
                 fill={item.color}
                 data-tip={`
-                  ${item.key}: ${item.value}
+                  ${item.key}: ${prettyNumber(item.value)}
                   <br/>
                   <strong>${Math.round(item.percent * 100)}%</strong>
                 `}

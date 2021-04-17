@@ -1,6 +1,8 @@
 # Changelog
 
 (feature/misc)
+#### Added
+- components:{PieChart,PolarAreaChart}: prettify numbers on tooltips
 #### Changed
 - use absolute imports and module path aliases
 
