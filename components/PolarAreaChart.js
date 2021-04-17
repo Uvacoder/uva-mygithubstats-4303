@@ -61,15 +61,26 @@ export default function PolarAreaChart({
               r={radii / arr.length * (i+1)}
               cx={size/2}
               cy={size/2}
+              fill='none'
+              stroke='var(--gps-border-color)'
             />
           ))}
-          {items.map((item, i) => (
-            <path
-              key={item.key}
-              d={item.d}
-              fill={item.color}
+          {items.length === 1 ? (
+            <circle
+              fill={items[0].color}
+              r={size/2}
+              cx={size/2}
+              cy={size/2}
             />
-          ))}
+          ) : (
+            items.map((item, i) => (
+              <path
+                key={item.key}
+                d={item.d}
+                fill={item.color}
+              />
+            ))
+          )}
         </svg>
       </div>
       <div className='info'>
@@ -92,10 +103,6 @@ export default function PolarAreaChart({
         }
         svg {
           transform: rotate(90deg);
-        }
-        circle {
-          fill: none;
-          stroke: var(--gps-border-color);
         }
         path {
           stroke: var(--color-background);

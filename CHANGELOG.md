@@ -1,5 +1,9 @@
 # Changelog
 
+(feature/area-chart-update)
+#### Fixed
+- components: PolarAreaChart: handle case for 1 entry
+
 ## [0.6.0] - 2021-04-15
 #### Added
 - components: polar area chart
