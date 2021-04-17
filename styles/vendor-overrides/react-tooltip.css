@@ -1,0 +1,16 @@
+div.__react_component_tooltip {
+  font-size: 12px;
+  padding: .5em .75em;
+  text-align: center;
+  color: gray(80);
+  transition: none;
+
+  & > strong {
+    color: gray(94);
+  }
+}
+
+
+[data-tip] {
+  cursor: pointer;
+}

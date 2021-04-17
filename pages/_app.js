@@ -2,6 +2,7 @@ import { version } from '../package.json';
 import RateLimit from '../components/RateLimit';
 
 import '../styles/globals.css'
+import '../styles/vendor-overrides/react-tooltip.css'
 
 function MyApp({ Component, pageProps }) {
   return (
