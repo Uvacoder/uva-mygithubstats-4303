@@ -1,7 +1,7 @@
-import ColorItem from './ColorItem';
-import { percent } from '../util';
-import { COLORS } from '../util/constants';
-import { prettyNumber } from '../util';
+import ColorItem from '~/components/ColorItem';
+import { percent } from '~/util';
+import { COLORS } from '~/util/constants';
+import { prettyNumber } from '~/util';
 
 export default function PieChart({
   data,

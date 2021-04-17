@@ -1,4 +1,4 @@
-import { fetchGQL } from '../../util/api';
+import { fetchGQL } from '~/util/api';
 
 export default async function(req, res) {
   const q = req.query.q;

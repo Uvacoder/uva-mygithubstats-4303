@@ -1,5 +1,9 @@
 # Changelog
 
+(feature/misc)
+#### Changed
+- use absolute imports and module path aliases
+
 ## [0.7.0] - 2021-04-17
 #### Added
 - dependencies: add react-tooltip

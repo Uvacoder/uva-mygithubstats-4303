@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import styles from '../styles/components/SearchInput.module.css'
+import styles from '~/styles/components/SearchInput.module.css'
 
 export default function SearchInput({
   loading = false,

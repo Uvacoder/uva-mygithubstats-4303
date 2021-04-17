@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import parse from 'html-react-parser';
 import ReactTooltip from 'react-tooltip';
-import CalendarLine from '../../components/CalendarLine';
-import ActivityOverview from '../../components/ActivityOverview';
-import LanguagesChart from '../../components/LanguagesChart';
-import PieChart from '../../components/PieChart';
-import PolarAreaChart from '../../components/PolarAreaChart';
-import { prettyNumber } from '../../util';
-import * as userUtil from '../../util/pages/user';
-import styles from '../../styles/User.module.css'
+import CalendarLine from '~/components/CalendarLine';
+import ActivityOverview from '~/components/ActivityOverview';
+import LanguagesChart from '~/components/LanguagesChart';
+import PieChart from '~/components/PieChart';
+import PolarAreaChart from '~/components/PolarAreaChart';
+import { prettyNumber } from '~/util';
+import * as userUtil from '~/util/pages/user';
+import styles from '~/styles/User.module.css'
 
 export default function User() {
   const router = useRouter();

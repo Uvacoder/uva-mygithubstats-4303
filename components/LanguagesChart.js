@@ -1,6 +1,6 @@
-import ColorItem from './ColorItem';
-import { percent } from '../util';
-import { COLORS } from '../util/constants';
+import ColorItem from '~/components/ColorItem';
+import { percent } from '~/util';
+import { COLORS } from '~/util/constants';
 
 export default function LanguagesChart({
   data,

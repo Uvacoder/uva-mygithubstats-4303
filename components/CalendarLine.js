@@ -1,4 +1,4 @@
-import { clamp } from '../util';
+import { clamp } from '~/util';
 
 export default function CalendarLine({
   data: { weeks, months },

@@ -1,4 +1,4 @@
-import { percent } from '../util';
+import { percent } from '~/util';
 
 export default function ActivityOverview({
   commits,

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from '../styles/components/UserLinkCard.module.css'
+import styles from '~/styles/components/UserLinkCard.module.css'
 
 export default function UserCard({ data: user }) {
   return (

@@ -1,7 +1,7 @@
 import parse from 'html-react-parser';
-import ColorItem from './ColorItem';
-import { prettyNumber } from '../util';
-import styles from '../styles/components/RepoCard.module.css'
+import ColorItem from '~/components/ColorItem';
+import { prettyNumber } from '~/util';
+import styles from '~/styles/components/RepoCard.module.css'
 
 export default function RepoCard({
   data: { node },

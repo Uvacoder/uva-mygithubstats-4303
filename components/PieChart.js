@@ -1,6 +1,6 @@
-import ColorItem from './ColorItem';
-import { prettyNumber } from '../util';
-import { COLORS } from '../util/constants';
+import ColorItem from '~/components/ColorItem';
+import { prettyNumber } from '~/util';
+import { COLORS } from '~/util/constants';
 
 function getCoordinatesForPercent(percent, size, radii) {
   return {

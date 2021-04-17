@@ -1,4 +1,4 @@
-import { fetchGQL } from '../../../util/api';
+import { fetchGQL } from '~/util/api';
 
 async function getRepositoriesByUser(login, limit = 30, after = null) {
   if (after) after = `\"${after}\"`;

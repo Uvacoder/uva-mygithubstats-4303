@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Head from 'next/head'
-import SearchInput from '../components/SearchInput';
-import UserLinkCard from '../components/UserLinkCard';
-import styles from '../styles/Home.module.css'
+import SearchInput from '~/components/SearchInput';
+import UserLinkCard from '~/components/UserLinkCard';
+import styles from '~/styles/Home.module.css'
 
 const { log, error } = console;
 

@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import styles from '../styles/components/RateLimit.module.css';
+import styles from '~/styles/components/RateLimit.module.css';
 
 export default function RateLimit() {
   const { data: rateLimit, error } = useSWR('/api/rate-limit', {

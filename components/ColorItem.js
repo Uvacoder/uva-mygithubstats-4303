@@ -1,4 +1,4 @@
-import { COLORS } from '../util/constants';
+import { COLORS } from '~/util/constants';
 
 export default function ColorItem({
   color,
