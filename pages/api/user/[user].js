@@ -57,7 +57,7 @@ export default async function(req, res) {
       user(login: "${username}") {
         login
         name
-        avatarUrl(size: 90)
+        avatarUrl(size: 180)
         followers {
           totalCount
         }
@@ -123,7 +123,7 @@ export default async function(req, res) {
         organizations(first: 100) {
           nodes {
             name
-            avatarUrl(size: 32)
+            avatarUrl(size: 64)
           }
         }
         sponsorshipsAsMaintainer(includePrivate:true) {

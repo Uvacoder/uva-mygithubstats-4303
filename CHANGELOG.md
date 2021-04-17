@@ -5,8 +5,10 @@
 - components:{PieChart,PolarAreaChart}: prettify numbers on tooltips
 - user: preconnect to origin avatars.githubusercontent.com
 - conf: `jscofig.json` and `next.config.js`
+- user: alt attribute to avatar image
 #### Changed
 - use absolute imports and module path aliases
+- user: serve images at double size to maximize image clarity
 
 ## [0.7.0] - 2021-04-17
 #### Added

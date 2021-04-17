@@ -72,7 +72,13 @@ export default function User() {
       <aside className={styles.aside}>
         <div className={`${styles.bio} mb1`}>
           <div className='mr1'>
-            <img src={user.avatarUrl} className={styles.avatar} />
+            <img
+              src={user.avatarUrl}
+              className={styles.avatar}
+              alt='Avatar'
+              width='90'
+              height='90'
+            />
           </div>
           <div>
             <h1 className={`${styles.header} mb05`}>
