@@ -1,13 +1,14 @@
 # Changelog
 
-(feature/tooltips)
+## [0.7.0] - 2021-04-17
 #### Added
-- user: organizations: tooltip to show org name
-- user: CalendarLine (chart): tooltip to show grouped contributions per week
-- components: PolarAreaChart: tooltip to show percentage
-- components: PieChart: tooltip to show per percentage
-
-(feature/area-chart-update)
+- dependencies: add react-tooltip
+- user
+  - organizations: tooltip to show org name
+  - CalendarLine (chart): tooltip to show grouped contributions per week
+- components
+  - PolarAreaChart: tooltip to show percentage
+  - PieChart: tooltip to show per percentage
 #### Fixed
 - components: PolarAreaChart: handle case for 1 entry
 
@@ -78,6 +79,7 @@ Initial release
   - languages per repo
   - commits per repo (top 10)
 
+[0.7.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.3.0...v0.4.0
