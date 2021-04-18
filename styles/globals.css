@@ -54,7 +54,7 @@ button {
   font-size: inherit;
 }
 
-svg {
+svg:not([fill='none']) {
   fill: currentColor;
 }
 

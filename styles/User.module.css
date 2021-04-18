@@ -70,10 +70,7 @@
   & > li > svg {
     display: inline-block;
     vertical-align: middle;
-    width: 16px;
-    height: 16px;
     margin-right: 0.5rem;
-    color: var(--color-text-secondary);
     opacity: 0.75;
   }
 }

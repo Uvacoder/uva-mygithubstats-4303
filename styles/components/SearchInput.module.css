@@ -13,10 +13,6 @@
   &:focus-within {
     border-color: var(--color-state-focus-border);
     box-shadow: 0 0 0 2px var(--color-state-focus-outline);
-
-    & .clearButton {
-      display: block;
-    }
   }
 }
 
@@ -25,8 +21,8 @@
 
   & svg {
     display: block;
-    width: 0.8334em;
-    height: 0.8334em;
+    width: 1em;
+    height: 1em;
   }
 }
 
@@ -70,6 +66,9 @@
 }
 
 .clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 2em;
   min-height: 2em;
   border: none;
@@ -78,8 +77,8 @@
   border-radius: 0;
 
   & svg {
-    width: 0.75em;
-    height: 0.75em;
+    width: 1em;
+    height: 1em;
   }
 }
 
