@@ -50,7 +50,6 @@ export default function User() {
         <Head>
           <title>GitHub Profile Stats - {username}</title>
           <link rel='preconnect' href='https://avatars.githubusercontent.com'/>
-          <link rel="icon" href="/favicon.ico" />
         </Head>
         <p>
           Loading {username}’s profile stats
@@ -80,9 +79,8 @@ export default function User() {
     <div className={styles.container}>
       <Head>
         <title>GitHub Profile Stats - {user.login} ({user.name})</title>
-        <link rel='preconnect' href='https://avatars.githubusercontent.com'/>
         <meta name='description' content={`${user.login} has ${repositories.length} repositories available.`}/>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='preconnect' href='https://avatars.githubusercontent.com'/>
       </Head>
 
       <aside className={styles.aside}>
