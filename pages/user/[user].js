@@ -23,7 +23,7 @@ import ActivityOverview from '~/components/ActivityOverview';
 import LanguagesChart from '~/components/LanguagesChart';
 import PieChart from '~/components/PieChart';
 import PolarAreaChart from '~/components/PolarAreaChart';
-import { prettyNumber } from '~/util';
+import { percent, prettyNumber } from '~/util';
 import * as userUtil from '~/util/pages/user';
 import styles from '~/styles/User.module.css'
 
@@ -74,6 +74,10 @@ export default function User() {
   );
   const languageColors = userUtil.getLanguageColors(repositories);
   const languagesPerRepo = userUtil.getLanguagesPerRepo(repositories);
+
+  const totalContributions = user.contributionsCollection.contributionCalendar.totalContributions;
+  const restrictedContributionsCount = user.contributionsCollection.restrictedContributionsCount;
+  const totalPublicContributions = totalContributions - restrictedContributionsCount;
 
   return (
     <div className={styles.container}>
@@ -266,7 +270,16 @@ export default function User() {
         <div className={styles.contentSection}>
           <div>
             <div className='mb1'>
-              <p>{(user.contributionsCollection.contributionCalendar.totalContributions).toLocaleString()} contributions int the last year</p>
+              <p>
+                {(user.contributionsCollection.contributionCalendar.totalContributions).toLocaleString()} contributions in the last year
+              </p>
+              <p className='secondary-text'>
+                <small>
+                  {Math.round(percent(totalPublicContributions, totalContributions))}% Public
+                  {' · '}
+                  {Math.round(percent(restrictedContributionsCount, totalContributions))}% Private
+                </small>
+              </p>
             </div>
             <CalendarLine data={user.contributionsCollection.contributionCalendar}/>
           </div>

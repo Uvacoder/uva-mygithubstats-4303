@@ -8,6 +8,7 @@
 - user: alt attribute to avatar image
 - meta descriptions
 - api: `user.contributionsCollection.restrictedContributionsCount`
+- user: display public vs private contribution percents
 #### Changed
 - use absolute imports and module path aliases
 - user: serve images at double size to maximize image clarity
