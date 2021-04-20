@@ -7,6 +7,7 @@
 - conf: `jscofig.json` and `next.config.js`
 - user: alt attribute to avatar image
 - meta descriptions
+- api: `user.contributionsCollection.restrictedContributionsCount`
 #### Changed
 - use absolute imports and module path aliases
 - user: serve images at double size to maximize image clarity

@@ -83,6 +83,7 @@ export default async function(req, res) {
           totalCount
         }
         contributionsCollection {
+          restrictedContributionsCount
           totalCommitContributions
           totalIssueContributions
           totalPullRequestContributions
