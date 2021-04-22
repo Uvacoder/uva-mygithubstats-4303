@@ -58,6 +58,8 @@ export default async function(req, res) {
         login
         name
         avatarUrl(size: 180)
+        isHireable
+        hasSponsorsListing
         followers {
           totalCount
         }

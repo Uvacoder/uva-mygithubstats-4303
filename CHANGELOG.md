@@ -8,6 +8,8 @@
 - user: alt attribute to avatar image
 - meta descriptions
 - api
+  - `user.isHireable`
+  - `user.hasSponsorsListing`
   - `user.contributionsCollection.restrictedContributionsCount`
   - `user.contributionsCollection.contributionYears`
 - user: display public vs private contribution percents
