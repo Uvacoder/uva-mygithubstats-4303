@@ -7,7 +7,9 @@
 - conf: `jscofig.json` and `next.config.js`
 - user: alt attribute to avatar image
 - meta descriptions
-- api: `user.contributionsCollection.restrictedContributionsCount`
+- api
+  - `user.contributionsCollection.restrictedContributionsCount`
+  - `user.contributionsCollection.contributionYears`
 - user: display public vs private contribution percents
 #### Changed
 - use absolute imports and module path aliases
