@@ -88,6 +88,7 @@ export default async function(req, res) {
           totalIssueContributions
           totalPullRequestContributions
           totalPullRequestReviewContributions
+          contributionYears
           contributionCalendar {
             totalContributions
             months {
