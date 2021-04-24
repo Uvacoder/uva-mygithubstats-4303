@@ -1,3 +1,4 @@
+import { array, number, shape } from 'prop-types';
 import { clamp } from '~/util';
 
 export default function CalendarLine({
@@ -151,3 +152,13 @@ export default function CalendarLine({
     </>
   );
 }
+
+CalendarLine.propTypes = {
+  data: shape({
+    weeks: array.isRequired,
+    months: array.isRequired
+  }).isRequired,
+
+  width: number,
+  height: number
+};
