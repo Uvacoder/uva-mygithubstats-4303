@@ -8,10 +8,12 @@
 - user: alt attribute to avatar image
 - meta descriptions
 - api
-  - `user.isHireable`
-  - `user.hasSponsorsListing`
-  - `user.contributionsCollection.restrictedContributionsCount`
-  - `user.contributionsCollection.contributionYears`
+  - user fields
+    - `isHireable`
+    - `hasSponsorsListing`
+    - `contributionsCollection.restrictedContributionsCount`
+    - `contributionsCollection.contributionYears`
+  - new contributions function `api/user/{user}/contributions?year={year}`
 - user: display public vs private contribution percents
 #### Changed
 - use absolute imports and module path aliases
