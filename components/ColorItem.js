@@ -1,9 +1,10 @@
+import { string, number, oneOfType } from 'prop-types';
 import { COLORS } from '~/util/constants';
 
 export default function ColorItem({
   color,
   text,
-  secondaryText,
+  secondaryText = '',
   size = 10,
   rx = 5
 }) {
@@ -49,3 +50,15 @@ export default function ColorItem({
     </span>
   )
 }
+
+ColorItem.propTypes = {
+  color: string.isRequired,
+  text: string.isRequired,
+
+  secondaryText: oneOfType([
+    string,
+    number
+  ]),
+  size: number,
+  rx: number
+};
