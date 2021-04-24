@@ -1,3 +1,4 @@
+import { number, object } from 'prop-types';
 import ColorItem from '~/components/ColorItem';
 import { prettyNumber } from '~/util';
 import { COLORS } from '~/util/constants';
@@ -50,50 +51,49 @@ export default function PieChart({
 
   return (
     <div className='root'>
-      <div className="chartWrapper">
-        <svg viewBox={`0 0 ${size} ${size}`}>
-          {items.length === 1 ? (
-            items.map((item, i) => (
-              <circle
-                key={i}
-                fill={item.color}
-                r={size/2}
-                cx={size/2}
-                cy={size/2}
-                data-tip={`
-                  ${item.key}: ${prettyNumber(item.value)}
-                  <br/>
-                  <strong>${Math.round(item.percent * 100)}%</strong>
-                `}
-                data-html={true}
-              />
-            ))
-          ) : (
-            items.map((item, i) => (
-              <path
-                key={i}
-                d={item.d}
-                fill={item.color}
-                data-tip={`
-                  ${item.key}: ${prettyNumber(item.value)}
-                  <br/>
-                  <strong>${Math.round(item.percent * 100)}%</strong>
-                `}
-                data-html={true}
-              />
-            ))
-          )}
-
-          {cutout && (
+      <svg viewBox={`0 0 ${size} ${size}`}>
+        {items.length === 1 ? (
+          items.map((item, i) => (
             <circle
-              fill='var(--color-background)'
-              r={(cutout/2)}
+              key={i}
+              fill={item.color}
+              r={size/2}
               cx={size/2}
               cy={size/2}
+              data-tip={`
+                ${item.key}: ${prettyNumber(item.value)}
+                <br/>
+                <strong>${Math.round(item.percent * 100)}%</strong>
+              `}
+              data-html={true}
             />
-          )}
-        </svg>
-      </div>
+          ))
+        ) : (
+          items.map((item, i) => (
+            <path
+              key={i}
+              d={item.d}
+              fill={item.color}
+              data-tip={`
+                ${item.key}: ${prettyNumber(item.value)}
+                <br/>
+                <strong>${Math.round(item.percent * 100)}%</strong>
+              `}
+              data-html={true}
+            />
+          ))
+        )}
+
+        {cutout && (
+          <circle
+            fill='var(--color-background)'
+            r={(cutout/2)}
+            cx={size/2}
+            cy={size/2}
+          />
+        )}
+      </svg>
+
       <div className='info'>
         {items.map((item, i) =>
           <ColorItem
@@ -101,27 +101,33 @@ export default function PieChart({
             color={item.color}
             text={item.key}
             secondaryText={prettyNumber(item.value)}
-            rx='3'
+            rx={4}
           />
         )}
       </div>
+
       <style jsx>{`
         .root {
-          display: flex;
-        }
-        .chartWrapper {
-          flex: 1 0 50%;
+          display: grid;
+          grid-template-columns: fit-content(20%) 1fr;
+          grid-gap: 1rem;
         }
         svg {
           transform: rotate(90deg);
+          min-width: 100px;
         }
         .info {
           font-size: 12px;
-          margin-left: 10px;
-          flex: 0 1 50%;
           overflow: hidden;
         }
       `}</style>
     </div>
   );
 }
+
+PieChart.propTypes = {
+  data: object.isRequired,
+
+  colors: object,
+  cutout: number
+};

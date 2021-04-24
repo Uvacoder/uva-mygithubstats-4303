@@ -1,6 +1,6 @@
 import { ExternalLinkIcon, StarIcon } from '@heroicons/react/outline';
 import Parse from 'html-react-parser';
-import { bool, shape, string } from 'prop-types';
+import { bool, number, shape, string } from 'prop-types';
 import ColorItem from '~/components/ColorItem';
 import { prettyNumber } from '~/util';
 import styles from '~/styles/components/RepoCard.module.css'
@@ -76,8 +76,8 @@ RepoCard.propTypes = {
       color: string.isRequired
     }),
     descriptionHTML: string,
-    stargazerCount: string,
-    forkCount: string
+    stargazerCount: number,
+    forkCount: number
   }).isRequired,
 
   hideDescription: bool,
