@@ -1,3 +1,4 @@
+import { number, object } from 'prop-types';
 import ColorItem from '~/components/ColorItem';
 import { percent } from '~/util';
 import { COLORS } from '~/util/constants';
@@ -71,3 +72,10 @@ export default function LanguagesChart({
     </>
   )
 }
+
+LanguagesChart.propTypes = {
+  data: object.isRequired,
+
+  colors: object,
+  height: number
+};
