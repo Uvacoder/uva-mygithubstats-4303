@@ -27,7 +27,7 @@ export default function CalendarLine({
   const totalWeeks = weeks.length;
   const max = Math.max(...contributionsPerWeek.map(w => w.total));
 
-  let polygonPoints = `${-lineWidth},${graphHeight - dotRadius - lineWidth / 2} `;
+  let polygonPoints = `M${-lineWidth},${graphHeight - dotRadius - lineWidth / 2} `;
 
   const printDots = contributionsPerWeek.map((week, i) => {
     const x = graphWidth / totalWeeks * i;
@@ -100,7 +100,7 @@ export default function CalendarLine({
           {0}
         </text>
 
-        <polyline points={polygonPoints}/>
+        <path d={polygonPoints}/>
 
         {printDots}
 
@@ -136,13 +136,16 @@ export default function CalendarLine({
           stroke: var(--gps-border-color);
           stroke-width: 1;
         }
-
-        polyline {
-          fill: var(--color-calendar-graph-Q1);
-          stroke: var(--color-calendar-graph-Q4);
+        svg > :global(circle) {
+          transition: all 300ms ease;
+        }
+        path {
+          fill: var(--color-primary);
+          stroke: var(--color-primary);
           stroke-linecap: round;
           stroke-linejoin: round;
           stroke-width: ${lineWidth};
+          transition: all 300ms ease;
         }
       `}</style>
     </>
