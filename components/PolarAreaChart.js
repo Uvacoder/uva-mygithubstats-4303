@@ -106,7 +106,7 @@ export default function PolarAreaChart({
             color={item.color}
             text={item.key}
             secondaryText={prettyNumber(item.value)}
-            rx='3'
+            rx={3}
           />
         )}
       </div>
