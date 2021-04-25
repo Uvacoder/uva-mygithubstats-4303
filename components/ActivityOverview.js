@@ -1,4 +1,4 @@
-import { percent } from '~/util';
+import { percent, prettyNumber } from '~/util';
 
 export default function ActivityOverview({
   commits,
@@ -50,32 +50,32 @@ export default function ActivityOverview({
         <circle r="3" cx={pullRequestsPoints.x} cy={pullRequestsPoints.y}/>
         <circle r="3" cx={commitsPoints.x} cy={commitsPoints.y}/>
 
-        <text className="text-percentage" textAnchor="middle" dominantBaseline="hanging" y={0} x={center.x}>
-          {Math.round(percent(reviews, totalContributions))}%
-        </text>
-        <text textAnchor="middle" dominantBaseline='hanging' y={textHeight} x={center.x}>
+        <text textAnchor="middle" dominantBaseline="hanging" y={0} x={center.x}>
           Code review
         </text>
-
-        <text className="text-percentage" dominantBaseline='hanging' textAnchor="middle" y={center.y-textHeight} x={width - (padding.x / 2)}>
-          {Math.round(percent(issues, totalContributions))}%
+        <text className="text-percentage" textAnchor="middle" dominantBaseline='hanging' y={textHeight} x={center.x}>
+          {Math.round(percent(reviews, totalContributions))}% ({prettyNumber(reviews)})
         </text>
-        <text textAnchor="middle" dominantBaseline='hanging' y={center.y} x={width - (padding.x / 2)}>
+
+        <text dominantBaseline='hanging' textAnchor="middle" y={center.y-textHeight} x={width - (padding.x / 2)}>
           Issues
         </text>
-
-        <text className="text-percentage" textAnchor="middle" dominantBaseline='hanging' y={height - (textHeight*2)} x={center.x}>
-          {Math.round(percent(pullRequests, totalContributions))}%
+        <text className="text-percentage" textAnchor="middle" dominantBaseline='hanging' y={center.y} x={width - (padding.x / 2)}>
+          {Math.round(percent(issues, totalContributions))}% ({prettyNumber(issues)})
         </text>
-        <text textAnchor='middle' dominantBaseline='hanging' y={height - textHeight} x={center.x}>
+
+        <text textAnchor="middle" dominantBaseline='hanging' y={height - (textHeight*2)} x={center.x}>
           Pull requests
         </text>
-
-        <text className="text-percentage" textAnchor="middle" dominantBaseline='hanging' y={center.y - textHeight} x={padding.x / 2}>
-          {Math.round(percent(commits, totalContributions))}%
+        <text className="text-percentage" textAnchor='middle' dominantBaseline='hanging' y={height - textHeight} x={center.x}>
+          {Math.round(percent(pullRequests, totalContributions))}% ({prettyNumber(pullRequests)})
         </text>
-        <text textAnchor="middle" dominantBaseline='hanging' y={center.y} x={padding.x / 2}>
+
+        <text textAnchor="middle" dominantBaseline='hanging' y={center.y - textHeight} x={padding.x / 2}>
           Commits
+        </text>
+        <text className="text-percentage" textAnchor="middle" dominantBaseline='hanging' y={center.y} x={padding.x / 2}>
+          {Math.round(percent(commits, totalContributions))}% ({prettyNumber(commits)})
         </text>
       </svg>
 
