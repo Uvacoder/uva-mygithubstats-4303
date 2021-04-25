@@ -6,7 +6,7 @@ async function getRepositoriesByUser(login, limit = 30, after = null) {
   return await fetchGQL({query: `
     {
       user(login: "${login}") {
-        repositories(first: ${limit}, after: ${after}, ownerAffiliations: [OWNER]) {
+        repositories(first: ${limit}, after: ${after}, ownerAffiliations: [OWNER], privacy: PUBLIC) {
           pageInfo {
             endCursor
             hasNextPage
