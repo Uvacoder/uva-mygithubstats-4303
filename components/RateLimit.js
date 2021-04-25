@@ -19,7 +19,7 @@ export default function RateLimit() {
   return (
     <>
       <div className={styles.root} data-status={status}>
-        <svg viewBox='0 0 10 10' width={10} height={10} className={styles.status}>
+        <svg viewBox='0 0 10 10' width={10} height={10} className='mr05'>
           <circle r={5} cx={5} cy={5}/>
         </svg>
         {remaining} requests left
