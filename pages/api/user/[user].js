@@ -14,6 +14,9 @@ async function getRepositoriesByUser(login, limit = 30, after = null) {
           edges {
             node {
               name
+              isFork
+              isArchived
+              isMirror
               url
               descriptionHTML
               stargazerCount
