@@ -82,7 +82,7 @@ export default function ActivityOverview({
       <style jsx>{`
         line {
           stroke-width: 1.5;
-          stroke: var(--color-calendar-graph-Q4);
+          stroke: var(--color-primary);
           stroke-linecap: round;
         }
         text {
@@ -91,13 +91,13 @@ export default function ActivityOverview({
         }
         path {
           stroke-width: 6;
-          stroke: var(--color-calendar-graph-Q1);
-          fill: var(--color-calendar-graph-Q1);
+          stroke: var(--color-primary);
+          fill: var(--color-primary);
           stroke-linejoin: round;
         }
         circle {
           stroke-width: 1.5;
-          stroke: var(--color-calendar-graph-Q4);
+          stroke: var(--color-primary);
           fill: var(--color-background);
         }
         path,
@@ -106,6 +106,7 @@ export default function ActivityOverview({
         }
         .text-percentage {
           font-size: 10px;
+          fill: var(--color-text-tertiary);
         }
       `}</style>
     </>
