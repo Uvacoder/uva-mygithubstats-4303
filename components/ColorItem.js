@@ -9,20 +9,22 @@ export default function ColorItem({
   rx = 5
 }) {
   return (
-    <span className='color-item'>
-      <svg width={size} height={size} className='mr05'>
-        <rect
-          fill={color}
-          width={size}
-          height={size}
-          rx={rx}
-        />
-      </svg>
-      <span className='color-item-text'>
-        {text}
-      </span>
-      <span className='secondary-text'>
-        {secondaryText}
+    <>
+      <span className='color-item'>
+        <svg width={size} height={size} className='mr05'>
+          <rect
+            fill={color}
+            width={size}
+            height={size}
+            rx={rx}
+          />
+        </svg>
+        <span className='color-item-text'>
+          {text}
+        </span>
+        <span className='color-item-secondary-text'>
+          {secondaryText}
+        </span>
       </span>
 
       <style jsx>{`
@@ -35,19 +37,22 @@ export default function ColorItem({
           stroke: hsl(210deg 13% 12% / 10%);
         }
         svg,
-        .secondary-text {
+        .color-item-secondary-text {
           flex-shrink: 0;
         }
-        .secondary-text:not(:empty) {
+        .color-item-secondary-text:not(:empty) {
           margin-left: 0.5rem;
+          font-weight: 500;
+          opacity: .75;
         }
         .color-item-text {
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
+          color: var(--color-text-tertiary);
         }
       `}</style>
-    </span>
+    </>
   )
 }
 
