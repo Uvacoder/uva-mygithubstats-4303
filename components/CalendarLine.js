@@ -50,7 +50,7 @@ export default function CalendarLine({
       cy={y}
       data-total={week.total}
       strokeWidth={lineWidth}
-      stroke={'var(--color-calendar-graph-Q4)'}
+      stroke={'var(--color-primary)'}
       fill='var(--color-background)'
       data-tip={`
         <strong>${week.total} contributions</strong> on<br/>
@@ -127,18 +127,12 @@ export default function CalendarLine({
           min-height: ${height}px;
           max-width: ${width}px;
         }
-
         text {
           font-size: 10px;
-          fill: var(--color-text-secondary);
         }
-
         line {
           stroke: var(--gps-border-color);
           stroke-width: 1;
-        }
-        svg > :global(circle) {
-          transition: all 300ms ease;
         }
         path {
           fill: var(--color-primary);
@@ -146,7 +140,10 @@ export default function CalendarLine({
           stroke-linecap: round;
           stroke-linejoin: round;
           stroke-width: ${lineWidth};
-          transition: all 300ms ease;
+        }
+        path,
+        svg > :global(circle) {
+          transition: all 400ms ease;
         }
       `}</style>
     </>
