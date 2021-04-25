@@ -31,7 +31,7 @@ export default function LanguagesChart({
     <>
       <svg
         viewBox="0 0 100 10"
-        preserveAspectRatio='xMinYMid slice'
+        preserveAspectRatio='none'
         width={'100%'}
         height={height}
         className='block mb05'
@@ -62,11 +62,8 @@ export default function LanguagesChart({
           border-radius: 5px;
         }
         ul {
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           list-style: none;
-        }
-        li > :global(.color-item > .color-item-text) {
-          font-weight: 600;
         }
       `}</style>
     </>
