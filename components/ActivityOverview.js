@@ -35,8 +35,8 @@ export default function ActivityOverview({
   return (
     <>
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className='block mx-auto'>
-        <polygon points={`
-          ${reviewPoints.x},${reviewPoints.y}
+        <path d={`
+          M${reviewPoints.x},${reviewPoints.y}
           ${issuesPonts.x},${issuesPonts.y}
           ${pullRequestsPoints.x},${pullRequestsPoints.y}
           ${commitsPoints.x},${commitsPoints.y}
@@ -45,10 +45,10 @@ export default function ActivityOverview({
         <line x1={padding.x} y1={center.y} x2={width - padding.x} y2={center.y}/>
         <line x1={center.x} y1={padding.y} x2={center.x} y2={height - padding.y}/>
 
-        <ellipse rx="3" ry="3" cx={reviewPoints.x} cy={reviewPoints.y}/>
-        <ellipse rx="3" ry="3" cx={issuesPonts.x} cy={issuesPonts.y}/>
-        <ellipse rx="3" ry="3" cx={pullRequestsPoints.x} cy={pullRequestsPoints.y}/>
-        <ellipse rx="3" ry="3" cx={commitsPoints.x} cy={commitsPoints.y}/>
+        <circle r="3" cx={reviewPoints.x} cy={reviewPoints.y}/>
+        <circle r="3" cx={issuesPonts.x} cy={issuesPonts.y}/>
+        <circle r="3" cx={pullRequestsPoints.x} cy={pullRequestsPoints.y}/>
+        <circle r="3" cx={commitsPoints.x} cy={commitsPoints.y}/>
 
         <text className="text-percentage" textAnchor="middle" dominantBaseline="hanging" y={0} x={center.x}>
           {Math.round(percent(reviews, totalContributions))}%
@@ -89,16 +89,20 @@ export default function ActivityOverview({
           font-size: 12px;
           fill: var(--color-text-secondary);
         }
-        polygon {
+        path {
           stroke-width: 6;
           stroke: var(--color-calendar-graph-Q1);
           fill: var(--color-calendar-graph-Q1);
           stroke-linejoin: round;
         }
-        ellipse {
+        circle {
           stroke-width: 1.5;
           stroke: var(--color-calendar-graph-Q4);
           fill: var(--color-background);
+        }
+        path,
+        circle {
+          transition: all 400ms ease;
         }
         .text-percentage {
           font-size: 10px;
