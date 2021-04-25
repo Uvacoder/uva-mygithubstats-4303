@@ -3,12 +3,12 @@ import { clamp } from '~/util';
 
 export default function CalendarLine({
   data: { weeks, months },
-  width = 884,
+  width = 912,
   height = 180
 }) {
   const dotRadius = 3;
   const lineWidth = 1.5;
-  const xSpace = 36;
+  const xSpace = 32;
   const ySpace = 14;
   const graphWidth = width - xSpace;
   const graphHeight = height - ySpace;
