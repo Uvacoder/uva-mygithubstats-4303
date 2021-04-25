@@ -22,7 +22,7 @@ export default function PieChart({
 
   if (total === 0) {
     return (
-      <p className='fs-md secondary-text'>
+      <p className='fs-md tertiary-text'>
         <i>No data to show</i>
       </p>
     );
@@ -114,7 +114,7 @@ export default function PieChart({
         }
         svg {
           transform: rotate(90deg);
-          min-width: 100px;
+          width: 100px;
         }
         .info {
           font-size: 12px;
