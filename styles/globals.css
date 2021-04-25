@@ -49,9 +49,44 @@ a {
   text-decoration: none;
 }
 
+button,
 input,
-button {
+select {
+  font-family: inherit;
   font-size: inherit;
+}
+
+select {
+  display: inline-block;
+  margin: 0;
+  padding: 0.325em calc(1.2em + 16px) 0.325em 0.75em;
+  border: none;
+  line-height: inherit;
+  cursor: pointer;
+  appearance: none;
+	outline: none;
+  font-weight: 500;
+  border-radius: 6px;
+  color: var(--color-text-tertiary);
+  background-color: var(--color-accent-1);
+  box-shadow: 0 0 4px 1px rgba(0 0 0 / .05), 0 2px 6px 0 rgba(0 0 0 / .05);
+
+  &::-ms-expand { display: none }
+
+  &:hover { box-shadow: 0 0 1px 1px var(--color-state-focus-outline) }
+  &:focus { box-shadow: 0 0 1px 2px var(--color-state-focus-outline) }
+
+  & option { font-weight: normal }
+}
+.select {
+  position: relative;
+}
+.select-arrow {
+  pointer-events: none;
+  position: absolute;
+  right: 0.75em;
+  top: 0.6em;
+  color: var(--color-text-tertiary);
 }
 
 svg:not([fill='none']) {
