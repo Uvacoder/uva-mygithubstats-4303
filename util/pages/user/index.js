@@ -115,21 +115,6 @@ export const getCommitsPerRepo = (repositories, slice) =>
 
 /**
  * @param {Object[]} repositories
- * @return {Object} where every key is the `repository.name` and its value is `repositories.stargazerCount`
- */
-export const getStarsPerRepo = (repositories, slice) =>
-  repositories
-    .concat()
-    .slice(0, slice)
-    .reduce((acc, current) => {
-      const name = current?.node?.name;
-      acc[name] = acc[name] || 0;
-      acc[name] += current.node.stargazerCount;
-      return acc;
-    }, {});
-
-/**
- * @param {Object[]} repositories
  * @return {Object} where every key is the `primaryLanguage.name` and its value is the `primaryLanguage.color``
  */
 export const getLanguageColors = repositories =>
