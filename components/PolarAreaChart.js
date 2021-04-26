@@ -56,51 +56,50 @@ export default function PolarAreaChart({
 
   return (
     <div className='root'>
-      <div className="chartWrapper">
-        <svg viewBox={`0 0 ${size} ${size}`}>
-          {new Array(5).fill(0).map((_, i, arr) => (
+      <svg viewBox={`0 0 ${size} ${size}`}>
+        {new Array(5).fill(0).map((_, i, arr) => (
+          <circle
+            key={i}
+            r={radii / arr.length * (i+1)}
+            cx={size/2}
+            cy={size/2}
+            fill='none'
+            stroke='var(--gps-border-color)'
+          />
+        ))}
+        {items.length === 1 ? (
+          items.map((item, i) => (
             <circle
-              key={i}
-              r={radii / arr.length * (i+1)}
+              key={item.key}
+              fill={item.color}
+              r={size/2}
               cx={size/2}
               cy={size/2}
-              fill='none'
-              stroke='var(--gps-border-color)'
+              data-tip={`
+                ${item.key}: ${prettyNumber(item.value)}
+                <br/>
+                <strong>${Math.round(item.percent * 100)}%</strong>
+              `}
+              data-html={true}
             />
-          ))}
-          {items.length === 1 ? (
-            items.map((item, i) => (
-              <circle
-                key={item.key}
-                fill={item.color}
-                r={size/2}
-                cx={size/2}
-                cy={size/2}
-                data-tip={`
-                  ${item.key}: ${prettyNumber(item.value)}
-                  <br/>
-                  <strong>${Math.round(item.percent * 100)}%</strong>
-                `}
-                data-html={true}
-              />
-            ))
-          ) : (
-            items.map((item, i) => (
-              <path
-                key={item.key}
-                d={item.d}
-                fill={item.color}
-                data-tip={`
-                  ${item.key}: ${prettyNumber(item.value)}
-                  <br/>
-                  <strong>${(item.percent * 100).toFixed(2)}%</strong>
-                `}
-                data-html={true}
-              />
-            ))
-          )}
-        </svg>
-      </div>
+          ))
+        ) : (
+          items.map((item, i) => (
+            <path
+              key={item.key}
+              d={item.d}
+              fill={item.color}
+              data-tip={`
+                ${item.key}: ${prettyNumber(item.value)}
+                <br/>
+                <strong>${(item.percent * 100).toFixed(2)}%</strong>
+              `}
+              data-html={true}
+            />
+          ))
+        )}
+      </svg>
+
       <div className='info'>
         {items.map((item, i) =>
           <ColorItem
@@ -112,15 +111,16 @@ export default function PolarAreaChart({
           />
         )}
       </div>
+
       <style jsx>{`
         .root {
-          display: flex;
-        }
-        .chartWrapper {
-          flex: 1 0 50%;
+          display: grid;
+          grid-template-columns: fit-content(50%) 1fr;
+          grid-gap: 1rem;
         }
         svg {
           transform: rotate(90deg);
+          width: ${width};
         }
         path {
           stroke: var(--color-background);
