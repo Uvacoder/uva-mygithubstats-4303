@@ -1,4 +1,4 @@
-import { number, object } from 'prop-types';
+import { number, string, object } from 'prop-types';
 import ColorItem from '~/components/ColorItem';
 import { prettyNumber } from '~/util';
 import { COLORS } from '~/util/constants';
@@ -14,6 +14,7 @@ export default function PieChart({
   data,
   colors,
   cutout = 50,
+  width = '100%'
 }) {
   const size = 100;
   const radii = 50;
@@ -109,12 +110,12 @@ export default function PieChart({
       <style jsx>{`
         .root {
           display: grid;
-          grid-template-columns: fit-content(20%) 1fr;
+          grid-template-columns: fit-content(50%) 1fr;
           grid-gap: 1rem;
         }
         svg {
           transform: rotate(90deg);
-          width: 100px;
+          width: ${width};
         }
         .info {
           font-size: 12px;
@@ -129,5 +130,6 @@ PieChart.propTypes = {
   data: object.isRequired,
 
   colors: object,
-  cutout: number
+  cutout: number,
+  width: string
 };
