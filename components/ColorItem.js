@@ -32,23 +32,26 @@ export default function ColorItem({
           display: flex;
           align-items: center;
         }
+
         rect {
           stroke-width: 1;
           stroke: hsl(210deg 13% 12% / 10%);
         }
-        svg,
-        .color-item-secondary-text {
-          flex-shrink: 0;
-        }
-        .color-item-secondary-text:not(:empty) {
-          margin-left: 0.5rem;
-          font-weight: 500;
-          opacity: .75;
-        }
+
         .color-item-text {
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
+          color: var(--color-text-secondary);
+        }
+
+        svg,
+        .color-item-secondary-text {
+          flex-shrink: 0;
+        }
+
+        .color-item-secondary-text:not(:empty) {
+          margin-left: 0.5em;
           color: var(--color-text-tertiary);
         }
       `}</style>
