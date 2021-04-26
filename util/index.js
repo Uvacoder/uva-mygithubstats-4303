@@ -30,3 +30,10 @@ export const prettyNumber = (num) => {
  * @return {number}
  */
 export const clamp = (n, num, x) => max(n, min(num, x));
+
+/**
+ * @param {string} date
+ * @return {string}
+ */
+export const formatDate = (date, options = {}) =>
+  new Date(date).toLocaleDateString('en-US', options);

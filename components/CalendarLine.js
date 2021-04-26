@@ -1,5 +1,30 @@
 import { array, number, shape } from 'prop-types';
-import { clamp } from '~/util';
+import { clamp, formatDate } from '~/util';
+
+const internals = {
+  getTooltipText(week) {
+    function getContributionText(week) {
+      const text = `${week.total || 'No'} contribution`;
+      const isPlural = week.total === 0 || week.total > 1;
+
+      return isPlural ? `${text}s` : text;
+    }
+
+    function getDates(week) {
+      const { 0: first, length, [length-1]: last } = week.dates;
+      const dateOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+      const firstDate = formatDate(first, dateOptions);
+      const lastDate = formatDate(last, dateOptions);
+
+      return `${firstDate} — ${lastDate}`;
+    }
+
+    return `
+      <strong>${getContributionText(week)}</strong> on<br/>
+      ${getDates(week)}
+    `;
+  }
+};
 
 export default function CalendarLine({
   data: { weeks, months },
@@ -37,9 +62,6 @@ export default function CalendarLine({
       graphHeight - week.total * height / max || graphHeight,
       graphHeight - dotRadius - lineWidth / 2
     );
-    const { 0: first, length, [length-1]: last } = week.dates;
-    const firstDate = new Date(first).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    const lastDate = new Date(last).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
     polygonPoints += `${x},${y} `;
 
@@ -52,10 +74,8 @@ export default function CalendarLine({
       strokeWidth={lineWidth}
       stroke={'var(--color-primary)'}
       fill='var(--color-background)'
-      data-tip={`
-        <strong>${week.total} contributions</strong> on<br/>
-        ${firstDate} — ${lastDate}
-      `}
+      opacity={week.total ? 1 : .25}
+      data-tip={internals.getTooltipText(week)}
       data-html={true}
       data-effect='solid'
     />
