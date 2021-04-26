@@ -2,11 +2,13 @@ import ColorItem from '~/components/ColorItem';
 import { prettyNumber, clamp } from '~/util';
 import { COLORS } from '~/util/constants';
 
-function getCoordinatesForPercent(percent, size, radii) {
-  return {
-    x: size / 2 - (Math.cos(percent * (2 * Math.PI)) * radii),
-    y: size / 2 - (Math.sin(percent * (2 * Math.PI)) * radii)
-  };
+const internals = {
+  getCoordinatesForPercent(percent, size, radii) {
+    return {
+      x: size / 2 - (Math.cos(percent * (2 * Math.PI)) * radii),
+      y: size / 2 - (Math.sin(percent * (2 * Math.PI)) * radii)
+    };
+  }
 }
 
 export default function PolarAreaChart({
@@ -34,8 +36,8 @@ export default function PolarAreaChart({
   const items = Object.entries(data).map(([key, value], i) => {
     const percent = clamp(.1, value * 1 / total, 1);
     const radius = percent * radii / maxPercentage;
-    const start = getCoordinatesForPercent(acc, size, radius);
-    const end = getCoordinatesForPercent(acc += 1 / values.length, size, radius);
+    const start = internals.getCoordinatesForPercent(acc, size, radius);
+    const end = internals.getCoordinatesForPercent(acc += 1 / values.length, size, radius);
     const f = 1 / values.length > .5 ? 1 : 0;
 
     return {
