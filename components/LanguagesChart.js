@@ -3,12 +3,8 @@ import ColorItem from '~/components/ColorItem';
 import { percent } from '~/util';
 import { COLORS } from '~/util/constants';
 
-export default function LanguagesChart({
-  data,
-  colors,
-  height = 10
-}) {
-  const max = Object.values(data).reduce((acc, current) => acc + current, 0)
+export default function LanguagesChart({ data, colors, height = 10 }) {
+  const max = Object.values(data).reduce((acc, current) => acc + current, 0);
   let xAccumulator = 0;
 
   const items = Object.entries(data).map((entry, index) => {
@@ -23,7 +19,7 @@ export default function LanguagesChart({
       value,
       x,
       width,
-      color: colors?.[key] ?? COLORS[index]
+      color: colors?.[key] ?? COLORS[index],
     };
   });
 
@@ -31,30 +27,35 @@ export default function LanguagesChart({
     <>
       <svg
         viewBox="0 0 100 10"
-        preserveAspectRatio='none'
+        preserveAspectRatio="none"
         width={'100%'}
         height={height}
-        className='block mb05'
+        className="block mb05"
       >
         {items.map((item, i) => {
-          return <rect key={i}
-            x={item.x}
-            width={item.width}
-            height='100%'
-            fill={item.color}
-          />
+          return (
+            <rect
+              key={i}
+              x={item.x}
+              width={item.width}
+              height="100%"
+              fill={item.color}
+            />
+          );
         })}
       </svg>
 
       <ul>
         {items.map((item, i) => {
-          return <li key={i} className='inline-block mr1'>
-            <ColorItem
-              color={item.color}
-              text={item.key}
-              secondaryText={`${(item.width).toFixed(1)}%`}
-            />
-          </li>
+          return (
+            <li key={i} className="inline-block mr1">
+              <ColorItem
+                color={item.color}
+                text={item.key}
+                secondaryText={`${item.width.toFixed(1)}%`}
+              />
+            </li>
+          );
         })}
       </ul>
       <style jsx>{`
@@ -67,12 +68,12 @@ export default function LanguagesChart({
         }
       `}</style>
     </>
-  )
+  );
 }
 
 LanguagesChart.propTypes = {
   data: object.isRequired,
 
   colors: object,
-  height: number
+  height: number,
 };
