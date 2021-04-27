@@ -1,139 +1,62 @@
-:root {
-  --gps-main-color: hsl(214deg 100% 57%);
-  --gps-border-color: hsl(214deg 13% 90%);
-
-  --color-background: #fff;
-  --color-text-primary: hsl(210deg 12% 16%);
-  --color-text-secondary: hsl(212deg 9% 38%);
-
-  --color-input-border: hsl(214deg 13% 80%);
-  --color-state-focus-border: hsl(212deg 97% 43%);
-  --color-state-focus-outline: hsl(214deg 100% 57% / 50%);
-
-  --color-warn-bg: hsl(53deg 100% 93%);
-  --color-warn-border: hsl(46deg 100% 35% / 20%);
-  --color-error-bg: hsl(354deg 100% 95%);
-  --color-error-border: hsl(357deg 70% 36% / 20%);
-
-  --color-status-ok: hsl(187deg 100% 42%);
-  --color-status-warn: hsl(45deg 100% 51%);
-  --color-status-error: red;
-
-  --color-calendar-graph-Q0: hsl(216deg 14% 93%);
-  --color-calendar-graph-Q1: hsl(130deg 64% 76%);
-  --color-calendar-graph-Q2: hsl(136deg 53% 51%);
-  --color-calendar-graph-Q3: hsl(136deg 54% 41%);
-  --color-calendar-graph-Q4: hsl(139deg 54% 28%);
-
-  font-size: 16px;
-  line-height: 1.618;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  font-family: system-ui;
-  background-color: var(--color-background);
-  color: var(--color-text-primary);
-  -webkit-tap-highlight-color: transparent;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: var(--gps-main-color);
-  text-decoration: none;
-}
-
-button,
-input,
-select {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-select {
-  display: inline-block;
-  margin: 0;
-  padding: 0.325em calc(1.2em + 16px) 0.325em 0.75em;
-  border: none;
-  line-height: inherit;
-  cursor: pointer;
-  appearance: none;
-	outline: none;
-  font-weight: 500;
-  border-radius: 6px;
-  color: var(--color-text-tertiary);
-  background-color: var(--color-accent-1);
-  box-shadow: 0 0 4px 1px rgba(0 0 0 / .05), 0 2px 6px 0 rgba(0 0 0 / .05);
-
-  &::-ms-expand { display: none }
-
-  &:hover { box-shadow: 0 0 1px 1px var(--color-state-focus-outline) }
-  &:focus { box-shadow: 0 0 1px 2px var(--color-state-focus-outline) }
-
-  & option { font-weight: normal }
-}
-.select {
-  position: relative;
-}
-.select-arrow {
-  pointer-events: none;
-  position: absolute;
-  right: 0.75em;
-  top: 0.6em;
-  color: var(--color-text-tertiary);
-}
-
-svg:not([fill='none']) {
-  fill: currentColor;
-}
-
-::placeholder {
-  color: var(--gps-border-color);
-}
+@import '~/styles/core/variables.css';
+@import '~/styles/core/base.css';
+@import '~/styles/utilities/styles.css';
 
 .app-main {
   padding: 0 1rem;
 }
 
-.app-footer {
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  padding: 0.5rem;
-  border-top: 1px solid var(--gps-border-color);
-  background-color: white;
+.select {
+  position: relative;
+  font-size: 1rem;
+}
+.select-arrow {
+  pointer-events: none;
+  position: absolute;
+  right: 0.6em;
+  top: 0.4em;
+  color: var(--color-text-tertiary);
+}
 
-  & > a {
-    display: inline-flex;
-    align-items: center;
-    font-weight: 500;
-    color: inherit;
+.paper {
+  padding: 1rem;
+  background-color: var(--color-accent-1);
+  border-radius: 8px;
+  box-shadow: 0 0 4px 1px rgba(0 0 0 / 0.05);
+}
+
+.paper-divider--h {
+  height: 1px;
+  margin: 1rem -1rem;
+  background-color: var(--color-text-tertiary);
+  opacity: .25;
+}
+
+.grid {
+  --columns: 2;
+  --gap: 1rem;
+
+  display: grid;
+  grid-gap: var(--gap);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(var(--columns), 1fr);
   }
 }
 
-/* utilities */
-.block { display: block }
-.inline-block { display: inline-block }
-.mx-auto { margin-left: auto; margin-right: auto }
-.mb05 { margin-bottom: 0.5rem }
-.mb1 { margin-bottom: 1rem }
-.mr05 { margin-right: 0.5rem }
-.mr1 { margin-right: 1rem }
-.fw500 { font-weight: 500 }
-.primary-text { color: var(--color-text-primary) }
-.secondary-text { color: var(--color-text-secondary) }
-.fs-md { font-size: 0.875rem }
+.icon-list {
+  list-style: none;
+
+  & > li {
+    margin-bottom: 0.25rem;
+
+    & > .icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+  }
+}
 
 /* for github emojis */
-.g-emoji { padding-right: 6px}
+.g-emoji { padding-right: 6px }
