@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
 import { SearchIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import styles from '~/styles/components/SearchInput.module.css'
+import { bool, func, string } from 'prop-types';
+import { useEffect, useRef, useState } from 'react';
+import styles from '~/styles/components/SearchInput.module.css';
 
 export default function SearchInput({
   loading = false,
   placeholder = 'Search',
   autoFocus = false,
   onFormSubmit = () => {},
-  onClearForm = () => {}
+  onClearForm = () => {},
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const inputElement = useRef(null);
@@ -30,17 +31,14 @@ export default function SearchInput({
   }
 
   return (
-    <form
-      className={styles.form}
-      onSubmit={submit}
-    >
+    <form className={styles.form} onSubmit={submit}>
       <label className={styles.label}>
         <div className={styles.magnifier}>
           <SearchIcon width={24} height={24} />
         </div>
         <input
-          type='text'
-          autoCapitalize='none'
+          type="text"
+          autoCapitalize="none"
           ref={inputElement}
           placeholder={placeholder}
           className={styles.input}
@@ -48,15 +46,12 @@ export default function SearchInput({
           onChange={(ev) => setSearchTerm(ev.target.value)}
         />
         <div className={styles.controls}>
-          <div
-            className={styles.loader}
-            style={{opacity: loading ? 1 : 0}}
-          >
+          <div className={styles.loader} style={{ opacity: loading ? 1 : 0 }}>
             <span></span>
             <span></span>
             <span></span>
           </div>
-          {searchTerm && !loading &&
+          {searchTerm && !loading && (
             <button
               type="button"
               className={styles.clearButton}
@@ -64,10 +59,17 @@ export default function SearchInput({
             >
               <XCircleIcon width={16} height={16} />
             </button>
-          }
+          )}
         </div>
       </label>
     </form>
   );
 }
 
+SearchInput.propTypes = {
+  loading: bool,
+  placeholder: string,
+  autoFocus: bool,
+  onFormSubmit: func,
+  onClearForm: func,
+};
