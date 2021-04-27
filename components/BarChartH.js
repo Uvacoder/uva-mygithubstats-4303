@@ -3,15 +3,12 @@ import { Fragment } from 'react';
 import { clamp, percent, prettyNumber } from '~/util';
 import { COLORS } from '~/util/constants';
 
-export default function BarChartH({
-  data,
-  colors
-}) {
+export default function BarChartH({ data, colors }) {
   const entries = Object.entries(data);
   const max = Math.max(...Object.values(data));
 
   return (
-    <div className='root'>
+    <div className="root">
       {entries.map((entry, index) => {
         const [key, value] = entry;
         const percentage = clamp(1, percent(value, max), 100);
@@ -19,17 +16,15 @@ export default function BarChartH({
 
         return (
           <Fragment key={index}>
-            <span className='secondary-text'>
-              {key}
-            </span>
-            <div className='svgWrapper'>
+            <span className="secondary-text">{key}</span>
+            <div className="svgWrapper">
               <svg
                 viewBox={`0 0 100 4`}
-                preserveAspectRatio='none'
-                width='100%'
+                preserveAspectRatio="none"
+                width="100%"
                 height={4}
-                style={{width: '100%' }}
-                className='block'
+                style={{ width: '100%' }}
+                className="block"
               >
                 <rect
                   width={percentage}
@@ -42,11 +37,9 @@ export default function BarChartH({
                 />
               </svg>
             </div>
-            <span className='tertiary-text'>
-              {prettyNumber(value)}
-            </span>
+            <span className="tertiary-text">{prettyNumber(value)}</span>
           </Fragment>
-        )
+        );
       })}
 
       <style jsx>{`
@@ -68,5 +61,5 @@ export default function BarChartH({
 BarChartH.propTypes = {
   data: object.isRequired,
 
-  colors: object
+  colors: object,
 };
