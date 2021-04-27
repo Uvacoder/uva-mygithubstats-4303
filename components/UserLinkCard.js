@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import styles from '~/styles/components/UserLinkCard.module.css'
+import { object } from 'prop-types';
+import styles from '~/styles/components/UserLinkCard.module.css';
 
 export default function UserCard({ data: user }) {
   return (
@@ -15,8 +16,8 @@ export default function UserCard({ data: user }) {
         </div>
         <div className={styles.infoWrapper}>
           <p>
-            <b className='fw500'>{user.login}</b>
-            <br/>
+            <b className="fw500">{user.login}</b>
+            <br />
             <small>{user.name}</small>
           </p>
         </div>
@@ -24,3 +25,7 @@ export default function UserCard({ data: user }) {
     </Link>
   );
 }
+
+UserCard.propTypes = {
+  data: object.isRequired,
+};
