@@ -61,29 +61,45 @@ export const getMostForkedRepos = repositories =>
 
 /**
  * @param {Object[]} repositories
+ * @param {number} max
  * @return {Object} where every key is the `primaryLanguage.name` and its value is the accumulation of `forkCount`
  */
-export const getForksPerLanguage = repositories =>
-  repositories.reduce((acc, current) => {
+export const getForksPerLanguage = (repositories, max = 5) => {
+  const obj = repositories.reduce((acc, current) => {
     const lang = current?.node?.primaryLanguage?.name ?? 'Unknown';
     if (!current.node.forkCount) return acc;
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.node.forkCount;
     return acc;
   }, {});
+  const arr = Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, max);
+  const result = {};
+  arr.forEach(a => {
+    result[a[0]] = a[1];
+  });
+  return result;
+}
 
 /**
  * @param {Object[]} repositories
+ * @param {number} max
  * @return {Object} where every key is the `primaryLanguage.name` and its value is the accumulation of `stargazerCount`
  */
-export const getStarsPerLanguage = repositories =>
-  repositories.reduce((acc, current) => {
+export const getStarsPerLanguage = (repositories, max = 5) => {
+  const obj = repositories.reduce((acc, current) => {
     const lang = current.node.primaryLanguage?.name ?? 'Unknown';
     if (!current.node.stargazerCount) return acc;
     acc[lang] = acc[lang] || 0;
     acc[lang] += current.node.stargazerCount;
     return acc;
   }, {});
+  const arr = Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, max);
+  const result = {};
+  arr.forEach(a => {
+    result[a[0]] = a[1];
+  });
+  return result;
+}
 
 /**
  * @param {Object[]} repositories - `user.contributionsCollection.commitContributionsByRepository`
