@@ -60,7 +60,7 @@ export default async function(req, res) {
       user(login: "${username}") {
         login
         name
-        avatarUrl(size: 180)
+        avatarUrl(size: 96)
         isHireable
         hasSponsorsListing
         followers {
