@@ -1,30 +1,20 @@
 import { string, number, oneOfType } from 'prop-types';
-import { COLORS } from '~/util/constants';
 
 export default function ColorItem({
   color,
   text,
   secondaryText = '',
   size = 10,
-  rx = 5
+  rx = 5,
 }) {
   return (
     <>
-      <span className='color-item'>
-        <svg width={size} height={size} className='mr05'>
-          <rect
-            fill={color}
-            width={size}
-            height={size}
-            rx={rx}
-          />
+      <span className="color-item">
+        <svg width={size} height={size} className="mr05">
+          <rect fill={color} width={size} height={size} rx={rx} />
         </svg>
-        <span className='color-item-text'>
-          {text}
-        </span>
-        <span className='color-item-secondary-text'>
-          {secondaryText}
-        </span>
+        <span className="color-item-text">{text}</span>
+        <span className="color-item-secondary-text">{secondaryText}</span>
       </span>
 
       <style jsx>{`
@@ -56,17 +46,14 @@ export default function ColorItem({
         }
       `}</style>
     </>
-  )
+  );
 }
 
 ColorItem.propTypes = {
   color: string.isRequired,
   text: string.isRequired,
 
-  secondaryText: oneOfType([
-    string,
-    number
-  ]),
+  secondaryText: oneOfType([string, number]),
   size: number,
-  rx: number
+  rx: number,
 };
