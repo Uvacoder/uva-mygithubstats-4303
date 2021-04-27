@@ -158,8 +158,32 @@ export default async function(req, res) {
         sponsorshipsAsSponsor {
           totalCount
         }
-        watching {
+        repositoriesContributedTo(
+          first: 10,
+          includeUserRepositories: true,
+          contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY, PULL_REQUEST_REVIEW],
+          orderBy: { field: PUSHED_AT, direction: DESC }
+        ) {
           totalCount
+          nodes {
+            nameWithOwner
+            url
+            isInOrganization
+            owner {
+              login
+              avatarUrl(size: 48)
+            }
+            primaryLanguage {
+              name
+              color
+            }
+            issues(states: [OPEN]) {
+              totalCount
+            }
+            pullRequests(states: [OPEN]) {
+              totalCount
+            }
+          }
         }
       }
     }
