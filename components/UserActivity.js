@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@heroicons/react/outline';
-import { array, object } from 'prop-types';
+import { object } from 'prop-types';
 import { useState, useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import ActivityOverview from '~/components/ActivityOverview';
@@ -12,26 +12,31 @@ import { percent } from '~/util';
 
 const internals = {
   INITIAL_DATA_KEY: 'last year',
-  COMMITS_PER_REPO_TOP_NUMBER: 5
+  COMMITS_PER_REPO_TOP_NUMBER: 5,
 };
 const { round } = Math;
 
-export default function UserActivity({
-  user,
-  languageColors
-}) {
+export default function UserActivity({ user, languageColors }) {
   const [cache, setCache] = useState({
-    [internals.INITIAL_DATA_KEY]: user.contributionsCollection
+    [internals.INITIAL_DATA_KEY]: user.contributionsCollection,
   });
-  const [collection, setCollection] = useState(cache[internals.INITIAL_DATA_KEY]);
+  const [collection, setCollection] = useState(
+    cache[internals.INITIAL_DATA_KEY],
+  );
   const [year, setYear] = useState(internals.INITIAL_DATA_KEY);
   const [loading, setLoading] = useState(false);
 
-  const commitsPerLanguage = userUtil.getCommitsPerLanguage(collection.commitContributionsByRepository);
-  const commitsPerRepo = userUtil.getCommitsPerRepo(collection.commitContributionsByRepository, internals.COMMITS_PER_REPO_TOP_NUMBER);
+  const commitsPerLanguage = userUtil.getCommitsPerLanguage(
+    collection.commitContributionsByRepository,
+  );
+  const commitsPerRepo = userUtil.getCommitsPerRepo(
+    collection.commitContributionsByRepository,
+    internals.COMMITS_PER_REPO_TOP_NUMBER,
+  );
   const totalContributions = collection.contributionCalendar.totalContributions;
   const restrictedContributionsCount = collection.restrictedContributionsCount;
-  const totalPublicContributions = totalContributions - restrictedContributionsCount;
+  const totalPublicContributions =
+    totalContributions - restrictedContributionsCount;
 
   useEffect(() => {
     ReactTooltip.rebuild();
@@ -48,11 +53,13 @@ export default function UserActivity({
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/user/${user.login}/contributions?year=${value}`);
+      const res = await fetch(
+        `/api/user/${user.login}/contributions?year=${value}`,
+      );
       const data = await res.json();
-      setCache(prev => ({
+      setCache((prev) => ({
         ...prev,
-        [value]: data.user.contributionsCollection
+        [value]: data.user.contributionsCollection,
       }));
       setYear(value);
       setCollection(data.user.contributionsCollection);
@@ -65,46 +72,44 @@ export default function UserActivity({
 
   return (
     <>
-      <section className='mb3'>
-
-        <header className='flex aic mb1'>
-          <h2 className='fs-lg fw500 mr1 primary-text'>
-            Activity
-          </h2>
-          <span className='select mr1'>
-            <select
-              onChange={handleSelectChange}
-              disabled={loading}
-            >
+      <section className="mb3">
+        <header className="flex aic mb1">
+          <h2 className="fs-lg fw500 mr1 primary-text">Activity</h2>
+          <span className="select mr1">
+            <select onChange={handleSelectChange} disabled={loading}>
               <option>{internals.INITIAL_DATA_KEY}</option>
-              {user.contributionsCollection.contributionYears.map((y, i) =>
-                <option key={i} value={y}>{y}</option>
-              )}
+              {user.contributionsCollection.contributionYears.map((y, i) => (
+                <option key={i} value={y}>
+                  {y}
+                </option>
+              ))}
             </select>
-            <ChevronDownIcon className='select-arrow' width={16} height={16}/>
+            <ChevronDownIcon className="select-arrow" width={16} height={16} />
           </span>
-          {loading && <Loader className='mb1' width={20}/>}
+          {loading && <Loader className="mb1" width={20} />}
         </header>
 
-        <div className='paper rel'>
-          <p className='mb1'>
+        <div className="paper rel">
+          <p className="mb1">
             <span>
-              {(totalContributions).toLocaleString()} contributions in {year}
+              {totalContributions.toLocaleString()} contributions in {year}
             </span>
-            <span className='mr05 ml05'>·</span>
-            <small className='tertiary-text'>
-              {round(percent(totalPublicContributions, totalContributions))}% Public
+            <span className="mr05 ml05">·</span>
+            <small className="tertiary-text">
+              {round(percent(totalPublicContributions, totalContributions))}%
+              Public
               {' · '}
-              {round(percent(restrictedContributionsCount, totalContributions))}% Private
+              {round(percent(restrictedContributionsCount, totalContributions))}
+              % Private
             </small>
           </p>
 
-          <div className='tertiary-text'>
-            <CalendarLine data={collection.contributionCalendar}/>
+          <div className="tertiary-text">
+            <CalendarLine data={collection.contributionCalendar} />
           </div>
-          <div className='paper-divider--h'/>
+          <div className="paper-divider--h" />
 
-          <div className='grid' style={{'--columns': 3}}>
+          <div className="grid" style={{ '--columns': 3 }}>
             <div>
               <ActivityOverview
                 commits={collection.totalCommitContributions}
@@ -116,50 +121,40 @@ export default function UserActivity({
               />
             </div>
             <div>
-              <h4 className='fw500 mb1'>
-                Commits per language
-              </h4>
+              <h4 className="fw500 mb1">Commits per language</h4>
               <PieChart
                 data={commitsPerLanguage}
                 colors={languageColors}
                 cutout={0}
-                width='100px'
+                width="100px"
               />
             </div>
             <div>
-              <h4 className='fw500 mb1'>
+              <h4 className="fw500 mb1">
                 Commits per repo (top {internals.COMMITS_PER_REPO_TOP_NUMBER})
               </h4>
-              <PieChart
-                data={commitsPerRepo}
-                cutout={0}
-                width='100px'
-              />
+              <PieChart data={commitsPerRepo} cutout={0} width="100px" />
             </div>
           </div>
 
-          <div className='paper-divider--h'/>
+          <div className="paper-divider--h" />
 
           <p>
-            Created {collection.repositoryContributions.totalCount} repositories in {year}
+            Created {collection.repositoryContributions.totalCount} repositories
+            in {year}
           </p>
           <div>
-            <ul className='repository-contributions-list clean-list'>
+            <ul className="repository-contributions-list clean-list">
               {collection.repositoryContributions.nodes.map((n, i) => (
                 <li key={i}>
-                  <RepoCard
-                    data={n.repository}
-                    hideDescription
-                    hideAvatar
-                  />
+                  <RepoCard data={n.repository} hideDescription hideAvatar />
                 </li>
               ))}
             </ul>
           </div>
 
-          {loading && <div className='fetching-layer'></div>}
+          {loading && <div className="fetching-layer"></div>}
         </div>
-
       </section>
 
       <style jsx>{`
@@ -170,7 +165,7 @@ export default function UserActivity({
           width: 100%;
           height: 100%;
           color: var(--color-text-primary);
-          background: rgba(255 255 255 / .5);
+          background: rgba(255 255 255 / 0.5);
         }
 
         .repository-contributions-list {
@@ -179,7 +174,9 @@ export default function UserActivity({
           grid-template-columns: repeat(auto-fill, minmax(154px, 1fr));
         }
 
-        .repository-contributions-list:not(:empty) { margin-top: 1rem }
+        .repository-contributions-list:not(:empty) {
+          margin-top: 1rem;
+        }
 
         .repository-contributions-list > li > :global(.repo-card) {
           padding: 0;
@@ -192,5 +189,5 @@ export default function UserActivity({
 
 UserActivity.propTypes = {
   user: object.isRequired,
-  languageColors: object.isRequired
+  languageColors: object.isRequired,
 };
