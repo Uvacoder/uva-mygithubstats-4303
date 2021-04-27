@@ -29,4 +29,7 @@
   --color-calendar-graph-Q2: hsl(136deg 53% 51%);
   --color-calendar-graph-Q3: hsl(136deg 54% 41%);
   --color-calendar-graph-Q4: hsl(139deg 54% 28%);
+
+  --header-height: 60px;
+  --footer-height: 36px;
 }

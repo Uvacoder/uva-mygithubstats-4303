@@ -23,11 +23,11 @@ export default function Footer() {
         .root {
           font-size: 0.75rem;
           justify-content: space-between;
-          position: fixed;
+          position: sticky;
           left: 0;
           bottom: 0;
-          right: 0;
-          padding: 0.5rem 1.5rem;
+          height: var(--footer-height);
+          padding: 0 1.5rem;
           border-top: 1px solid var(--color-border);
           background-color: var(--color-accent-1);
         }

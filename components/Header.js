@@ -19,7 +19,8 @@ export default function Header() {
           z-index: 1;
           position: sticky;
           top: 0;
-          padding: 1rem 1.5rem;
+          height: var(--header-height);
+          padding: 0 1.5rem;
           border-bottom: 1px solid var(--color-border);
           background-color: var(--color-accent-1);
         }
