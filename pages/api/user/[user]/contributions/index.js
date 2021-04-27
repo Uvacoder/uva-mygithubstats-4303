@@ -1,9 +1,10 @@
 import { fetchGQL } from '~/util/api';
 
-export default async function(req, res) {
+export default async function (req, res) {
   const { user, year } = req.query;
 
-  const gql = {query: `
+  const gql = {
+    query: `
     {
       user(login: "${user}") {
         contributionsCollection(
@@ -63,7 +64,8 @@ export default async function(req, res) {
         }
       }
     }
-  `};
+  `,
+  };
 
   const data = await fetchGQL(gql);
   res.json(data);

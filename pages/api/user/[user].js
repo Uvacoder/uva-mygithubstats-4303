@@ -1,9 +1,10 @@
 import { fetchGQL } from '~/util/api';
 
 async function getRepositoriesByUser(login, limit = 30, after = null) {
-  if (after) after = `\"${after}\"`;
+  if (after) after = `"${after}"`;
 
-  return await fetchGQL({query: `
+  return await fetchGQL({
+    query: `
     {
       user(login: "${login}") {
         repositories(first: ${limit}, after: ${after}, ownerAffiliations: [OWNER], privacy: PUBLIC) {
@@ -32,15 +33,17 @@ async function getRepositoriesByUser(login, limit = 30, after = null) {
           }
         }
       }
-    }
-  `});
+    }`,
+  });
 }
 
 async function getAllRepositoriesByUser(username) {
   let repos = [];
 
   const getRepos = async (login, cursor = null) => {
-    let { user: { repositories }} = await getRepositoriesByUser(login, 100, cursor);
+    let {
+      user: { repositories },
+    } = await getRepositoriesByUser(login, 100, cursor);
     repos = repos.concat(repositories.edges);
 
     if (repositories.pageInfo.hasNextPage) {
@@ -52,10 +55,11 @@ async function getAllRepositoriesByUser(username) {
   return { repositories: repos };
 }
 
-export default async function(req, res) {
+export default async function (req, res) {
   const username = req.query.user;
 
-  const gql = {query: `
+  const gql = {
+    query: `
     {
       user(login: "${username}") {
         login
@@ -186,16 +190,16 @@ export default async function(req, res) {
           }
         }
       }
-    }
-  `};
+    }`,
+  };
 
   const [{ user }, { repositories }] = await Promise.all([
     fetchGQL(gql),
-    getAllRepositoriesByUser(username)
+    getAllRepositoriesByUser(username),
   ]);
 
   res.json({
     user,
-    repositories
+    repositories,
   });
 }
