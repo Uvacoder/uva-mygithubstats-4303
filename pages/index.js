@@ -61,13 +61,13 @@ export default function Home() {
 
       {Boolean(searchResults?.search?.userCount) && (
         <ul className={styles.searchResultsList}>
-          {searchResults.search.nodes.map((user) => {
-            return (
+          {searchResults.search.nodes
+            .filter((node) => node.id)
+            .map((user) => (
               <li key={user.id}>
                 <UserLinkCard data={user} />
               </li>
-            );
-          })}
+            ))}
         </ul>
       )}
 

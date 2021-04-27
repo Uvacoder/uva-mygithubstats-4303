@@ -20,6 +20,8 @@
 - user: serve images at double size to maximize image clarity
 - user: reorder stars/forks per language, show stars first
 - use heroicons/react icons
+#### Fixed
+- search: filter organizations (empty objects) from search results
 
 ## [0.7.0] - 2021-04-17
 #### Added
