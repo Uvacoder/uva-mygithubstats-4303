@@ -2,29 +2,28 @@
  * @param {Object[]} repositories
  * @return {number} the sum of user's repositories `stargazerCount`
  */
-export const getTotalStars = repositories =>
+export const getTotalStars = (repositories) =>
   repositories.reduce((acc, repo) => acc + repo.node.stargazerCount, 0);
 
 /**
  * @param {Object[]} repositories
  * @return {number} the sum of user’s repositories `forkCount`
  */
-export const getTotalForks = repositories =>
+export const getTotalForks = (repositories) =>
   repositories.reduce((acc, repo) => acc + repo.node.forkCount, 0);
 
 /**
  * @param {Object[]} repositories
  * @return {(string|undefined)} the `licenseInfo.name` with more incidents on user’s repositories
  */
-export const getPreferredLicense = repositories => {
-  const licensesPerRepo = repositories
-    .reduce((acc, current) => {
-      const name = current?.node?.licenseInfo?.name;
-      if (!name) return acc;
-      acc[name] = acc[name] || 0;
-      acc[name]++;
-      return acc;
-    }, {});
+export const getPreferredLicense = (repositories) => {
+  const licensesPerRepo = repositories.reduce((acc, current) => {
+    const name = current?.node?.licenseInfo?.name;
+    if (!name) return acc;
+    acc[name] = acc[name] || 0;
+    acc[name]++;
+    return acc;
+  }, {});
 
   let preferredLicense;
   let licenseCount = 0;
@@ -37,26 +36,26 @@ export const getPreferredLicense = repositories => {
   });
 
   return preferredLicense;
-}
+};
 
 /**
  * @param {Object[]} repositories
  * @return {Object[]} a new array of repositories sorted by `stargazerCount`
  */
-export const getMostStarredRepos = repositories =>
+export const getMostStarredRepos = (repositories) =>
   repositories
     .concat()
-    .filter(r => r.node.stargazerCount)
+    .filter((r) => r.node.stargazerCount)
     .sort((a, b) => b.node.stargazerCount - a.node.stargazerCount);
 
 /**
  * @param {Object[]} repositories
  * @return {Object[]} a new array of repositories sorted by `forkCount`
  */
-export const getMostForkedRepos = repositories =>
+export const getMostForkedRepos = (repositories) =>
   repositories
     .concat()
-    .filter(r => r.node.forkCount)
+    .filter((r) => r.node.forkCount)
     .sort((a, b) => b.node.forkCount - a.node.forkCount);
 
 /**
@@ -72,13 +71,15 @@ export const getForksPerLanguage = (repositories, max = 5) => {
     acc[lang] += current.node.forkCount;
     return acc;
   }, {});
-  const arr = Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, max);
+  const arr = Object.entries(obj)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, max);
   const result = {};
-  arr.forEach(a => {
+  arr.forEach((a) => {
     result[a[0]] = a[1];
   });
   return result;
-}
+};
 
 /**
  * @param {Object[]} repositories
@@ -93,19 +94,21 @@ export const getStarsPerLanguage = (repositories, max = 5) => {
     acc[lang] += current.node.stargazerCount;
     return acc;
   }, {});
-  const arr = Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, max);
+  const arr = Object.entries(obj)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, max);
   const result = {};
-  arr.forEach(a => {
+  arr.forEach((a) => {
     result[a[0]] = a[1];
   });
   return result;
-}
+};
 
 /**
  * @param {Object[]} repositories - `user.contributionsCollection.commitContributionsByRepository`
  * @return {Object} where every key is the `primaryLanguage.name` and its value is the accumulation of `contributions.totalCount`
  */
-export const getCommitsPerLanguage = repositories =>
+export const getCommitsPerLanguage = (repositories) =>
   repositories.reduce((acc, current) => {
     const lang = current?.repository?.primaryLanguage?.name ?? 'Unknown';
     if (!current.contributions.totalCount) return acc;
@@ -133,7 +136,7 @@ export const getCommitsPerRepo = (repositories, slice) =>
  * @param {Object[]} repositories
  * @return {Object} where every key is the `primaryLanguage.name` and its value is the `primaryLanguage.color``
  */
-export const getLanguageColors = repositories =>
+export const getLanguageColors = (repositories) =>
   repositories.reduce((acc, current) => {
     const lang = current?.node?.primaryLanguage?.name;
     if (!lang) return acc;
@@ -145,7 +148,7 @@ export const getLanguageColors = repositories =>
  * @param {Object[]} repositories
  * @return {Object} where every key is the `primaryLanguage.name` and its value is the accumulation of occurrences`
  */
-export const getLanguagesPerRepo = repositories =>
+export const getLanguagesPerRepo = (repositories) =>
   repositories.reduce((acc, current) => {
     const lang = current?.node?.primaryLanguage?.name ?? 'Unknown';
     acc[lang] = acc[lang] || 0;
