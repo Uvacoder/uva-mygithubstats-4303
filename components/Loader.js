@@ -3,13 +3,11 @@ import { number } from 'prop-types';
 /**
  * @url https://glennmccomb.com/articles/building-a-pure-css-animated-svg-spinner/
  */
-export default function Loader({
-  width = 100
-}) {
+export default function Loader({ width = 100 }) {
   return (
     <>
       <svg viewBox="0 0 100 100" width={width}>
-        <circle cx="50" cy="50" r="45"/>
+        <circle cx="50" cy="50" r="45" />
       </svg>
 
       <style jsx>{`
@@ -31,8 +29,12 @@ export default function Loader({
         }
 
         @keyframes svg-animation {
-          0% { transform: rotateZ(0deg) }
-          100% { transform: rotateZ(360deg) }
+          0% {
+            transform: rotateZ(0deg);
+          }
+          100% {
+            transform: rotateZ(360deg);
+          }
         }
 
         @keyframes circle-animation {
@@ -59,5 +61,5 @@ export default function Loader({
 }
 
 Loader.propTypes = {
-  width: number
+  width: number,
 };
