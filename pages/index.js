@@ -6,16 +6,12 @@ import styles from '~/styles/Home.module.css';
 
 const { error } = console;
 
-const internals = {
-  reSpace: new RegExp(/\s/g),
-};
-
 export default function Home() {
   const [searchResults, setSearchResults] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
 
   async function handleFormSubmit({ term }) {
-    const q = term.replace(internals.reSpace, '');
+    const q = term.trim();
 
     setSearchResults(null);
 

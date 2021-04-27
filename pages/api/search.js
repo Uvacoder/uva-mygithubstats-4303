@@ -6,13 +6,13 @@ export default async function (req, res) {
   const gql = {
     query: `
     {
-      search(query: "${q} in:login", type: USER, first: 10) {
+      search(query: "${q}", type: USER, first: 10) {
         userCount
         nodes {
           ... on User {
             id
             login
-            avatarUrl(size:40)
+            avatarUrl(size: 40)
             name
           }
         }

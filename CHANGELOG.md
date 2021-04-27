@@ -14,6 +14,7 @@
     - `contributionsCollection.restrictedContributionsCount`
     - `contributionsCollection.contributionYears`
   - new contributions function `api/user/{user}/contributions?year={year}`
+  - search: do not limit search query to `in:login` matches, allow a more broad search in user
 - user: display public vs private contribution percents
 #### Changed
 - use absolute imports and module path aliases
