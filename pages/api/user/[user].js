@@ -120,6 +120,25 @@ export default async function(req, res) {
               }
             }
           }
+          repositoryContributions(last: 10) {
+            totalCount
+            nodes {
+              repository {
+                name
+                url
+                stargazerCount
+                forkCount
+                owner {
+                  login
+                  avatarUrl(size: 48)
+                }
+                primaryLanguage {
+                  color
+                  name
+                }
+              }
+            }
+          }
         }
         packages {
           totalCount
