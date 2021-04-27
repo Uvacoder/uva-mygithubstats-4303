@@ -64,7 +64,7 @@ export default function PolarAreaChart({
             cx={size/2}
             cy={size/2}
             fill='none'
-            stroke='var(--gps-border-color)'
+            stroke='var(--color-border)'
           />
         ))}
         {items.length === 1 ? (

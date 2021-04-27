@@ -20,7 +20,7 @@ export default function Header() {
           position: sticky;
           top: 0;
           padding: 1rem 1.5rem;
-          border-bottom: 1px solid var(--gps-border-color);
+          border-bottom: 1px solid var(--color-border);
           background-color: var(--color-accent-1);
         }
         .root::before {

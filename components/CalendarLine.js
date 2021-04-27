@@ -151,7 +151,7 @@ export default function CalendarLine({
           font-size: 10px;
         }
         line {
-          stroke: var(--gps-border-color);
+          stroke: var(--color-border);
           stroke-width: 1;
         }
         path {

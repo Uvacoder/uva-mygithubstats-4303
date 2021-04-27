@@ -28,7 +28,7 @@ export default function Footer() {
           bottom: 0;
           right: 0;
           padding: 0.5rem 1.5rem;
-          border-top: 1px solid var(--gps-border-color);
+          border-top: 1px solid var(--color-border);
           background-color: var(--color-accent-1);
         }
         .root > a {
