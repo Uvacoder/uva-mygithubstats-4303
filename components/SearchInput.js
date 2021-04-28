@@ -9,6 +9,7 @@ export default function SearchInput({
   loading = false,
   placeholder = 'Search',
   autoFocus = false,
+  reset = false,
   onFormSubmit = () => {},
   onClearForm = () => {},
 }) {
@@ -23,6 +24,11 @@ export default function SearchInput({
     }
   }, []);
 
+  useEffect(() => {
+    if (reset) {
+      clearForm();
+    }
+  }, [reset]);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -30,7 +36,7 @@ export default function SearchInput({
     }
   }, [debouncedSearchTerm]);
 
-  function clear() {
+  function clearForm() {
     setSearchTerm('');
     onClearForm();
   }
@@ -63,7 +69,7 @@ export default function SearchInput({
             <button
               type="button"
               className={styles.clearButton}
-              onClick={clear}
+              onClick={clearForm}
             >
               <XCircleIcon width={16} height={16} />
             </button>
@@ -78,6 +84,7 @@ SearchInput.propTypes = {
   loading: bool,
   placeholder: string,
   autoFocus: bool,
+  reset: bool,
   onFormSubmit: func,
   onClearForm: func,
 };
