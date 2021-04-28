@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import SearchUser from '~/components/SearchUser';
 
-const { error } = console;
+export async function getStaticProps() {
+  return { props: { hideHeaderSearch: true } };
+}
 
 export default function Home() {
   return (

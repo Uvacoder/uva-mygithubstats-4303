@@ -7,7 +7,7 @@ import '~/styles/vendor-overrides/react-tooltip.css';
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Header />
+      <Header hideSearch={pageProps.hideHeaderSearch} />
       <main className="app-main">
         <Component {...pageProps} />
       </main>
