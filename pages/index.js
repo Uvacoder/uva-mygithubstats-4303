@@ -1,93 +1,40 @@
-import { useState } from 'react';
 import Head from 'next/head';
-import SearchInput from '~/components/SearchInput';
-import UserLinkCard from '~/components/UserLinkCard';
-import styles from '~/styles/Home.module.css';
+import SearchUser from '~/components/SearchUser';
 
 const { error } = console;
 
 export default function Home() {
-  const [searchResults, setSearchResults] = useState(null);
-  const [isSearching, setIsSearching] = useState(false);
-
-  async function handleFormSubmit({ term }) {
-    const q = term.trim();
-
-    setSearchResults(null);
-
-    if (!q) return;
-
-    setIsSearching(true);
-
-    try {
-      const res = await fetch(`/api/search?q=${q}`);
-      const data = await res.json();
-      setSearchResults({
-        search: data.search,
-        term: q,
-      });
-    } catch (err) {
-      error(err);
-    } finally {
-      setIsSearching(false);
-    }
-  }
-
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <title>GitHub Profile Stats</title>
         <meta
           name="description"
-          content="gh-profile-stats displays different statistics for GitHub users"
+          content="gh-profile-stats: different statistics for GitHub users"
         />
       </Head>
 
-      <p className={styles.description}>Enter GitHub username</p>
+      <p className="fw500 mb05">Search user</p>
 
-      <div className={styles.inputWrapper}>
-        <SearchInput
-          placeholder="e.g. 'noeldelgado'"
-          loading={isSearching}
-          autoFocus={true}
-          onFormSubmit={handleFormSubmit}
-          onClearForm={() => setSearchResults(null)}
-        />
+      <div className="search-wrapper">
+        <SearchUser autoFocus={true} placeholder="e.g. noeldelgado" />
       </div>
 
-      {Boolean(searchResults?.search?.userCount) && (
-        <ul className={styles.searchResultsList}>
-          {searchResults.search.nodes
-            .filter((node) => node.id)
-            .map((user) => (
-              <li key={user.id}>
-                <UserLinkCard data={user} />
-              </li>
-            ))}
-        </ul>
-      )}
+      <style jsx>{`
+        .container {
+          max-width: 420px;
+          margin: 0 auto;
+          padding: 4rem 0 2rem;
+        }
 
-      {Boolean(searchResults?.search?.userCount === 0) && (
-        <div className={styles.noSearchResults}>
-          <p className="mb05">
-            Your search for “{searchResults.term}” didn’t return any results.
-          </p>
-          <p className="secondary-text">
-            <i>
-              Check the username typing or <br />
-              visit{' '}
-              <a
-                href={`https://github.com/${searchResults.term}`}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                GitHub/{searchResults.term}
-              </a>{' '}
-              to see if the user exists.
-            </i>
-          </p>
-        </div>
-      )}
+        .search-wrapper {
+          margin: 0 auto 1rem;
+        }
+
+        .search-wrapper > :global(.search-user > form) {
+          font-size: 1.5rem;
+        }
+      `}</style>
     </div>
   );
 }
