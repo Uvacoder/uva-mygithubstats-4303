@@ -12,8 +12,9 @@ export default async function (req, res) {
           ... on User {
             id
             login
-            avatarUrl(size: 40)
+            avatarUrl(size: 64)
             name
+            location
           }
         }
       }

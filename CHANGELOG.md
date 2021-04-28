@@ -23,6 +23,7 @@
 - user: reorder stars/forks per language, show stars first
 - use heroicons/react icons
 - components: SearchInput: auto "submit" form when user types (debounced) vs on actual submit (hitting enter key)
+- components: UserLinkCard, udpated styles, added location
 #### Fixed
 - search: filter organizations (empty objects) from search results
 
