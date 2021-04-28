@@ -11,6 +11,8 @@ body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {
