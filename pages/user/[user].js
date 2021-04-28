@@ -296,9 +296,9 @@ export default function User() {
               {user.repositoriesContributedTo.nodes.some(
                 (r) => r.isInOrganization,
               ) && (
-                <div className="flex aic mb1">
+                <div className="flex aic mb1 fw">
                   <p className="tertiary-text mr05">Organizations</p>
-                  <ul className="clean-list flex">
+                  <ul className="clean-list flex fw">
                     {[
                       ...new Map(
                         user.repositoriesContributedTo.nodes
@@ -307,7 +307,7 @@ export default function User() {
                       ).values(),
                     ].map((repo, i) => {
                       return (
-                        <li key={i} className="ml05">
+                        <li key={i} className="mr05">
                           <img
                             src={repo.owner.avatarUrl}
                             alt={repo.owner.login}
