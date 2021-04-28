@@ -20,7 +20,7 @@ export default function Header() {
           position: sticky;
           top: 0;
           height: var(--header-height);
-          padding: 0 1.5rem;
+          padding: 0 1rem;
           border-bottom: 1px solid var(--color-border);
           background-color: var(--color-accent-1);
         }

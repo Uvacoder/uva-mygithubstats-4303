@@ -27,7 +27,7 @@ export default function Footer() {
           left: 0;
           bottom: 0;
           height: var(--footer-height);
-          padding: 0 1.5rem;
+          padding: 0 1rem;
           border-top: 1px solid var(--color-border);
           background-color: var(--color-accent-1);
         }
