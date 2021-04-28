@@ -61,7 +61,7 @@ svg:not([fill='none']) {
 }
 
 ::placeholder {
-  color: var(--color-border);
+  color: var(--color-input-border);
 }
 
 ::selection {
