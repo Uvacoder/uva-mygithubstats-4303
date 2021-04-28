@@ -4,9 +4,12 @@
 .inline-block { display: inline-block }
 
 .flex { display: flex }
+.f1 { flex: 1 }
 .fw { flex-wrap: wrap }
 .aic { align-items: center }
 .jcc { justify-content: center }
+.jcfe { justify-content: flex-end }
+.jcsb { justify-content: space-between }
 
 .mx-auto { margin-left: auto; margin-right: auto }
 .mb05 { margin-bottom: 0.5rem }

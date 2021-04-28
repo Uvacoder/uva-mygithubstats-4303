@@ -18,6 +18,7 @@
 - user: display public vs private contribution percents
 - hooks: useDebounce
 - components: SearchUser
+- components: Header: search user widget
 #### Changed
 - use absolute imports and module path aliases
 - user: serve images at double size to maximize image clarity
