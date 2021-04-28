@@ -16,8 +16,8 @@ export default function BarChartH({ data, colors }) {
 
         return (
           <Fragment key={index}>
-            <span className="secondary-text">{key}</span>
-            <div className="svgWrapper">
+            <p className="barchart-key secondary-text">{key}</p>
+            <div className="barchart-rect-wrapper">
               <svg
                 viewBox={`0 0 100 4`}
                 preserveAspectRatio="none"
@@ -45,12 +45,20 @@ export default function BarChartH({ data, colors }) {
       <style jsx>{`
         .root {
           display: grid;
-          grid-template-columns: max-content auto max-content;
+          grid-template-columns: minmax(auto, max-content) auto min-content;
           grid-gap: 0 1rem;
           font-size: 12px;
+          overflow: hidden;
         }
 
-        .svgWrapper {
+        .barchart-key {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          display: block;
+        }
+
+        .barchart-rect-wrapper {
           place-self: center stretch;
         }
       `}</style>
