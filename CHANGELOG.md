@@ -17,6 +17,7 @@
   - search: do not limit search query to `in:login` matches, allow a more broad search in user
 - user: display public vs private contribution percents
 - hooks: useDebounce
+- components: SearchUser
 #### Changed
 - use absolute imports and module path aliases
 - user: serve images at double size to maximize image clarity
