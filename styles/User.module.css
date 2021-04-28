@@ -12,17 +12,17 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 0;
+  padding: 3rem 0 0;
   font-size: 0.875rem;
 
   @media (min-width: 960px) {
-    display: flex;
+    display: grid;
+    grid-template-columns: 240px 1fr;
     gap: 1rem;
   }
 }
 
 .aside {
-  flex: 0 0 240px;
   word-break: break-word;
   padding-bottom: 2rem;
 }
