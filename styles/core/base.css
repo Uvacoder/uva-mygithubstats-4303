@@ -38,7 +38,6 @@ select {
   padding: 0.1em calc(1em + 16px) 0.1em 0.6em;
   border: none;
   line-height: inherit;
-  cursor: pointer;
   appearance: none;
 	outline: none;
   border-radius: 6px;
