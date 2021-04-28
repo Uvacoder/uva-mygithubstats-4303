@@ -16,11 +16,13 @@
   - new contributions function `api/user/{user}/contributions?year={year}`
   - search: do not limit search query to `in:login` matches, allow a more broad search in user
 - user: display public vs private contribution percents
+- hooks: useDebounce
 #### Changed
 - use absolute imports and module path aliases
 - user: serve images at double size to maximize image clarity
 - user: reorder stars/forks per language, show stars first
 - use heroicons/react icons
+- components: SearchInput: auto "submit" form when user types (debounced) vs on actual submit (hitting enter key)
 #### Fixed
 - search: filter organizations (empty objects) from search results
 
