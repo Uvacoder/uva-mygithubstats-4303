@@ -6,6 +6,7 @@
 .flex { display: flex }
 .fw { flex-wrap: wrap }
 .aic { align-items: center }
+.jcc { justify-content: center }
 
 .mx-auto { margin-left: auto; margin-right: auto }
 .mb05 { margin-bottom: 0.5rem }

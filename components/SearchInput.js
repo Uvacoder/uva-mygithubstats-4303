@@ -2,8 +2,8 @@ import { SearchIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { bool, func, string } from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
+import Loader from '~/components/Loader';
 import useDebounce from '~/hooks/useDebounce';
-import styles from '~/styles/components/SearchInput.module.css';
 
 export default function SearchInput({
   loading = false,
@@ -42,41 +42,91 @@ export default function SearchInput({
   }
 
   return (
-    <form
-      className={`${styles.form} search-input rel`}
-      onSubmit={(ev) => ev.preventDefault()}
-    >
-      <label className={styles.label}>
-        <div className={styles.magnifier}>
-          <SearchIcon width={24} height={24} />
-        </div>
-        <input
-          type="text"
-          autoCapitalize="none"
-          ref={inputElement}
-          placeholder={placeholder}
-          className={styles.input}
-          value={searchTerm}
-          onChange={(ev) => setSearchTerm(ev.target.value)}
-        />
-        <div className={styles.controls}>
-          <div className={styles.loader} style={{ opacity: loading ? 1 : 0 }}>
-            <span></span>
-            <span></span>
-            <span></span>
+    <>
+      <form className="search-input rel" onSubmit={(ev) => ev.preventDefault()}>
+        <label className="flex aic br4 tertiary-text">
+          <div className="search-icon-wrapper">
+            <SearchIcon width={24} height={24} className="block" />
           </div>
-          {searchTerm && !loading && (
-            <button
-              type="button"
-              className={styles.clearButton}
-              onClick={clearForm}
+          <input
+            type="text"
+            autoCapitalize="none"
+            ref={inputElement}
+            placeholder={placeholder}
+            className="search-input-field"
+            value={searchTerm}
+            onChange={(ev) => setSearchTerm(ev.target.value)}
+          />
+          <div className="controls flex aic">
+            <div
+              className="control-loader flex jcc"
+              style={{ visibility: loading ? 'visible' : 'hidden' }}
             >
-              <XCircleIcon width={16} height={16} />
-            </button>
-          )}
-        </div>
-      </label>
-    </form>
+              <Loader width={'1em'} />
+            </div>
+            {searchTerm && !loading && (
+              <button
+                type="button"
+                className="control-clear-btn flex aic jcc"
+                onClick={clearForm}
+              >
+                <XCircleIcon width={16} height={16} />
+              </button>
+            )}
+          </div>
+        </label>
+      </form>
+
+      <style jsx>{`
+        label {
+          background-color: var(--color-accent-1);
+          box-shadow: 0 0 0 1px var(--color-border);
+        }
+        label:hover {
+          box-shadow: 0 0 1px 1px var(--color-state-focus-outline);
+        }
+        label:focus-within {
+          box-shadow: 0 0 1px 2px var(--color-state-focus-outline);
+        }
+
+        .search-icon-wrapper {
+          padding: 0 0.5em;
+        }
+        .search-icon-wrapper > :global(svg) {
+          width: 1em;
+          height: 1em;
+        }
+
+        .search-input-field {
+          width: 100%;
+          height: 2em;
+          padding: 0.5rem 0;
+          border: none;
+          outline: none;
+        }
+
+        .controls {
+          min-width: 2em;
+        }
+        .control-loader {
+          pointer-events: none;
+          position: absolute;
+          width: 2em;
+        }
+        .control-clear-btn {
+          min-width: 2em;
+          min-height: 2em;
+          border: none;
+          background-color: rgb(0 0 0 / 0);
+          color: inherit;
+          border-radius: 0;
+        }
+        .control-clear-btn > :global(svg) {
+          width: 1em;
+          height: 1em;
+        }
+      `}</style>
+    </>
   );
 }
 
