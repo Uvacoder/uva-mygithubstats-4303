@@ -68,10 +68,10 @@ export default function PieChart({
                 cx={size / 2}
                 cy={size / 2}
                 data-tip={`
-                ${item.key}: ${prettyNumber(item.value)}
-                <br/>
-                <strong>${Math.round(item.percent * 100)}%</strong>
-              `}
+                  ${item.key}: ${prettyNumber(item.value)}
+                  <br/>
+                  <strong>${Math.round(item.percent * 100)}%</strong>
+                `}
                 data-html={true}
               />
             ))
