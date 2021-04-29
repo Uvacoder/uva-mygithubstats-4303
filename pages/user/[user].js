@@ -266,11 +266,11 @@ export default function User() {
             <h3 className="mb05 fw500">Organizations</h3>
             <ul className="clean-list flex fw">
               {user.organizations.nodes.map((org, i) => (
-                <li key={i} className="mr05">
+                <li key={i} className="mr05 mb05">
                   <img
                     src={org.avatarUrl}
                     title={org.name}
-                    className="block r4"
+                    className="block br4"
                     width={32}
                     height={32}
                     data-tip={org.name}
