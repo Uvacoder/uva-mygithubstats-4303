@@ -7,6 +7,14 @@ export default function BarChartH({ data, colors }) {
   const entries = Object.entries(data);
   const max = Math.max(...Object.values(data));
 
+  if (entries.length === 0) {
+    return (
+      <p className="fs-md tertiary-text">
+        <i>No data to show</i>
+      </p>
+    );
+  }
+
   return (
     <div className="root fs-sm">
       {entries.map((entry, index) => {
