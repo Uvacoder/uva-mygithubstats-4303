@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+(feature/styled-jsx-postcss)
+#### Added
+- postcss support via styled-jsx
+
 (feature/sluggish-scroll-old-ios)
 #### Fix
 - sluggish scroll on old iOS -> added momentum scrolling with `-webkit-overflow-scrolling: touch`
