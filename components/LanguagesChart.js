@@ -9,16 +9,16 @@ export default function LanguagesChart({ data, colors, height = 10 }) {
 
   const items = Object.entries(data).map((entry, index) => {
     const [key, value] = entry;
-    const width = percent(value, max);
+    const percentage = percent(value, max);
     const x = xAccumulator;
 
-    xAccumulator += width;
+    xAccumulator += percentage;
 
     return {
       key,
       value,
       x,
-      width,
+      percentage,
       color: colors?.[key] ?? COLORS[index],
     };
   });
@@ -37,9 +37,15 @@ export default function LanguagesChart({ data, colors, height = 10 }) {
             <rect
               key={i}
               x={item.x}
-              width={item.width}
+              width={item.percentage}
               height="100%"
               fill={item.color}
+              data-tip={`
+                ${item.key}: ${item.value}
+                <br/>
+                <strong>${item.percentage.toFixed(2)}%</strong>
+              `}
+              data-html={true}
             />
           );
         })}
@@ -52,7 +58,7 @@ export default function LanguagesChart({ data, colors, height = 10 }) {
               <ColorItem
                 color={item.color}
                 text={item.key}
-                secondaryText={`${item.width.toFixed(1)}%`}
+                secondaryText={`${item.percentage.toFixed(1)}%`}
               />
             </li>
           );
