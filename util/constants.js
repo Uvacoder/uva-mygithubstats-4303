@@ -1,5 +1,4 @@
 export const COLORS = [
-
   // '#003f5c',
   '#2f4b7c',
   '#665191',
@@ -56,3 +55,6 @@ export const COLORS = [
   // '#607d8b'
 ];
 
+export const KEYCODES = {
+  ESC: 27,
+};

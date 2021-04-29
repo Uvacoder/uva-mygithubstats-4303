@@ -1,5 +1,35 @@
 # Changelog
 
+(feature/misc)
+#### Added
+- components:{PieChart,PolarAreaChart}: prettify numbers on tooltips
+- user: preconnect to origin avatars.githubusercontent.com
+- conf: `jscofig.json` and `next.config.js`
+- user: alt attribute to avatar image
+- meta descriptions
+- api
+  - user fields
+    - `isHireable`
+    - `hasSponsorsListing`
+    - `contributionsCollection.restrictedContributionsCount`
+    - `contributionsCollection.contributionYears`
+  - new contributions function `api/user/{user}/contributions?year={year}`
+  - search: do not limit search query to `in:login` matches, allow a more broad search in user
+- user: display public vs private contribution percents
+- hooks: useDebounce
+- components: SearchUser
+- components: Header: search user widget
+#### Changed
+- use absolute imports and module path aliases
+- user: serve images at double size to maximize image clarity
+- user: reorder stars/forks per language, show stars first
+- use heroicons/react icons
+- components: SearchInput: auto "submit" form when user types (debounced) vs on actual submit (hitting enter key)
+- components: UserLinkCard, udpated styles, added location
+- pages: home: refactored to use SearchUser widget
+#### Fixed
+- search: filter organizations (empty objects) from search results
+
 ## [0.7.0] - 2021-04-17
 #### Added
 - dependencies: add react-tooltip

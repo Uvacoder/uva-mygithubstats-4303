@@ -1,7 +1,8 @@
-import { fetchGQL } from '../../util/api';
+import { fetchGQL } from '~/util/api';
 
-export default async function(req, res) {
-  const gql = {query: `
+export default async function (req, res) {
+  const gql = {
+    query: `
     {
       rateLimit {
         used
@@ -10,8 +11,8 @@ export default async function(req, res) {
         cost
         nodeCount
       }
-    }
-  `};
+    }`,
+  };
 
   const { rateLimit } = await fetchGQL(gql);
   res.json(rateLimit);

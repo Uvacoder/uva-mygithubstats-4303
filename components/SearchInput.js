@@ -1,15 +1,22 @@
+import { SearchIcon } from '@heroicons/react/outline';
+import { XCircleIcon } from '@heroicons/react/solid';
+import { bool, func, string } from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
-import styles from '../styles/components/SearchInput.module.css'
+import Loader from '~/components/Loader';
+import useDebounce from '~/hooks/useDebounce';
 
 export default function SearchInput({
   loading = false,
   placeholder = 'Search',
   autoFocus = false,
+  reset = false,
   onFormSubmit = () => {},
-  onClearForm = () => {}
+  onClearForm = () => {},
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const inputElement = useRef(null);
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (autoFocus) {
@@ -17,59 +24,117 @@ export default function SearchInput({
     }
   }, []);
 
-  function submit(ev) {
-    ev.preventDefault();
-    onFormSubmit({ term: searchTerm });
-  }
+  useEffect(() => {
+    if (reset) {
+      clearForm();
+    }
+  }, [reset]);
 
-  function clear() {
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      onFormSubmit({ term: searchTerm });
+    }
+  }, [debouncedSearchTerm]);
+
+  function clearForm() {
     setSearchTerm('');
     onClearForm();
   }
 
   return (
-    <form
-      className={styles.form}
-      onSubmit={submit}
-    >
-      <label className={styles.label}>
-        <div className={styles.magnifier}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-            <path d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/>
-          </svg>
-        </div>
-        <input
-          type='text'
-          autoCapitalize='none'
-          ref={inputElement}
-          placeholder={placeholder}
-          className={styles.input}
-          value={searchTerm}
-          onChange={(ev) => setSearchTerm(ev.target.value)}
-        />
-        <div className={styles.controls}>
-          <div
-            className={styles.loader}
-            style={{opacity: loading ? 1 : 0}}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
+    <>
+      <form className="search-input rel" onSubmit={(ev) => ev.preventDefault()}>
+        <label className="flex aic br4 tertiary-text">
+          <div className="search-icon-wrapper">
+            <SearchIcon width={24} height={24} className="block" />
           </div>
-          {searchTerm && !loading &&
-            <button
-              type="button"
-              className={styles.clearButton}
-              onClick={clear}
+          <input
+            type="text"
+            autoCapitalize="none"
+            ref={inputElement}
+            placeholder={placeholder}
+            className="search-input-field"
+            value={searchTerm}
+            onChange={(ev) => setSearchTerm(ev.target.value)}
+          />
+          <div className="controls flex aic">
+            <div
+              className="control-loader flex jcc"
+              style={{ visibility: loading ? 'visible' : 'hidden' }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z"/>
-              </svg>
-            </button>
-          }
-        </div>
-      </label>
-    </form>
+              <Loader width={'1em'} />
+            </div>
+            {searchTerm && !loading && (
+              <button
+                type="button"
+                className="control-clear-btn flex aic jcc"
+                onClick={clearForm}
+              >
+                <XCircleIcon width={16} height={16} />
+              </button>
+            )}
+          </div>
+        </label>
+      </form>
+
+      <style jsx>{`
+        label {
+          background-color: var(--color-accent-1);
+          box-shadow: 0 0 0 1px var(--color-border);
+        }
+        label:hover {
+          box-shadow: 0 0 1px 1px var(--color-state-focus-outline);
+        }
+        label:focus-within {
+          box-shadow: 0 0 1px 2px var(--color-state-focus-outline);
+        }
+
+        .search-icon-wrapper {
+          padding: 0 0.5em;
+        }
+        .search-icon-wrapper > :global(svg) {
+          width: 1em;
+          height: 1em;
+        }
+
+        .search-input-field {
+          width: 100%;
+          height: 2em;
+          padding: 0.5rem 0;
+          border: none;
+          outline: none;
+        }
+
+        .controls {
+          min-width: 2em;
+        }
+        .control-loader {
+          pointer-events: none;
+          position: absolute;
+          width: 2em;
+        }
+        .control-clear-btn {
+          min-width: 2em;
+          min-height: 2em;
+          border: none;
+          background-color: rgb(0 0 0 / 0);
+          color: inherit;
+          border-radius: 0;
+        }
+        .control-clear-btn > :global(svg) {
+          width: 1em;
+          height: 1em;
+        }
+      `}</style>
+    </>
   );
 }
 
+SearchInput.propTypes = {
+  loading: bool,
+  placeholder: string,
+  autoFocus: bool,
+  reset: bool,
+  onFormSubmit: func,
+  onClearForm: func,
+};
