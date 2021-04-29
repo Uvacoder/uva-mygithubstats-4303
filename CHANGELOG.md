@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+(feature/sluggish-scroll-old-ios)
+#### Fix
+- sluggish scroll on old iOS -> added momentum scrolling with `-webkit-overflow-scrolling: touch`
+
 ## [1.0.0] - 2021-04-28
 #### Added
 - conf: `jscofig.json` and `next.config.js`
@@ -123,6 +129,7 @@ Initial release
   - languages per repo
   - commits per repo (top 10)
 
+[Unreleased]: https://github.com/noeldelgado/gh-profile-stats/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.7.0...v1.0.0
 [0.7.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.5.0...v0.6.0
