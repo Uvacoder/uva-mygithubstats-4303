@@ -8,7 +8,7 @@ export default function BarChartH({ data, colors }) {
   const max = Math.max(...Object.values(data));
 
   return (
-    <div className="root">
+    <div className="root fs-sm">
       {entries.map((entry, index) => {
         const [key, value] = entry;
         const percentage = clamp(1, percent(value, max), 100);
@@ -34,6 +34,12 @@ export default function BarChartH({ data, colors }) {
                   fill={color}
                   rx={2}
                   ry={1}
+                  data-tip={`
+                    ${key}: ${prettyNumber(value)}
+                    <br/>
+                    <strong>${percentage.toFixed(2)}%</strong>
+                  `}
+                  data-html={true}
                 />
               </svg>
             </div>
@@ -47,7 +53,6 @@ export default function BarChartH({ data, colors }) {
           display: grid;
           grid-template-columns: minmax(auto, max-content) auto min-content;
           grid-gap: 0 1rem;
-          font-size: 12px;
           overflow: hidden;
         }
 
