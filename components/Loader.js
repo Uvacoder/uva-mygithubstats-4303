@@ -1,4 +1,4 @@
-import { number } from 'prop-types';
+import { number, oneOfType, string } from 'prop-types';
 
 /**
  * @url https://glennmccomb.com/articles/building-a-pure-css-animated-svg-spinner/
@@ -61,5 +61,5 @@ export default function Loader({ width = 100 }) {
 }
 
 Loader.propTypes = {
-  width: number,
+  width: oneOfType([number, string]),
 };
