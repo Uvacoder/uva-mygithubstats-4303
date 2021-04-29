@@ -18,8 +18,6 @@ async function getRepositoriesByUser(login, limit = 30, after = null) {
               isFork
               isArchived
               isMirror
-              url
-              descriptionHTML
               stargazerCount
               forkCount
               primaryLanguage {
@@ -70,27 +68,20 @@ export default async function (req, res) {
         followers {
           totalCount
         }
-        following {
+        issues {
           totalCount
         }
-        starredRepositories {
+        pullRequests {
           totalCount
         }
-        createdAt
         bio
         status {
           emoji
           emojiHTML
           message
         }
-        company
-        location
-        email
         websiteUrl
         twitterUsername
-        gists {
-          totalCount
-        }
         contributionsCollection {
           restrictedContributionsCount
           totalCommitContributions
@@ -143,12 +134,6 @@ export default async function (req, res) {
               }
             }
           }
-        }
-        packages {
-          totalCount
-        }
-        projects {
-          totalCount
         }
         organizations(first: 100) {
           nodes {
