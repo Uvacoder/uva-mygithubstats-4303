@@ -1,30 +1,45 @@
-import Head from 'next/head'
+import {
+  BookmarkAltIcon,
+  ExclamationCircleIcon,
+  GlobeAltIcon,
+  HeartIcon,
+  ScaleIcon,
+  StarIcon,
+  UsersIcon,
+} from '@heroicons/react/outline';
+import Parse from 'html-react-parser';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
-import parse from 'html-react-parser';
 import ReactTooltip from 'react-tooltip';
-import CalendarLine from '../../components/CalendarLine';
-import ActivityOverview from '../../components/ActivityOverview';
-import LanguagesChart from '../../components/LanguagesChart';
-import PieChart from '../../components/PieChart';
-import PolarAreaChart from '../../components/PolarAreaChart';
-import { prettyNumber } from '../../util';
-import * as userUtil from '../../util/pages/user';
-import styles from '../../styles/User.module.css'
+import useSWR from 'swr';
+import UserActivity from '~/components/UserActivity';
+import BarChartH from '~/components/BarChartH';
+import ColorItem from '~/components/ColorItem';
+import LanguagesChart from '~/components/LanguagesChart';
+import PieChart from '~/components/PieChart';
+import RepoCard from '~/components/RepoCard';
+import { prettyNumber } from '~/util';
+import * as userUtil from '~/util/pages/user';
+import styles from '~/styles/User.module.css';
+
+const internals = {
+  MAX_STARRED_REPOS_TO_SHOW: 10,
+  MAX_FORKED_REPOS_TO_SHOW: 10,
+  MAX_STARS_PER_LANG_TO_SHOW: 5,
+  MAX_FORKS_PER_LANG_TO_SHOW: 5,
+};
 
 export default function User() {
   const router = useRouter();
   const { user: username } = router.query;
   const { data, error } = useSWR(username ? `/api/user/${username}` : null, {
-    revalidateOnFocus: false
+    revalidateOnFocus: false,
   });
 
   if (error) {
     return (
       <div className={styles.loadingScreen}>
-        <p>
-          Failed to load {username}’s stats
-        </p>
+        <p>Failed to load {username}’s stats</p>
       </div>
     );
   }
@@ -32,9 +47,11 @@ export default function User() {
   if (!data) {
     return (
       <div className={styles.loadingScreen}>
-        <p>
-          Loading {username}’s profile stats
-        </p>
+        <Head>
+          <title>GitHub Profile Stats - {username}</title>
+          <link rel="preconnect" href="https://avatars.githubusercontent.com" />
+        </Head>
+        <p>Loading {username}’s profile stats</p>
       </div>
     );
   }
@@ -44,164 +61,201 @@ export default function User() {
   const totalStars = userUtil.getTotalStars(repositories);
   const totalForks = userUtil.getTotalForks(repositories);
   const preferredLicense = userUtil.getPreferredLicense(repositories) ?? 'None';
-  const mostStarredRepos = userUtil.getMostStarredRepos(repositories).slice(0, 3);
-  const mostForkedRepos = userUtil.getMostForkedRepos(repositories).slice(0, 3);
-  const forksPerLanguage = userUtil.getForksPerLanguage(repositories);
-  const starsPerLanguage = userUtil.getStarsPerLanguage(repositories);
-  const commitsPerLanguage = userUtil.getCommitsPerLanguage(user.contributionsCollection.commitContributionsByRepository);
-  const commitsPerRepo = userUtil.getCommitsPerRepo(user.contributionsCollection.commitContributionsByRepository, 10);
-  const starsPerRepo = userUtil.getStarsPerRepo(
-    userUtil.getMostStarredRepos(repositories).slice(0, 10)
+  const mostStarredRepos = userUtil
+    .getMostStarredRepos(repositories)
+    .slice(0, internals.MAX_STARRED_REPOS_TO_SHOW);
+  const mostForkedRepos = userUtil
+    .getMostForkedRepos(repositories)
+    .slice(0, internals.MAX_FORKED_REPOS_TO_SHOW);
+  const forksPerLanguage = userUtil.getForksPerLanguage(
+    repositories,
+    internals.MAX_FORKS_PER_LANG_TO_SHOW,
+  );
+  const starsPerLanguage = userUtil.getStarsPerLanguage(
+    repositories,
+    internals.MAX_STARS_PER_LANG_TO_SHOW,
   );
   const languageColors = userUtil.getLanguageColors(repositories);
   const languagesPerRepo = userUtil.getLanguagesPerRepo(repositories);
 
+  const forkReposCount = repositories.filter((r) => r.node.isFork).length;
+  const archiveReposCount = repositories.filter((r) => r.node.isArchived)
+    .length;
+  const mirrorReposCount = repositories.filter((r) => r.node.isMirror).length;
+  const sourceRepoCount =
+    repositories.length - forkReposCount - archiveReposCount - mirrorReposCount;
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>GitHub Profile Stats - {user.login} ({user.name})</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>
+          GitHub Profile Stats - {user.login} ({user.name})
+        </title>
+        <meta
+          name="description"
+          content={`${user.login} has ${repositories.length} repositories available.`}
+        />
+        <link rel="preconnect" href="https://avatars.githubusercontent.com" />
       </Head>
-      <aside className={styles.aside}>
-        <div className={`${styles.bio} mb1`}>
-          <div className='mr1'>
-            <img src={user.avatarUrl} className={styles.avatar} />
-          </div>
-          <div>
-            <h1 className={`${styles.header} mb1`}>
-              <div>{user.name}</div>
-              <span>{user.login}</span>
-            </h1>
+
+      <aside className={`${styles.aside} tertiary-text`}>
+        <div className="flex aic mb1">
+          <div className="rel mr1">
+            <img
+              src={user.avatarUrl}
+              className={styles.avatar}
+              alt="Avatar"
+              width="48"
+              height="48"
+            />
             {user.status && (
-              <div className={styles.status}>
-                {parse(user.status.emojiHTML ?? '')} {user.status.message}
+              <div className={`${styles.status} secondary-text`}>
+                <span>{Parse(user.status.emojiHTML ?? '💭')}</span>
+                <span>{user.status.message}</span>
               </div>
             )}
           </div>
+          <div>
+            <h1 className={styles.userIntro}>
+              <div className="primary-text fw600">{user.name}</div>
+              <span className="secondary-text fw500">{user.login}</span>
+            </h1>
+          </div>
         </div>
 
-        {user.bio && <p className='mb1'>{user.bio}</p>}
+        {user.isHireable && (
+          <div className="mb1 fs-sm">
+            <ColorItem color="var(--color-primary)" text="Available for hire" />
+          </div>
+        )}
 
-        <div className="mb1">
-          <ul className={styles.inlineStats}>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M10.119 16.064c2.293-.53 4.427-.994 3.394-2.946-3.147-5.941-.835-9.118 2.488-9.118 3.388 0 5.643 3.299 2.488 9.119-1.065 1.964 1.149 2.427 3.393 2.946 1.985.458 2.118 1.428 2.118 3.107l-.003.828h-1.329c0-2.089.083-2.367-1.226-2.669-1.901-.438-3.695-.852-4.351-2.304-.239-.53-.395-1.402.226-2.543 1.372-2.532 1.719-4.726.949-6.017-.902-1.517-3.617-1.509-4.512-.022-.768 1.273-.426 3.479.936 6.05.607 1.146.447 2.016.206 2.543-.66 1.445-2.472 1.863-4.39 2.305-1.252.29-1.172.588-1.172 2.657h-1.331c0-2.196-.176-3.406 2.116-3.936zm-10.117 3.936h1.329c0-1.918-.186-1.385 1.824-1.973 1.014-.295 1.91-.723 2.316-1.612.212-.463.355-1.22-.162-2.197-.952-1.798-1.219-3.374-.712-4.215.547-.909 2.27-.908 2.819.015.935 1.567-.793 3.982-1.02 4.982h1.396c.44-1 1.206-2.208 1.206-3.9 0-2.01-1.312-3.1-2.998-3.1-2.493 0-4.227 2.383-1.866 6.839.774 1.464-.826 1.812-2.545 2.209-1.49.345-1.589 1.072-1.589 2.334l.002.618z"/></svg>
-              <b>{prettyNumber(user.followers.totalCount)}</b> followers
-            </li>
-            <li>
-              <b>{prettyNumber(user.following.totalCount)}</b> following
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                <path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z"/>
+        {user.bio && <p className="mb1">{user.bio}</p>}
+
+        <ul className="clean-list mb2 flex aic">
+          <li>
+            <a
+              href={`https://github.com/${user.login}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tertiary-text"
+              title={`View ${user.login}’s profile on GitHub`}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
-              <b>{prettyNumber(user.starredRepositories.totalCount)}</b>
+            </a>
+          </li>
+          {user.twitterUsername && (
+            <li className="ml05">
+              <a
+                href={`https://twitter.com/${user.twitterUsername}`}
+                rel="noopener noreferrer"
+                target="_blank"
+                title={`Visit ${user.twitterUsername}’s twitter account`}
+                className="tertiary-text"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z" />
+                </svg>
+              </a>
             </li>
-          </ul>
+          )}
+          {user.websiteUrl && (
+            <li className="ml05">
+              <a
+                href={user.websiteUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="tertiary-text"
+                title={`Visit ${user.name ?? 'user'} website`}
+              >
+                <GlobeAltIcon width={16} height={16} />
+              </a>
+            </li>
+          )}
+        </ul>
 
-          <ul className={styles.inlineStats}>
+        <div className="mb2">
+          <ul className="icon-list">
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M3.44 1.999l-.439-1.999h17.994l-.439 1.999h-17.116zm18.281 8.001l-1.572 12h-16.352l-1.526-12h19.45zm2.279-2h-24l2.035 16h19.868l2.097-16zm-1.745-2l.371-2h-21.256l.371 2h20.514z"/></svg>
-              <b>{prettyNumber(repositories.length)}</b> repositories
-            </li>
-            <li><b>{prettyNumber(user.gists.totalCount)}</b> gists</li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12.015 7c4.751 0 8.063 3.012 9.504 4.636-1.401 1.837-4.713 5.364-9.504 5.364-4.42 0-7.93-3.536-9.478-5.407 1.493-1.647 4.817-4.593 9.478-4.593zm0-2c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 3c-2.21 0-4 1.791-4 4s1.79 4 4 4c2.209 0 4-1.791 4-4s-1.791-4-4-4zm-.004 3.999c-.564.564-1.479.564-2.044 0s-.565-1.48 0-2.044c.564-.564 1.479-.564 2.044 0s.565 1.479 0 2.044z"/></svg>
-              <b>{prettyNumber(user.watching.totalCount)}</b>
-            </li>
-          </ul>
-
-          <ul className={styles.inlineStats}>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M15.744 16.683l.349-.199v1.717l-.349.195v-1.713zm3.414-.227l.342-.196v-1.717l-.343.195v1.718zm-1.429.813l.343-.195v-1.717l-.343.195v1.717zm.578-.329l.349-.199v-1.717l-.349.199v1.717zm-1.152.656l.343-.196v-1.717l-.343.196v1.717zm-.821.467l.343-.195v-1.717l-.343.195v1.717zm6.666-11.122v11.507l-9.75 5.552-12.25-6.978v-11.507l9.767-5.515 12.233 6.941zm-12.236-4.643l-2.106 1.19 8.891 5.234-.002.003 2.33-1.256-9.113-5.171zm1.236 10.59l-9-5.218v8.19l9 5.126v-8.098zm3.493-3.056l-8.847-5.208-2.488 1.405 8.86 5.138 2.475-1.335zm5.507-.696l-7 3.773v8.362l7-3.985v-8.15z"/></svg>
-              <b>{prettyNumber(user.packages.totalCount)}</b> packages
+              <span className="icon">
+                <UsersIcon width={16} height={16} />
+              </span>
+              <span className="fw600">
+                {prettyNumber(user.followers.totalCount)}
+              </span>{' '}
+              followers
             </li>
             <li>
-              <b>{prettyNumber(user.projects.totalCount)}</b> projects
-            </li>
-          </ul>
-
-          <ul className={styles.inlineStats}>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.383 15.941l-3.758 8.059-.967-2.658-2.658.968 3.517-7.541c.678.216 1.137.162 1.849.162.744.513 1.072.844 2.017 1.01zm3.252-1.009c-.738.506-1.049.831-1.994 1.004l3.759 8.064.967-2.658 2.633.968-3.495-7.549c-.686.222-1.146.171-1.87.171zm-2.635-11.932c-2.205 0-4 1.795-4 4s1.795 4 4 4c2.206 0 4-1.794 4-4s-1.794-4-4-4zm6.926 5.278c.051.146.074.296.074.445 0 .449-.222.883-.615 1.156-1.256.87-1.09.651-1.562 2.067-.198.591-.77.99-1.414.99h-.004c-1.549-.005-1.279-.088-2.528.789-.262.183-.569.275-.877.275s-.615-.092-.876-.275c-1.249-.878-.98-.794-2.528-.789h-.004c-.645 0-1.216-.399-1.413-.99-.473-1.417-.311-1.198-1.562-2.067-.395-.274-.617-.708-.617-1.157 0-.148.024-.298.074-.444.483-1.411.484-1.139 0-2.555-.05-.147-.074-.297-.074-.445 0-.45.222-.883.616-1.157 1.251-.868 1.089-.648 1.562-2.067.197-.591.769-.99 1.413-.99h.004c1.545.005 1.271.095 2.528-.79.262-.182.569-.274.877-.274s.615.091.876.274c1.249.878.98.795 2.528.79h.004c.645 0 1.216.399 1.414.99.473 1.416.307 1.197 1.562 2.067.394.274.616.707.616 1.156 0 .148-.023.299-.074.445-.483 1.411-.485 1.139 0 2.556zm-1.926-1.278c0-2.761-2.238-5-5-5-2.761 0-5 2.239-5 5s2.239 5 5 5c2.762 0 5-2.238 5-5z"/></svg>
-              <b>{prettyNumber(user.sponsorshipsAsMaintainer.totalCount)}</b> sponsors
+              <span className="icon">
+                <StarIcon width={16} height={16} />
+              </span>
+              <span className="fw600">{prettyNumber(totalStars)}</span>{' '}
+              stargazers
             </li>
             <li>
-              <b>{prettyNumber(user.sponsorshipsAsSponsor.totalCount)}</b> sponsoring
+              <span className="icon">
+                <svg width={14} height={14} viewBox="0 0 16 16">
+                  <path
+                    fillRule="evenodd"
+                    d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                  ></path>
+                </svg>
+              </span>
+              <span className="fw600">{prettyNumber(totalForks)}</span> forks
             </li>
-          </ul>
-        </div>
-
-        <div className="mb1">
-          <ul className={styles.inlineStats}>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z"/></svg>
-              Joined {new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-            </li>
-            {user.company && (
+            {user.hasSponsorsListing && (
               <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 22h2v2h-22v-2h2v-22h18v22zm-10-3h-2v4h2v-4zm4 0h-2v4h2v-4zm4-17h-14v20h2v-5h10v5h2v-20zm-12 11h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8-3h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8-3h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8-3h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2z"/></svg>
-                {user.company}
-              </li>
-            )}
-            {user.location && (
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2c3.196 0 6 2.618 6 5.602 0 3.093-2.493 7.132-6 12.661-3.507-5.529-6-9.568-6-12.661 0-2.984 2.804-5.602 6-5.602m0-2c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
-                {user.location}
-              </li>
-            )}
-            {user.email && (
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
-                {user.email}
-              </li>
-            )}
-            {user.websiteUrl && (
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M6.188 8.719c.439-.439.926-.801 1.444-1.087 2.887-1.591 6.589-.745 8.445 2.069l-2.246 2.245c-.644-1.469-2.243-2.305-3.834-1.949-.599.134-1.168.433-1.633.898l-4.304 4.306c-1.307 1.307-1.307 3.433 0 4.74 1.307 1.307 3.433 1.307 4.74 0l1.327-1.327c1.207.479 2.501.67 3.779.575l-2.929 2.929c-2.511 2.511-6.582 2.511-9.093 0s-2.511-6.582 0-9.093l4.304-4.306zm6.836-6.836l-2.929 2.929c1.277-.096 2.572.096 3.779.574l1.326-1.326c1.307-1.307 3.433-1.307 4.74 0 1.307 1.307 1.307 3.433 0 4.74l-4.305 4.305c-1.311 1.311-3.44 1.3-4.74 0-.303-.303-.564-.68-.727-1.051l-2.246 2.245c.236.358.481.667.796.982.812.812 1.846 1.417 3.036 1.704 1.542.371 3.194.166 4.613-.617.518-.286 1.005-.648 1.444-1.087l4.304-4.305c2.512-2.511 2.512-6.582.001-9.093-2.511-2.51-6.581-2.51-9.092 0z"/></svg>
-                <a
-                  href={user.websiteUrl}
-                  rel='noopener noreferrer'
-                  target='_blank'
-                  className='primary-text'
-                >
-                  {user.websiteUrl}
-                </a>
-              </li>
-            )}
-            {user.twitterUsername && (
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                <a
-                  href={`https://twitter.com/${user.twitterUsername}`}
-                  rel='noopener noreferrer'
-                  target='_blank'
-                  className='primary-text'
-                >
-                  @{user.twitterUsername}
-                </a>
+                <span className="icon">
+                  <HeartIcon width={16} height={16} />
+                </span>
+                <span className="fw600">
+                  {prettyNumber(user.sponsorshipsAsMaintainer.totalCount)}
+                </span>{' '}
+                sponsors
               </li>
             )}
           </ul>
         </div>
 
-        <div className="mb1">
-          <h4 className="mb05">Profile Statistics</h4>
-          <ul className={styles.inlineStats}>
+        <div className="mb2">
+          <ul className="icon-list">
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                <path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z"/>
-              </svg>
-              <b>{prettyNumber(totalStars)}</b>
+              <span className="icon">
+                <BookmarkAltIcon width={16} height={16} />
+              </span>
+              <span className="fw600">{prettyNumber(repositories.length)}</span>{' '}
+              repositories <small>({sourceRepoCount} Sources)</small>
+              <ul className="clean-list fs-sm ml15 flex fw">
+                <li>{forkReposCount} Forks</li>
+                <li>&nbsp;·&nbsp;</li>
+                <li>{archiveReposCount} Archived</li>
+                <li>&nbsp;·&nbsp;</li>
+                <li>{mirrorReposCount} Mirrors</li>
+              </ul>
             </li>
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
-                <path d="M21 3c0-1.657-1.343-3-3-3s-3 1.343-3 3c0 1.323.861 2.433 2.05 2.832.168 4.295-2.021 4.764-4.998 5.391-1.709.36-3.642.775-5.052 2.085v-7.492c1.163-.413 2-1.511 2-2.816 0-1.657-1.343-3-3-3s-3 1.343-3 3c0 1.305.837 2.403 2 2.816v12.367c-1.163.414-2 1.512-2 2.817 0 1.657 1.343 3 3 3s3-1.343 3-3c0-1.295-.824-2.388-1.973-2.808.27-3.922 2.57-4.408 5.437-5.012 3.038-.64 6.774-1.442 6.579-7.377 1.141-.425 1.957-1.514 1.957-2.803zm-16.8 0c0-.993.807-1.8 1.8-1.8s1.8.807 1.8 1.8-.807 1.8-1.8 1.8-1.8-.807-1.8-1.8zm3.6 18c0 .993-.807 1.8-1.8 1.8s-1.8-.807-1.8-1.8.807-1.8 1.8-1.8 1.8.807 1.8 1.8z"/>
-              </svg>
-              <b>{prettyNumber(totalForks)}</b>
+              <span className="icon">
+                <ExclamationCircleIcon width={16} height={16} />
+              </span>
+              <span className="fw600">
+                {prettyNumber(user.issues.totalCount)}
+              </span>{' '}
+              issues
             </li>
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 15.781c-2.084 0-3.781-1.696-3.781-3.781s1.696-3.781 3.781-3.781c1.172 0 2.306.523 3.136 1.669l1.857-1.218c-1.281-1.826-3.133-2.67-4.993-2.67-3.308 0-6 2.692-6 6s2.691 6 6 6c1.881 0 3.724-.859 4.994-2.67l-1.857-1.218c-.828 1.14-1.959 1.669-3.137 1.669z"/></svg>
+              <span className="icon">
+                <UsersIcon width={16} height={16} />
+              </span>
+              <span className="fw600">
+                {prettyNumber(user.pullRequests.totalCount)}
+              </span>{' '}
+              pull requests
+            </li>
+            <li>
+              <span className="icon">
+                <ScaleIcon width={16} height={16} />
+              </span>
               {preferredLicense}
             </li>
           </ul>
@@ -209,103 +263,162 @@ export default function User() {
 
         {Boolean(user.organizations.nodes.length) && (
           <div>
-            <h4 className="mb05">Organizations</h4>
-            <ul className={styles.organizationsList}>
-              {user.organizations.nodes.map((org, i) =>
-                <li key={i}>
+            <h3 className="mb05 fw500">Organizations</h3>
+            <ul className="clean-list flex fw">
+              {user.organizations.nodes.map((org, i) => (
+                <li key={i} className="mr05 mb05">
                   <img
                     src={org.avatarUrl}
                     title={org.name}
-                    className={styles.orgAvatar}
+                    className="block br4"
                     width={32}
                     height={32}
                     data-tip={org.name}
-                    data-effect='solid'
+                    data-effect="solid"
                   />
                 </li>
-              )}
+              ))}
             </ul>
           </div>
         )}
       </aside>
 
       <div>
-        <div className={styles.contentSection}>
-          <div>
-            <div className='mb1'>
-              <p>{(user.contributionsCollection.contributionCalendar.totalContributions).toLocaleString()} contributions int the last year</p>
+        <UserActivity user={user} languageColors={languageColors} />
+
+        <section className="mb3">
+          <h2 className="fs-lg fw500 mb1">
+            Recently contributed to {user.repositoriesContributedTo.totalCount}{' '}
+            repositories
+          </h2>
+          {Boolean(user.repositoriesContributedTo.totalCount) && (
+            <>
+              {user.repositoriesContributedTo.nodes.some(
+                (r) => r.isInOrganization,
+              ) && (
+                <div className="flex aic mb1 fw">
+                  <p className="tertiary-text mr05">Organizations</p>
+                  <ul className="clean-list flex fw">
+                    {[
+                      ...new Map(
+                        user.repositoriesContributedTo.nodes
+                          .filter((repo) => repo.isInOrganization)
+                          .map((repo) => [repo.owner.login, repo]),
+                      ).values(),
+                    ].map((repo, i) => {
+                      return (
+                        <li key={i} className="mr05">
+                          <img
+                            src={repo.owner.avatarUrl}
+                            alt={repo.owner.login}
+                            width={24}
+                            height={24}
+                            className="block"
+                            data-tip={repo.owner.login}
+                            data-effect="solid"
+                            style={{ borderRadius: 4 }}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+              <div className="contributed-to-list">
+                {user.repositoriesContributedTo.nodes.map((node, i) => (
+                  <RepoCard
+                    key={i}
+                    data={{ name: node.nameWithOwner, ...node }}
+                    hideDescription
+                    hideStars
+                    hideForks
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </section>
+
+        <section className="mb3">
+          <h2 className="fs-lg fw500 mb1">User Repositories</h2>
+
+          <div className="paper">
+            <div className="mb">
+              <p className="fw500 mb05">Primary user repository languages</p>
+              <div className="tertiary-text">
+                <LanguagesChart
+                  data={languagesPerRepo}
+                  colors={languageColors}
+                  height={4}
+                />
+              </div>
             </div>
-            <CalendarLine data={user.contributionsCollection.contributionCalendar}/>
-          </div>
-        </div>
 
-        <div className={styles.contentSection}>
-          <div>
-            <h4 className="mb05">Languages</h4>
-            <LanguagesChart data={languagesPerRepo} colors={languageColors} height={5} />
-          </div>
+            <div className="paper-divider--h" />
 
-          <div style={{flexBasis: 'auto'}}>
-            <ActivityOverview
-              commits={user.contributionsCollection.totalCommitContributions}
-              issues={user.contributionsCollection.totalIssueContributions}
-              pullRequests={user.contributionsCollection.totalPullRequestContributions}
-              reviews={user.contributionsCollection.totalPullRequestReviewContributions}
-              height={130}
-            />
-          </div>
-        </div>
+            <div
+              className="grid"
+              style={{ '--columns': 2, '--gap': '1rem 3rem' }}
+            >
+              <div>
+                <p className="fw500 mb1">Stars per language (top 5)</p>
+                <PieChart
+                  data={starsPerLanguage}
+                  colors={languageColors}
+                  cutout={0}
+                  width="100px"
+                />
+              </div>
+              <div>
+                <p className="fw500 mb1">Forks per language (top 5)</p>
+                <PieChart
+                  data={forksPerLanguage}
+                  colors={languageColors}
+                  cutout={0}
+                  width="100px"
+                />
+              </div>
+            </div>
 
-        <div className={styles.contentSection}>
-          <div>
-            <h4 className='mb1'>Most Starred Repos</h4>
-            <PolarAreaChart data={
-              mostStarredRepos.reduce((acc, c) => {
-                acc[c.node.name] = c.node.stargazerCount
-                return acc;
-              }, {})
-            } size='200' />
-          </div>
-          <div>
-            <h4 className='mb1'>Most Forked Repos</h4>
-            <PolarAreaChart data={
-              mostForkedRepos.reduce((acc, c) => {
-                acc[c.node.name] = c.node.forkCount
-                return acc;
-              }, {})
-            } size='200' />
-          </div>
-        </div>
+            <div className="paper-divider--h" />
 
-        <div className={styles.contentSection}>
-          <div>
-            <h4 className="mb1">Forks per language</h4>
-            <PieChart data={forksPerLanguage} colors={languageColors}/>
+            <div
+              className="grid"
+              style={{ '--columns': 2, '--gap': '1rem 3rem' }}
+            >
+              <div>
+                <h4 className="fw500 mb1">Most starred</h4>
+                <BarChartH
+                  data={mostStarredRepos.reduce((acc, c) => {
+                    acc[c.node.name] = c.node.stargazerCount;
+                    return acc;
+                  }, {})}
+                />
+              </div>
+              <div>
+                <h4 className="fw500 mb1">Most forked</h4>
+                <BarChartH
+                  data={mostForkedRepos.reduce((acc, c) => {
+                    acc[c.node.name] = c.node.forkCount;
+                    return acc;
+                  }, {})}
+                  size="200"
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            <h4 className="mb1">Stars per language</h4>
-            <PieChart data={starsPerLanguage} colors={languageColors}/>
-          </div>
-          <div>
-            <h4 className="mb1">Commits per language</h4>
-            <PieChart data={commitsPerLanguage} colors={languageColors}/>
-          </div>
-        </div>
-
-        <div className={styles.contentSection}>
-          <div>
-            <h4 className="mb1">Commits per repo (top 10)</h4>
-            <PieChart data={commitsPerRepo}/>
-          </div>
-          <div>
-            <h4 className="mb1">Stars per repo (top 10)</h4>
-            <PieChart data={starsPerRepo}/>
-          </div>
-        </div>
-
+        </section>
       </div>
 
       <ReactTooltip />
+
+      <style jsx>{`
+        .contributed-to-list {
+          display: grid;
+          grid-gap: 0.5rem 1rem;
+          grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        }
+      `}</style>
     </div>
   );
 }

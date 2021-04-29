@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.0.0] - 2021-04-28
+#### Added
+- conf: `jscofig.json` and `next.config.js`
+- style: eslint and prettier
+- components
+  - {PieChart,PolarAreaChart}: prettify numbers on tooltips
+  - SearchUser
+  - Loader
+  - BarChartH
+  - UserActivity
+- pages
+  - user
+    - redesign
+    - added link to github
+    - preconnect to origin avatars.githubusercontent.com
+    - search user from header
+    - display public vs private contribution percents
+    - display repositories info: sources, forks, archives, mirrors
+- api
+  - user fields
+    - `isHireable`
+    - `hasSponsorsListing`
+    - `contributionsCollection.restrictedContributionsCount`
+    - `contributionsCollection.contributionYears`
+  - new contributions function `api/user/{user}/contributions?year={year}`
+  - user repositories
+    - `isFork`, `isArchived`, `isMirror`
+- hooks: useDebounce
+#### Changed
+- use absolute imports and module path aliases
+- serve user images at double size to maximize image clarity
+- use heroicons/react icons
+- pages
+  - user: reorder stars/forks per language, show stars first
+  - home: refactored to use SearchUser widget
+- api
+  - search: do not limit search query to `in:login` matches, allow a more broad search in user
+- components
+  - SearchInput: auto "submit" form when user types (debounced) vs on actual submit (hitting enter key)
+  - UserLinkCard, udpated styles, added location
+  - RepoCard: added owner avatar
+#### Fixed
+- search: filter organizations (empty objects) from search results
+
 ## [0.7.0] - 2021-04-17
 #### Added
 - dependencies: add react-tooltip
@@ -79,6 +123,7 @@ Initial release
   - languages per repo
   - commits per repo (top 10)
 
+[1.0.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.7.0...v1.0.0
 [0.7.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.4.0...v0.5.0
