@@ -4,10 +4,19 @@ import { percent } from '~/util';
 import { COLORS } from '~/util/constants';
 
 export default function LanguagesChart({ data, colors, height = 10 }) {
+  const entries = Object.entries(data);
   const max = Object.values(data).reduce((acc, current) => acc + current, 0);
   let xAccumulator = 0;
 
-  const items = Object.entries(data).map((entry, index) => {
+  if (entries.length === 0) {
+    return (
+      <p className="fs-md tertiary-text">
+        <i>No data to show</i>
+      </p>
+    );
+  }
+
+  const items = entries.map((entry, index) => {
     const [key, value] = entry;
     const percentage = percent(value, max);
     const x = xAccumulator;
