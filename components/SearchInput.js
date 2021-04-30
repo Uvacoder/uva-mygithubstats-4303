@@ -112,6 +112,7 @@ export default function SearchInput({
           pointer-events: none;
           position: absolute;
           width: 2em;
+          height: 2em;
         }
         .control-clear-btn {
           min-width: 2em;
