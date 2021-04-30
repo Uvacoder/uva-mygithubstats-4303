@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+(feature/user-loading)
+#### Changed
+- pages: user: added loading spinner
+
 (fix/loader-position)
 #### Fixed
 - components: SearchInput: loader position in old iOS
