@@ -62,7 +62,7 @@ export default function SearchInput({
               className="control-loader flex jcc"
               style={{ visibility: loading ? 'visible' : 'hidden' }}
             >
-              <Loader width={'1em'} />
+              <Loader size={'1em'} />
             </div>
             {searchTerm && !loading && (
               <button
