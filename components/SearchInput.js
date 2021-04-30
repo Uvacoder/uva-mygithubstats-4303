@@ -107,6 +107,7 @@ export default function SearchInput({
 
         .controls {
           min-width: 2em;
+          height: 2em;
         }
         .control-loader {
           pointer-events: none;
@@ -125,6 +126,8 @@ export default function SearchInput({
         .control-clear-btn > :global(svg) {
           width: 1em;
           height: 1em;
+          display: inline-block;
+          margin: 0 auto;
         }
       `}</style>
     </>
