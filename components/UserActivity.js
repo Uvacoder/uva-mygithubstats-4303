@@ -144,13 +144,16 @@ export default function UserActivity({ user, languageColors }) {
             in {year}
           </p>
           <div>
-            <ul className="repository-contributions-list clean-list">
+            <div className="repository-contributions-list">
               {collection.repositoryContributions.nodes.map((n, i) => (
-                <li key={i}>
-                  <RepoCard data={n.repository} hideDescription hideAvatar />
-                </li>
+                <RepoCard
+                  key={i}
+                  data={n.repository}
+                  hideDescription
+                  hideAvatar
+                />
               ))}
-            </ul>
+            </div>
           </div>
 
           {loading && <div className="fetching-layer"></div>}
@@ -178,7 +181,7 @@ export default function UserActivity({ user, languageColors }) {
           margin-top: 1rem;
         }
 
-        .repository-contributions-list > li > :global(.repo-card) {
+        .repository-contributions-list > :global(.repo-card) {
           padding: 0;
           box-shadow: none;
         }

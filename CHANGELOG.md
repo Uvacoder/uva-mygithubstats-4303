@@ -2,12 +2,16 @@
 
 ## [Unreleased]
 
+(fix/grid-blowout)
+#### Fixed
+- pages: user: prevent grid blowout in old iOS
+
 (feature/styled-jsx-postcss)
 #### Added
 - postcss support via styled-jsx
 
-(feature/sluggish-scroll-old-ios)
-#### Fix
+(fix/sluggish-scroll-old-ios)
+#### Fixed
 - sluggish scroll on old iOS -> added momentum scrolling with `-webkit-overflow-scrolling: touch`
 
 ## [1.0.0] - 2021-04-28
