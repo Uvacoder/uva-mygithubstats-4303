@@ -283,7 +283,7 @@ export default function User() {
         )}
       </aside>
 
-      <div>
+      <div className="content">
         <UserActivity user={user} languageColors={languageColors} />
 
         <section className="mb3">
@@ -413,6 +413,10 @@ export default function User() {
       <ReactTooltip />
 
       <style jsx>{`
+        .content {
+          min-width: 0;
+        }
+
         .contributed-to-list {
           display: grid;
           grid-gap: 0.5rem 1rem;

@@ -114,7 +114,7 @@ export default function PieChart({
       <style jsx>{`
         .root {
           display: grid;
-          grid-template-columns: fit-content(50%) 1fr;
+          grid-template-columns: fit-content(50%) minmax(0, 1fr);
           grid-gap: 1rem;
         }
         svg {
