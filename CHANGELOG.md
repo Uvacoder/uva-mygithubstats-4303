@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+(fix/loader-position)
+#### Fixed
+- components: SearchInput: loader position in old iOS
+
 (fix/grid-blowout)
 #### Fixed
 - pages: user: prevent grid blowout in old iOS
