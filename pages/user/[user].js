@@ -39,8 +39,10 @@ export default function User() {
 
   if (error) {
     return (
-      <div className={styles.loadingScreen}>
-        <p>Failed to load {username}’s stats</p>
+      <div className={`${styles.loadingScreen}`}>
+        <p className="fw500" style={{ color: 'var(--color-status-error)' }}>
+          Failed to load {username}’s stats
+        </p>
       </div>
     );
   }
