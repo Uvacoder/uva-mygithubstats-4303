@@ -1,20 +1,3 @@
 {
-  "presets": [
-    [
-      "next/babel",
-      {
-        "styled-jsx": {
-          "optimizeForSpeed": true,
-          "plugins": [
-            [
-              "styled-jsx-plugin-postcss", {
-                "path": "[PATH_PREFIX]/.postcssrc.json",
-                "compileEnv": "worker"
-              }
-            ]
-          ]
-        }
-      }
-    ]
-  ]
+  "presets": ["next/babel"]
 }
