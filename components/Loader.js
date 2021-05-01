@@ -12,14 +12,14 @@ export default function Loader({ size = 100, strokeWidth = 10 }) {
 
       <style jsx>{`
         svg {
-          animation: 2s linear infinite svg-animation;
           max-width: 100px;
+          stroke: currentColor;
+          animation: 2s linear infinite svg-animation;
         }
 
         circle {
           display: block;
           fill: transparent;
-          stroke: var(--color-secondary);
           stroke-linecap: round;
           stroke-dasharray: 283;
           stroke-dashoffset: 280;

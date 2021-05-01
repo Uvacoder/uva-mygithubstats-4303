@@ -114,6 +114,7 @@ export default function SearchInput({
           position: absolute;
           width: 2em;
           height: 2em;
+          color: var(--color-secondary);
         }
         .control-clear-btn {
           min-width: 2em;
