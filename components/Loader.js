@@ -3,10 +3,16 @@ import { number, oneOfType, string } from 'prop-types';
 /**
  * @url https://glennmccomb.com/articles/building-a-pure-css-animated-svg-spinner/
  */
-export default function Loader({ size = 100, strokeWidth = 10 }) {
+export default function Loader({ size = 100, strokeWidth = 10, ...other }) {
   return (
     <>
-      <svg viewBox="0 0 100 100" className="loader" width={size} header={size}>
+      <svg
+        viewBox="0 0 100 100"
+        className="loader"
+        width={size}
+        height={size}
+        {...other}
+      >
         <circle cx="50" cy="50" r="45" />
       </svg>
 
