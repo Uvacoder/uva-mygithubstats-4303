@@ -59,7 +59,7 @@ export default function SearchInput({
           />
           <div className="controls flex aic">
             <div
-              className="control-loader flex jcc"
+              className="control-loader flex aic jcc"
               style={{ visibility: loading ? 'visible' : 'hidden' }}
             >
               <Loader size={'1em'} />
