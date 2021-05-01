@@ -59,10 +59,10 @@ export default function SearchInput({
           />
           <div className="controls flex aic">
             <div
-              className="control-loader flex jcc"
+              className="control-loader flex aic jcc"
               style={{ visibility: loading ? 'visible' : 'hidden' }}
             >
-              <Loader width={'1em'} />
+              <Loader size={'1em'} />
             </div>
             {searchTerm && !loading && (
               <button
@@ -114,6 +114,7 @@ export default function SearchInput({
           position: absolute;
           width: 2em;
           height: 2em;
+          color: var(--color-secondary);
         }
         .control-clear-btn {
           min-width: 2em;

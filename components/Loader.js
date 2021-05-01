@@ -3,27 +3,33 @@ import { number, oneOfType, string } from 'prop-types';
 /**
  * @url https://glennmccomb.com/articles/building-a-pure-css-animated-svg-spinner/
  */
-export default function Loader({ width = 100 }) {
+export default function Loader({ size = 100, strokeWidth = 10, ...other }) {
   return (
     <>
-      <svg viewBox="0 0 100 100" width={width}>
+      <svg
+        viewBox="0 0 100 100"
+        className="loader"
+        width={size}
+        height={size}
+        {...other}
+      >
         <circle cx="50" cy="50" r="45" />
       </svg>
 
       <style jsx>{`
         svg {
-          animation: 2s linear infinite svg-animation;
           max-width: 100px;
+          stroke: currentColor;
+          animation: 2s linear infinite svg-animation;
         }
 
         circle {
           display: block;
           fill: transparent;
-          stroke: var(--color-secondary);
           stroke-linecap: round;
           stroke-dasharray: 283;
           stroke-dashoffset: 280;
-          stroke-width: 10px;
+          stroke-width: ${strokeWidth};
           transform-origin: 50% 50%;
           animation: 1200ms ease-in-out infinite both circle-animation;
         }
@@ -61,5 +67,6 @@ export default function Loader({ width = 100 }) {
 }
 
 Loader.propTypes = {
-  width: oneOfType([number, string]),
+  size: oneOfType([number, string]),
+  strokeWidth: oneOfType([number, string]),
 };

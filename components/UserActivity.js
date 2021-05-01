@@ -86,7 +86,7 @@ export default function UserActivity({ user, languageColors }) {
             </select>
             <ChevronDownIcon className="select-arrow" width={16} height={16} />
           </span>
-          {loading && <Loader className="mb1" width={20} />}
+          {loading && <Loader size={20} color="var(--color-secondary)" />}
         </header>
 
         <div className="paper rel">

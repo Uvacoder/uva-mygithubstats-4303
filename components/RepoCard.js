@@ -21,7 +21,7 @@ export default function RepoCard({
         {Boolean(!hideAvatar) && (
           <div>
             <img
-              className="avatar"
+              className="avatar br4"
               src={data.owner.avatarUrl}
               alt={`${data.owner.login} avatar`}
               width={24}
@@ -119,7 +119,6 @@ export default function RepoCard({
         }
 
         .avatar {
-          border-radius: 4px;
           margin: 0.25rem 0.5rem 0 0;
         }
 

@@ -4,7 +4,15 @@
       "next/babel",
       {
         "styled-jsx": {
-          "plugins": ["styled-jsx-plugin-postcss"]
+          "optimizeForSpeed": true,
+          "plugins": [
+            [
+              "styled-jsx-plugin-postcss", {
+                "path": "[PATH_PREFIX]/.postcssrc.json",
+                "compileEnv": "worker"
+              }
+            ]
+          ]
         }
       }
     ]

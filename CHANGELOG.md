@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+(feature/user-loading)
+#### Changed
+- pages
+  - user
+    - added loading spinner
+    - changed error message color to red
+
 (fix/loader-position)
 #### Fixed
 - components: SearchInput: loader position in old iOS
