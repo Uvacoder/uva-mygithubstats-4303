@@ -42,11 +42,7 @@ export default function BarChartH({ data, colors }) {
                   fill={color}
                   rx={2}
                   ry={1}
-                  data-tip={`
-                    ${key}: ${prettyNumber(value)}
-                    <br/>
-                    <strong>${percentage.toFixed(2)}%</strong>
-                  `}
+                  data-tip={`${key}: ${prettyNumber(value)}`}
                   data-html={true}
                 />
               </svg>
