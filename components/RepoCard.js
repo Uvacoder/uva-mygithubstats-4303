@@ -143,14 +143,15 @@ export default function RepoCard({
           flex-wrap: wrap;
           align-items: center;
           color: var(--color-text-tertiary);
-        }
-        .stats > span:not(:last-child) {
-          margin-right: 0.5rem;
-        }
-        .stats svg {
-          display: inline-block;
-          vertical-align: text-bottom;
-          margin-right: 0.25rem;
+
+          & > span:not(:last-child) {
+            margin-right: 0.5rem;
+          }
+          & svg {
+            display: inline-block;
+            vertical-align: text-bottom;
+            margin-right: 0.25rem;
+          }
         }
       `}</style>
     </>
