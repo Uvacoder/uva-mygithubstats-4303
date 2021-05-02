@@ -25,12 +25,15 @@
 
 .fw500 { font-weight: 500 }
 .fw600 { font-weight: 600 }
-.primary-text { color: var(--color-foreground) }
-.secondary-text { color: var(--color-text-secondary) }
-.tertiary-text { color: var(--color-text-tertiary) }
 .fs-lg { font-size: 1.125rem }
 .fs-md { font-size: 0.875rem }
 .fs-sm { font-size: 0.75rem }
+.primary-text { color: var(--color-foreground) }
+.secondary-text { color: var(--color-text-secondary) }
+.tertiary-text { color: var(--color-text-tertiary) }
+.primary { color: var(--color-primary) }
+.secondary { color: var(--color-secondary) }
+.tertiary { color: var(--color-tertiary) }
 
 .br4 { border-radius: 4px }
 

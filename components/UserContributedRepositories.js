@@ -75,16 +75,22 @@ export default function UserContributedRepositories({ user }) {
               />
             ))}
             {pageInfo.hasNextPage && (
-              <button onClick={handleLoadMoreClick}>
-                request more data abckjasg
-              </button>
+              <div className="flex aic">
+                <div>
+                  <span className="fs-sm tertiary-text mr05">
+                    Showing {repositories.length} of {user.repositoriesContributedTo.totalCount}
+                  </span>
+                  <button className="secondary" onClick={handleLoadMoreClick}>Load more</button>
+                </div>
+              </div>
             )}
           </div>
         </>
       )}
       <style jsx>{`
         .contributed-to-list {
-          padding: 0.25rem 0;
+          padding: 0.25rem;
+          margin: 0 -0.25rem;
           display: grid;
           grid-gap: 0.5rem 1rem;
           grid-auto-flow: column;
