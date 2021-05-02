@@ -1,5 +1,6 @@
 import { object } from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ReactTooltip from 'react-tooltip';
 import Loader from '~/components/Loader';
 import RepoCard from '~/components/RepoCard';
 
@@ -11,6 +12,10 @@ export default function UserContributedRepositories({ user }) {
     user.repositoriesContributedTo.pageInfo,
   );
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  }, [repositories]);
 
   async function handleLoadMoreClick() {
     setLoading(true);
