@@ -67,7 +67,7 @@ export default function SearchInput({
             {searchTerm && !loading && (
               <button
                 type="button"
-                className="control-clear-btn flex aic jcc"
+                className="control-clear-btn flex aic jcc p0"
                 onClick={clearForm}
               >
                 <XCircleIcon width={16} height={16} />
@@ -119,10 +119,7 @@ export default function SearchInput({
         .control-clear-btn {
           min-width: 2em;
           min-height: 2em;
-          border: none;
-          background-color: rgb(0 0 0 / 0);
           color: inherit;
-          border-radius: 0;
         }
         .control-clear-btn > :global(svg) {
           width: 1em;
