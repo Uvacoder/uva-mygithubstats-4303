@@ -12,13 +12,14 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ReactTooltip from 'react-tooltip';
 import useSWR from 'swr';
-import UserActivity from '~/components/UserActivity';
 import BarChartH from '~/components/BarChartH';
 import ColorItem from '~/components/ColorItem';
 import LanguagesChart from '~/components/LanguagesChart';
 import Loader from '~/components/Loader';
 import PieChart from '~/components/PieChart';
 import RepoCard from '~/components/RepoCard';
+import UserActivity from '~/components/UserActivity';
+import UserContributedRepositories from '~/components/UserContributedRepositories';
 import { prettyNumber } from '~/util';
 import * as userUtil from '~/util/pages/user';
 import styles from '~/styles/User.module.css';
@@ -299,25 +300,26 @@ export default function User() {
 
       <div className="content">
         <UserActivity user={user} languageColors={languageColors} />
+        <UserContributedRepositories user={user} />
 
-        <section className="mb3">
+        <section className="mb3 hide">
           <h2 className="fs-lg fw500 mb1">
             Recently contributed to {user.repositoriesContributedTo.totalCount}{' '}
             repositories
           </h2>
           {Boolean(user.repositoriesContributedTo.totalCount) && (
             <>
-              {user.repositoriesContributedTo.nodes.some(
-                (r) => r.isInOrganization,
+              {user.repositoriesContributedTo.edges.some(
+                (r) => r.node.isInOrganization,
               ) && (
                 <div className="flex aic mb1 fw">
                   <p className="tertiary-text mr05">Organizations</p>
                   <ul className="clean-list flex fw">
                     {[
                       ...new Map(
-                        user.repositoriesContributedTo.nodes
-                          .filter((repo) => repo.isInOrganization)
-                          .map((repo) => [repo.owner.login, repo]),
+                        user.repositoriesContributedTo.edges
+                          .filter((repo) => repo.node.isInOrganization)
+                          .map((repo) => [repo.node.owner.login, repo.node]),
                       ).values(),
                     ].map((repo, i) => {
                       return (
@@ -339,10 +341,10 @@ export default function User() {
                 </div>
               )}
               <div className="contributed-to-list">
-                {user.repositoriesContributedTo.nodes.map((node, i) => (
+                {user.repositoriesContributedTo.edges.map((node, i) => (
                   <RepoCard
                     key={i}
-                    data={{ name: node.nameWithOwner, ...node }}
+                    data={{ name: node.node.nameWithOwner, ...node.node }}
                     hideDescription
                     hideStars
                     hideForks
