@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+(feature/repos-contributed-pagination)
+#### Fixed
+- components: UserActivity: reset initial state when prop changes
+
 (feature/user-loading)
 #### Changed
 - pages
