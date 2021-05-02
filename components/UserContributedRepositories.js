@@ -15,7 +15,7 @@ export default function UserContributedRepositories({ user }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    scrollingBox.current.scrollTo(0, 0);
+    scrollingBox.current?.scrollTo(0, 0);
     setRepostories(user.repositoriesContributedTo.edges);
     setPageInfo(user.repositoriesContributedTo.pageInfo);
   }, [user]);
