@@ -1,5 +1,6 @@
 import { object } from 'prop-types';
 import { useState } from 'react';
+import Loader from '~/components/Loader';
 import RepoCard from '~/components/RepoCard';
 
 export default function UserContributedRepositories({ user }) {
@@ -9,8 +10,11 @@ export default function UserContributedRepositories({ user }) {
   const [pageInfo, setPageInfo] = useState(
     user.repositoriesContributedTo.pageInfo,
   );
+  const [loading, setLoading] = useState(false);
 
   async function handleLoadMoreClick() {
+    setLoading(true);
+
     try {
       const res = await fetch(
         `/api/user/${user.login}/repositories-contributed-to?cursor=${pageInfo.endCursor}`,
@@ -24,6 +28,8 @@ export default function UserContributedRepositories({ user }) {
       setPageInfo(data.user.repositoriesContributedTo.pageInfo);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -76,12 +82,18 @@ export default function UserContributedRepositories({ user }) {
             ))}
             {pageInfo.hasNextPage && (
               <div className="flex aic">
-                <div>
-                  <span className="fs-sm tertiary-text mr05">
-                    Showing {repositories.length} of {user.repositoriesContributedTo.totalCount}
-                  </span>
-                  <button className="secondary" onClick={handleLoadMoreClick}>Load more</button>
-                </div>
+                <span className="fs-sm tertiary-text mr05">
+                  Showing {repositories.length} of{' '}
+                  {user.repositoriesContributedTo.totalCount}
+                </span>
+
+                {loading ? (
+                  <Loader size={20} color="var(--color-secondary)" />
+                ) : (
+                  <button className="secondary" onClick={handleLoadMoreClick}>
+                    Load more
+                  </button>
+                )}
               </div>
             )}
           </div>
