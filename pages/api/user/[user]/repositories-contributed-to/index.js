@@ -2,8 +2,7 @@ import { fetchGQL } from '~/util/api';
 
 export default async function (req, res) {
   const { user, cursor } = req.query;
-  console.log(user);
-  console.log(cursor);
+
   const gql = {
     query: `
     {
