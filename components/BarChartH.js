@@ -55,6 +55,7 @@ export default function BarChartH({ data, colors }) {
       <style jsx>{`
         .root {
           display: grid;
+          grid-template-columns: minmax(0, -webkit-max-content) auto -webkit-min-content;
           grid-template-columns: minmax(0, max-content) auto min-content;
           grid-gap: 0 1rem;
           overflow: hidden;
