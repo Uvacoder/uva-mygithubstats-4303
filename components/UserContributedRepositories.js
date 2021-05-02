@@ -14,6 +14,11 @@ export default function UserContributedRepositories({ user }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setRepostories(user.repositoriesContributedTo.edges);
+    setPageInfo(user.repositoriesContributedTo.pageInfo);
+  }, [user]);
+
+  useEffect(() => {
     ReactTooltip.rebuild();
   }, [repositories]);
 
