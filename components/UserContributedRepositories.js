@@ -1,10 +1,11 @@
 import { object } from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import Loader from '~/components/Loader';
 import RepoCard from '~/components/RepoCard';
 
 export default function UserContributedRepositories({ user }) {
+  const scrollingBox = useRef();
   const [repositories, setRepostories] = useState(
     user.repositoriesContributedTo.edges,
   );
@@ -14,6 +15,7 @@ export default function UserContributedRepositories({ user }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    scrollingBox.current.scrollTo(0, 0);
     setRepostories(user.repositoriesContributedTo.edges);
     setPageInfo(user.repositoriesContributedTo.pageInfo);
   }, [user]);
@@ -80,7 +82,7 @@ export default function UserContributedRepositories({ user }) {
               </ul>
             </div>
           )}
-          <div className="contributed-to-list">
+          <div className="contributed-to-list" ref={scrollingBox}>
             {repositories.map((node, i) => (
               <RepoCard
                 key={i}
