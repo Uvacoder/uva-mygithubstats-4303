@@ -21,7 +21,7 @@ export default function RepoCard({
         {Boolean(!hideAvatar) && (
           <div>
             <img
-              className="avatar br4"
+              className="avatar"
               src={data.owner.avatarUrl}
               alt={`${data.owner.login} avatar`}
               width={24}
@@ -110,7 +110,7 @@ export default function RepoCard({
           padding: 0.25rem 0.5rem;
           background-color: white;
           border-radius: 8px;
-          box-shadow: 0 0 4px 1px rgba(0 0 0 / 0.05);
+          box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.05);
           overflow: hidden;
         }
 
@@ -119,6 +119,7 @@ export default function RepoCard({
         }
 
         .avatar {
+          border-radius: 4px;
           margin: 0.25rem 0.5rem 0 0;
         }
 
@@ -142,15 +143,14 @@ export default function RepoCard({
           flex-wrap: wrap;
           align-items: center;
           color: var(--color-text-tertiary);
-
-          & > span:not(:last-child) {
-            margin-right: 0.5rem;
-          }
-          & svg {
-            display: inline-block;
-            vertical-align: text-bottom;
-            margin-right: 0.25rem;
-          }
+        }
+        .stats > span:not(:last-child) {
+          margin-right: 0.5rem;
+        }
+        .stats svg {
+          display: inline-block;
+          vertical-align: text-bottom;
+          margin-right: 0.25rem;
         }
       `}</style>
     </>

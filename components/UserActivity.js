@@ -39,6 +39,14 @@ export default function UserActivity({ user, languageColors }) {
     totalContributions - restrictedContributionsCount;
 
   useEffect(() => {
+    setCache({
+      [internals.INITIAL_DATA_KEY]: user.contributionsCollection,
+    });
+    setCollection(user.contributionsCollection);
+    setYear(internals.INITIAL_DATA_KEY);
+  }, [user]);
+
+  useEffect(() => {
     ReactTooltip.rebuild();
   }, [collection]);
 
@@ -76,7 +84,11 @@ export default function UserActivity({ user, languageColors }) {
         <header className="flex aic mb1">
           <h2 className="fs-lg fw500 mr1 primary-text">Activity</h2>
           <span className="select mr1">
-            <select onChange={handleSelectChange} disabled={loading}>
+            <select
+              onChange={handleSelectChange}
+              disabled={loading}
+              key={`${user.login}`}
+            >
               <option>{internals.INITIAL_DATA_KEY}</option>
               {user.contributionsCollection.contributionYears.map((y, i) => (
                 <option key={i} value={y}>

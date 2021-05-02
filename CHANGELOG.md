@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+(feature/repos-contributed-pagination)
+#### Added
+- components: UserContributedRepositories
+  - load more repositories on demand
+- api: user: repositories-contributed-to endpoint
+#### Fixed
+- components: UserActivity: reset initial state when prop changes
+
 (feature/user-loading)
 #### Changed
 - pages

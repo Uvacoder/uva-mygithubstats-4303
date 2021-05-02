@@ -12,13 +12,13 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ReactTooltip from 'react-tooltip';
 import useSWR from 'swr';
-import UserActivity from '~/components/UserActivity';
 import BarChartH from '~/components/BarChartH';
 import ColorItem from '~/components/ColorItem';
 import LanguagesChart from '~/components/LanguagesChart';
 import Loader from '~/components/Loader';
 import PieChart from '~/components/PieChart';
-import RepoCard from '~/components/RepoCard';
+import UserActivity from '~/components/UserActivity';
+import UserContributedRepositories from '~/components/UserContributedRepositories';
 import { prettyNumber } from '~/util';
 import * as userUtil from '~/util/pages/user';
 import styles from '~/styles/User.module.css';
@@ -299,59 +299,7 @@ export default function User() {
 
       <div className="content">
         <UserActivity user={user} languageColors={languageColors} />
-
-        <section className="mb3">
-          <h2 className="fs-lg fw500 mb1">
-            Recently contributed to {user.repositoriesContributedTo.totalCount}{' '}
-            repositories
-          </h2>
-          {Boolean(user.repositoriesContributedTo.totalCount) && (
-            <>
-              {user.repositoriesContributedTo.nodes.some(
-                (r) => r.isInOrganization,
-              ) && (
-                <div className="flex aic mb1 fw">
-                  <p className="tertiary-text mr05">Organizations</p>
-                  <ul className="clean-list flex fw">
-                    {[
-                      ...new Map(
-                        user.repositoriesContributedTo.nodes
-                          .filter((repo) => repo.isInOrganization)
-                          .map((repo) => [repo.owner.login, repo]),
-                      ).values(),
-                    ].map((repo, i) => {
-                      return (
-                        <li key={i} className="mr05">
-                          <img
-                            src={repo.owner.avatarUrl}
-                            alt={repo.owner.login}
-                            width={24}
-                            height={24}
-                            className="block"
-                            data-tip={repo.owner.login}
-                            data-effect="solid"
-                            style={{ borderRadius: 4 }}
-                          />
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              )}
-              <div className="contributed-to-list">
-                {user.repositoriesContributedTo.nodes.map((node, i) => (
-                  <RepoCard
-                    key={i}
-                    data={{ name: node.nameWithOwner, ...node }}
-                    hideDescription
-                    hideStars
-                    hideForks
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </section>
+        <UserContributedRepositories user={user} />
 
         <section className="mb3">
           <h2 className="fs-lg fw500 mb1">User Repositories</h2>
