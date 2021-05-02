@@ -110,7 +110,7 @@ export default function RepoCard({
           padding: 0.25rem 0.5rem;
           background-color: white;
           border-radius: 8px;
-          box-shadow: 0 0 4px 1px rgba(0 0 0 / 0.05);
+          box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.05);
           overflow: hidden;
         }
 
