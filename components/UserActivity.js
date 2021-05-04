@@ -1,6 +1,6 @@
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import { object } from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import ActivityOverview from '~/components/ActivityOverview';
 import CalendarLine from '~/components/CalendarLine';
@@ -17,6 +17,7 @@ const internals = {
 const { round } = Math;
 
 export default function UserActivity({ user, languageColors }) {
+  const scrollingBox = useRef();
   const [cache, setCache] = useState({
     [internals.INITIAL_DATA_KEY]: user.contributionsCollection,
   });
@@ -25,6 +26,7 @@ export default function UserActivity({ user, languageColors }) {
   );
   const [year, setYear] = useState(internals.INITIAL_DATA_KEY);
   const [loading, setLoading] = useState(false);
+  const [loadingRepos, setLoadingRepos] = useState(false);
 
   const commitsPerLanguage = userUtil.getCommitsPerLanguage(
     collection.commitContributionsByRepository,
@@ -39,6 +41,7 @@ export default function UserActivity({ user, languageColors }) {
     totalContributions - restrictedContributionsCount;
 
   useEffect(() => {
+    scrollingBox.current?.scrollTo(0, 0);
     setCache({
       [internals.INITIAL_DATA_KEY]: user.contributionsCollection,
     });
@@ -49,6 +52,10 @@ export default function UserActivity({ user, languageColors }) {
   useEffect(() => {
     ReactTooltip.rebuild();
   }, [collection]);
+
+  useEffect(() => {
+    scrollingBox.current?.scrollTo(0, 0);
+  }, [year]);
 
   async function handleSelectChange(ev) {
     const { value } = ev.target;
@@ -75,6 +82,35 @@ export default function UserActivity({ user, languageColors }) {
       console.error(err);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleLoadMoreClick() {
+    setLoadingRepos(true);
+
+    try {
+      const res = await fetch(
+        `/api/user/${user.login}/contributions/repository-contributions?year=${year}&cursor=${collection.repositoryContributions.pageInfo.endCursor}`,
+      );
+      const data = await res.json();
+      const {
+        nodes,
+        pageInfo,
+        totalCount,
+      } = data.user.contributionsCollection.repositoryContributions;
+
+      setCollection((prev) => ({
+        ...prev,
+        repositoryContributions: {
+          totalCount,
+          nodes: [...prev.repositoryContributions.nodes, ...nodes],
+          pageInfo: pageInfo,
+        },
+      }));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingRepos(false);
     }
   }
 
@@ -156,7 +192,7 @@ export default function UserActivity({ user, languageColors }) {
             in {year}
           </p>
           <div>
-            <div className="repository-contributions-list">
+            <div className="repository-contributions-list" ref={scrollingBox}>
               {collection.repositoryContributions.nodes.map((n, i) => (
                 <RepoCard
                   key={i}
@@ -165,6 +201,22 @@ export default function UserActivity({ user, languageColors }) {
                   hideAvatar
                 />
               ))}
+              {collection.repositoryContributions.pageInfo.hasNextPage && (
+                <div className="flex aic">
+                  <span className="fs-sm tertiary-text mr05">
+                    Showing {collection.repositoryContributions.nodes.length} of{' '}
+                    {collection.repositoryContributions.totalCount}
+                  </span>
+
+                  {loadingRepos ? (
+                    <Loader size={20} color="var(--color-secondary)" />
+                  ) : (
+                    <button className="secondary" onClick={handleLoadMoreClick}>
+                      Load more
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -184,18 +236,18 @@ export default function UserActivity({ user, languageColors }) {
         }
 
         .repository-contributions-list {
+          padding: 0.25rem;
+          margin: 0 -0.25rem;
           display: grid;
-          grid-gap: 1rem;
-          grid-template-columns: repeat(auto-fill, minmax(154px, 1fr));
+          grid-gap: 0.5rem 1rem;
+          grid-auto-flow: column;
+          grid-auto-columns: 260px;
+          grid-template-rows: repeat(2, 1fr);
+          overflow-x: auto;
         }
 
         .repository-contributions-list:not(:empty) {
           margin-top: 1rem;
-        }
-
-        .repository-contributions-list > :global(.repo-card) {
-          padding: 0;
-          box-shadow: none;
         }
       `}</style>
     </>
