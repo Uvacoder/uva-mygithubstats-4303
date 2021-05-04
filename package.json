@@ -1,6 +1,6 @@
 {
   "name": "gh-profile-stats",
-  "version": "1.0.0-g",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
