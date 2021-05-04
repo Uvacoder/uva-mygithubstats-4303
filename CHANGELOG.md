@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+(feature/created-repos-pagination)
+### Changed
+- components: ActivityOverview: display percentages with two digits after decimal point
+
 (feature/repos-contributed-pagination)
 #### Added
 - components: UserContributedRepositories

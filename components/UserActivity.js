@@ -128,8 +128,8 @@ export default function UserActivity({ user, languageColors }) {
                 issues={collection.totalIssueContributions}
                 pullRequests={collection.totalPullRequestContributions}
                 reviews={collection.totalPullRequestReviewContributions}
-                width={240}
-                height={172}
+                width={280}
+                height={160}
               />
             </div>
             <div>
