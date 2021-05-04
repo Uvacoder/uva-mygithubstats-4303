@@ -115,8 +115,12 @@ export default async function (req, res) {
               }
             }
           }
-          repositoryContributions(last: 10) {
+          repositoryContributions(first: 10) {
             totalCount
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
             nodes {
               repository {
                 name

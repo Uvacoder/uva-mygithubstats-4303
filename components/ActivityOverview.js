@@ -10,7 +10,7 @@ export default function ActivityOverview({
   height = 240,
 }) {
   const textHeight = 14;
-  const padding = { x: 58, y: 36 };
+  const padding = { x: 70, y: 30 };
   const center = { x: width / 2, y: height / 2 };
   const totalContributions = commits + issues + pullRequests + reviews;
   const maxActivity = Math.max(reviews, issues, pullRequests, commits);
@@ -78,7 +78,7 @@ export default function ActivityOverview({
           y={textHeight}
           x={center.x}
         >
-          {Math.round(percent(reviews, totalContributions))}% (
+          {percent(reviews, totalContributions).toFixed(2)}% (
           {prettyNumber(reviews)})
         </text>
 
@@ -97,7 +97,7 @@ export default function ActivityOverview({
           y={center.y}
           x={width - padding.x / 2}
         >
-          {Math.round(percent(issues, totalContributions))}% (
+          {percent(issues, totalContributions).toFixed(2)}% (
           {prettyNumber(issues)})
         </text>
 
@@ -116,7 +116,7 @@ export default function ActivityOverview({
           y={height - textHeight}
           x={center.x}
         >
-          {Math.round(percent(pullRequests, totalContributions))}% (
+          {percent(pullRequests, totalContributions).toFixed(2)}% (
           {prettyNumber(pullRequests)})
         </text>
 
@@ -135,7 +135,7 @@ export default function ActivityOverview({
           y={center.y}
           x={padding.x / 2}
         >
-          {Math.round(percent(commits, totalContributions))}% (
+          {percent(commits, totalContributions).toFixed(2)}% (
           {prettyNumber(commits)})
         </text>
       </svg>
