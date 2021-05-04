@@ -115,8 +115,12 @@ export default async function (req, res) {
               }
             }
           }
-          repositoryContributions(last: 10) {
+          repositoryContributions(first: 10) {
             totalCount
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
             nodes {
               repository {
                 name
@@ -154,23 +158,29 @@ export default async function (req, res) {
           orderBy: { field: PUSHED_AT, direction: DESC }
         ) {
           totalCount
-          nodes {
-            nameWithOwner
-            url
-            isInOrganization
-            owner {
-              login
-              avatarUrl(size: 48)
-            }
-            primaryLanguage {
-              name
-              color
-            }
-            issues(states: [OPEN]) {
-              totalCount
-            }
-            pullRequests(states: [OPEN]) {
-              totalCount
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+          edges {
+            node {
+              nameWithOwner
+              url
+              isInOrganization
+              owner {
+                login
+                avatarUrl(size: 48)
+              }
+              primaryLanguage {
+                name
+                color
+              }
+              issues(states: [OPEN]) {
+                totalCount
+              }
+              pullRequests(states: [OPEN]) {
+                totalCount
+              }
             }
           }
         }

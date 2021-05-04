@@ -1,5 +1,28 @@
 # Changelog
 
+## [Unreleased]
+
+
+## [1.1.0] - 2021-05-03
+#### Added
+- components
+  - UserActivity: load more repositories on demand
+  - UserContributedRepositories: load more repositories on demand
+- api: user
+  - contributions/repository-contributions endpoint
+  - repositories-contributed-to endpoint
+#### Changed
+- components: ActivityOverview: display percentages with two digits after decimal point
+- pages: user
+  - added loading spinner
+  - changed error message color to red
+#### Fixed
+- components
+  - UserActivity: reset initial state when prop changes
+  - SearchInput: loader position in old iOS
+- pages: user: prevent grid blowout in old iOS
+- sluggish scroll on old iOS -> added momentum scrolling with `-webkit-overflow-scrolling: touch`
+
 ## [1.0.0] - 2021-04-28
 #### Added
 - conf: `jscofig.json` and `next.config.js`
@@ -123,6 +146,8 @@ Initial release
   - languages per repo
   - commits per repo (top 10)
 
+[Unreleased]: https://github.com/noeldelgado/gh-profile-stats/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.7.0...v1.0.0
 [0.7.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/noeldelgado/gh-profile-stats/compare/v0.5.0...v0.6.0

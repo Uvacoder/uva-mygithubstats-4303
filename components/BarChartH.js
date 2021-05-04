@@ -42,11 +42,7 @@ export default function BarChartH({ data, colors }) {
                   fill={color}
                   rx={2}
                   ry={1}
-                  data-tip={`
-                    ${key}: ${prettyNumber(value)}
-                    <br/>
-                    <strong>${percentage.toFixed(2)}%</strong>
-                  `}
+                  data-tip={`${key}: ${prettyNumber(value)}`}
                   data-html={true}
                 />
               </svg>
@@ -59,7 +55,8 @@ export default function BarChartH({ data, colors }) {
       <style jsx>{`
         .root {
           display: grid;
-          grid-template-columns: minmax(auto, max-content) auto min-content;
+          grid-template-columns: minmax(0, -webkit-max-content) auto -webkit-min-content;
+          grid-template-columns: minmax(0, max-content) auto min-content;
           grid-gap: 0 1rem;
           overflow: hidden;
         }

@@ -1,12 +1,21 @@
 .loadingScreen {
   font-size: 1.25rem;
-  padding: 4rem 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--header-height);
+  bottom: var(--footer-height);
+  padding: 3rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100%;
+  background-color: var(--color-background);
+
+  & :global(.loader) {
+    position: absolute;
+    left: -6px;
+    top: -6px;
+  }
 }
 
 .container {

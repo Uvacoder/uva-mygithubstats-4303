@@ -59,15 +59,15 @@ export default function SearchInput({
           />
           <div className="controls flex aic">
             <div
-              className="control-loader flex jcc"
+              className="control-loader flex aic jcc"
               style={{ visibility: loading ? 'visible' : 'hidden' }}
             >
-              <Loader width={'1em'} />
+              <Loader size={'1em'} />
             </div>
             {searchTerm && !loading && (
               <button
                 type="button"
-                className="control-clear-btn flex aic jcc"
+                className="control-clear-btn flex aic jcc p0"
                 onClick={clearForm}
               >
                 <XCircleIcon width={16} height={16} />
@@ -107,23 +107,25 @@ export default function SearchInput({
 
         .controls {
           min-width: 2em;
+          height: 2em;
         }
         .control-loader {
           pointer-events: none;
           position: absolute;
           width: 2em;
+          height: 2em;
+          color: var(--color-secondary);
         }
         .control-clear-btn {
           min-width: 2em;
           min-height: 2em;
-          border: none;
-          background-color: rgb(0 0 0 / 0);
           color: inherit;
-          border-radius: 0;
         }
         .control-clear-btn > :global(svg) {
           width: 1em;
           height: 1em;
+          display: inline-block;
+          margin: 0 auto;
         }
       `}</style>
     </>
