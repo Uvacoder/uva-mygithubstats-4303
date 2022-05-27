@@ -1,6 +1,6 @@
 # gh-profile-stats
 
-![demo](./screenshot-abc-hubstats.png)
+![demo](./public/screenshot-abc-hubstats.png)
 --
 (https://abc-hubstats.vercel.app)
 
