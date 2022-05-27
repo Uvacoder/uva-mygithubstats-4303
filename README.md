@@ -1,7 +1,8 @@
 # gh-profile-stats
 
+![demo](./screenshot-abc-hubstats.png)
 --
-[https://gh-profile-stats.vercel.app](https://gh-profile-stats.vercel.app)
+(https://abc-hubstats.vercel.app)
 
 ## Install
 
