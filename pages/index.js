@@ -9,17 +9,17 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>GitHub Profile Stats</title>
+        <title>View GitHub Profile Stats</title>
         <meta
           name="description"
           content="gh-profile-stats: different statistics for GitHub users"
         />
       </Head>
 
-      <p className="fw500 mb05">Search user</p>
+      <p className="fw500 mb05">Search GitHub User</p>
 
       <div className="search-wrapper">
-        <SearchUser autoFocus={true} placeholder="e.g. noeldelgado" />
+        <SearchUser autoFocus={true} placeholder="e.g. uvacoder" />
       </div>
 
       <style jsx>{`
