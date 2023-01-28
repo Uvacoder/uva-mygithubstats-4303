@@ -6,7 +6,7 @@ export default function Footer() {
     <>
       <footer className="root flex aic">
         <a
-          href="https://github.com/noeldelgado/gh-profile-stats"
+          href="https://github.com/uvacoder/uva-mygithubstats-4303"
           rel="noopener noreferrer"
           target="_blank"
         >
